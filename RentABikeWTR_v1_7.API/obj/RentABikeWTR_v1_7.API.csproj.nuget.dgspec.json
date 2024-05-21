@@ -74,6 +74,10 @@
               "target": "Package",
               "version": "[7.0.10, )"
             },
+            "Microsoft.ML": {
+              "target": "Package",
+              "version": "[2.0.1, )"
+            },
             "Microsoft.ML.AutoML": {
               "target": "Package",
               "version": "[0.20.1, )"
@@ -237,9 +241,9 @@
               "target": "Package",
               "version": "[1.0.1, )"
             },
-            "Microsoft.EntityFrameworkCore": {
+            "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[7.0.10, )"
+              "version": "[7.0.11, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
@@ -253,7 +257,15 @@
             },
             "Microsoft.ML": {
               "target": "Package",
-              "version": "[2.0.0, )"
+              "version": "[2.0.1, )"
+            },
+            "Microsoft.ML.AutoML": {
+              "target": "Package",
+              "version": "[0.20.1, )"
+            },
+            "Microsoft.ML.Recommender": {
+              "target": "Package",
+              "version": "[0.20.1, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",

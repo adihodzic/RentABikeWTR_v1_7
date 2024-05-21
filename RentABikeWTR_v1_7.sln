@@ -4,15 +4,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentABikeWTR_v1_7.API", "RentABikeWTR_v1_7.API\RentABikeWTR_v1_7.API.csproj", "{1132C53B-8EA2-454A-9EC9-72C90E423119}"
-	ProjectSection(ProjectDependencies) = postProject
-		{94719F10-7488-46EE-A005-D58D868EAAF6} = {94719F10-7488-46EE-A005-D58D868EAAF6}
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentABikeWTR_v1_7.Services", "RentABikeWTR_v1_7.Services\RentABikeWTR_v1_7.Services.csproj", "{94719F10-7488-46EE-A005-D58D868EAAF6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rentabikewtr17_mobile", "rentabikewtr17_mobile", "{8B585956-89F9-49A9-915A-32BCD7F12FA3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentABikeWTR_v1_7.Model", "RentABikeWTR_v1_7.Model\RentABikeWTR_v1_7.Model.csproj", "{F29D0BEB-9C96-4795-85BD-A6418677E745}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentABikeWTR_v1_7.Services", "RentABikeWTR_v1_7.Services\RentABikeWTR_v1_7.Services.csproj", "{0AF79E1A-AF8A-4437-9823-FF9DF11C416C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,14 +21,14 @@ Global
 		{1132C53B-8EA2-454A-9EC9-72C90E423119}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{1132C53B-8EA2-454A-9EC9-72C90E423119}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1132C53B-8EA2-454A-9EC9-72C90E423119}.Release|Any CPU.Build.0 = Release|Any CPU
-		{94719F10-7488-46EE-A005-D58D868EAAF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94719F10-7488-46EE-A005-D58D868EAAF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94719F10-7488-46EE-A005-D58D868EAAF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94719F10-7488-46EE-A005-D58D868EAAF6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F29D0BEB-9C96-4795-85BD-A6418677E745}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F29D0BEB-9C96-4795-85BD-A6418677E745}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F29D0BEB-9C96-4795-85BD-A6418677E745}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F29D0BEB-9C96-4795-85BD-A6418677E745}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AF79E1A-AF8A-4437-9823-FF9DF11C416C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AF79E1A-AF8A-4437-9823-FF9DF11C416C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AF79E1A-AF8A-4437-9823-FF9DF11C416C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AF79E1A-AF8A-4437-9823-FF9DF11C416C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
