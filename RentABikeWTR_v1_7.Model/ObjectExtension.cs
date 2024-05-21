@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace RentABikeWTR_v1_7.Model
 {
     public static class ObjectExtension
