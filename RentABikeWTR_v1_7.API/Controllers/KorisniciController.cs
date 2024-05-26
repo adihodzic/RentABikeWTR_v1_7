@@ -6,6 +6,7 @@ using RentABikeWTR_v1_7.Services;
 
 namespace RentABikeWTR_v1_7.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class KorisniciController : ControllerBase
