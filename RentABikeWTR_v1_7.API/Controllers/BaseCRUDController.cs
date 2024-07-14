@@ -24,6 +24,8 @@ namespace RentABikeWTR_v1_7.API.Controllers
         {
             return _service.Update(id, request);
         }
+        //ovo sam promijenio
+        
         [HttpDelete("{id}")]
         public T Delete(int id)
         {

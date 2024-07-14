@@ -1,4 +1,5 @@
 ﻿using MapsterMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.ML;
 using Microsoft.ML.Data;
 using Microsoft.ML.Trainers;
@@ -23,21 +24,50 @@ namespace RentABikeWTR_v1_7.Services
             _context = context;
         }
 
-        public List<Model.Bicikli> Get(BicikliSearchRequest search)
+        public List<Model.BicikliPregled> Get(BicikliSearchRequest search)
         {
 
 
             if (!string.IsNullOrWhiteSpace(search.NazivBicikla))
             {
-                var lis = _context.Set<Database.Bicikli>()
-                    .Where(a => a.NazivBicikla.StartsWith(search.NazivBicikla))
-                    .ToList();
-                return _mapper.Map<List<Model.Bicikli>>(lis);
+                var lis = _context.Bicikli // 
+                    //.Include(b => b.TipBicikla)
+                    //.Include(c=>c.ModelBicikla)
+                    
+                    .Where(a => a.NazivBicikla.StartsWith(search.NazivBicikla)).AsQueryable().ToList()
+                    .Select(b => new
+                    {
+                        BiciklId=b.BiciklId,
+                        NazivBicikla=b.NazivBicikla,
+                        Slika=b.Slika,                        
+                        NazivTipa = b.TipBicikla.NazivTipa,
+                        NazivModela = b.ModelBicikla.NazivModela
+                    });
+                    
+                  
+                
+                return _mapper.Map<List<Model.BicikliPregled>>(lis);
+                //return lis;
             }
             else
             {
-                var lis = _context.Bicikli.ToList();
-                return _mapper.Map<List<Model.Bicikli>>(lis);
+                //var lis = _context.Bicikli
+                //    .Include(t => t.ModelBicikla)
+                //    .Include(r => r.TipBicikla)
+                //    .AsQueryable()
+                //    .ToList();
+                var lis = _context.Bicikli
+        .Select(b => new
+        {
+            BiciklId = b.BiciklId,
+            NazivBicikla = b.NazivBicikla,
+            Slika = b.Slika,
+            NazivTipa = b.TipBicikla.NazivTipa,
+            NazivModela = b.ModelBicikla.NazivModela
+        });
+
+
+                return _mapper.Map<List<Model.BicikliPregled>>(lis);
             }
         }
         public Model.Bicikli GetById(int id)

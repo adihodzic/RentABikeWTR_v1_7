@@ -21,7 +21,7 @@ namespace RentABikeWTR_v1_7.Model.Requests
 
         public decimal? CijenaBicikla { get; set; }
         public string? NazivTipa { get; set; }
-        public int? TipBiciklaId { get; set; }
+        public int? TipBiciklaID { get; set; }
         public string? NazivModela { get; set; }
 
         public int? ModelBiciklaID { get; set; }

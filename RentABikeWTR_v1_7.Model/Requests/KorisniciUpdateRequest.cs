@@ -9,9 +9,11 @@ namespace RentABikeWTR_v1_7.Model.Requests
     {
         //[Required(AllowEmptyStrings = false)]
 
+        public int KorisnikId { get; set; }
         public string? Ime { get; set; }
 
         public string? Prezime { get; set; }
+        public string? KorisnickoIme { get; set; }
         [EmailAddress]
 
         public string? Email { get; set; }
@@ -20,6 +22,9 @@ namespace RentABikeWTR_v1_7.Model.Requests
 
 
         public bool? Aktivan { get; set; }
+        public DateTime? DatumRegistracije { get; set; }
+        public int? DrzavaID { get; set; }
+        public int? UlogaID { get; set; }
         //public List<int> Uloge { get; set; } = new List<int>();
 
 

@@ -30,14 +30,19 @@ namespace RentABikeWTR_v1_7.API.Controllers
         //}
 
         [HttpGet]
-        public List<Model.Rezervacije> Get([FromQuery] RezervacijeSearchRequest search)
+        public List<Model.RezervacijePregled> Get([FromQuery] RezervacijeSearchRequest search)
         {
             return _service.Get(search);
         }
-        [HttpGet("XRezervacije")]
-        public List<Model.XRezervacije> Get([FromQuery] XRezervacijeSearchRequest req)
+        [HttpGet("Dostupni")]
+        public List<Model.BicikliDostupni> GetRezervacijeDostupni([FromQuery] RezervacijeDostupniSearchRequest request)
         {
-            return _xservice.Get(req);
+            return _service.GetRezervacijeDostupni(request);
+        }
+        [HttpGet("XRezervacije")]
+        public Model.XRezervacijeResult GetXRezervacije([FromQuery] DateTime DatumOd, DateTime DatumDo)
+        {
+            return _xservice.GetXRezervacije(DatumOd, DatumDo);
         }
         [HttpGet("XKupac")]
         public List<Model.Rezervacije> GetRezervacijeKupac([FromQuery] int id)

@@ -9,6 +9,6 @@ namespace RentABikeWTR_v1_7.Services
 {
     public interface IXRezervacijeService
     {
-        List<Model.XRezervacije> Get(XRezervacijeSearchRequest req);
+        Model.XRezervacijeResult GetXRezervacije(DateTime DatumOd, DateTime DatumDo);
     }
 }

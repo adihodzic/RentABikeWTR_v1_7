@@ -29,16 +29,32 @@ namespace RentABikeWTR_v1_7.API.Controllers
         {
             return _service.Get(request);
         }
+        [HttpGet("Detalji")]
+        public List<Model.Korisnici> GetDetaljiKorisnici(KorisniciDetailsRequest? request)
+        {
+            return _service.GetDetaljiKorisnici(request);
+        }
         [HttpGet("Profil")]
         public Model.Korisnici GetProfilKorisnika(string username)
         {
             return _service.GetProfilKorisnika(username);
         }
+        [HttpGet("Profil/{id}")]
+        public Model.Korisnici GetProfilKorisnikaById (int id) 
+        {
+            return _service.GetProfilKorisnikaById(id);
+        }
+        
         [HttpGet("PregledKupaca")]
         public List<Model.Korisnici> GetKupci([FromQuery] KorisniciSearchRequest request)
         {
             return _service.GetKupci(request);
         }
+        //[HttpGet("PregledKupaca")]
+        //public List<Model.Korisnici> GetKupac([FromQuery] KorisniciSearchRequest request)
+        //{
+        //    return _service.GetKupci(request);
+        //}
         [HttpGet("{id}")]
         public Model.Korisnici GetById(int id)
         {
@@ -60,6 +76,11 @@ namespace RentABikeWTR_v1_7.API.Controllers
         public Model.Korisnici Update(int id, [FromBody] KorisniciUpsertRequest request)
         {
             return _service.Update(id, request);
+        }
+        [HttpPatch("Profil/{id}")]
+        public Model.Korisnici Patch(int id, [FromBody] KorisniciUpdateRequest request)
+        {
+            return _service.Patch(id, request);
         }
         [HttpPut("ProfilUpdate/{id}")]
         public Model.Korisnici UpdateProfilKorisnika(int id, [FromBody] KorisniciMobilnaProfilRequest request)

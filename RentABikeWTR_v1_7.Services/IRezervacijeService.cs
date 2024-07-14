@@ -9,7 +9,8 @@ namespace RentABikeWTR_v1_7.Services
 {
     public interface IRezervacijeService
     {
-        List<Model.Rezervacije> Get(RezervacijeSearchRequest? request);
+        List<Model.RezervacijePregled> Get(RezervacijeSearchRequest? request);
+        public List<Model.BicikliDostupni> GetRezervacijeDostupni(RezervacijeDostupniSearchRequest request);
         List<Model.Rezervacije> GetRezervacijeKupac(int id);
         Model.Rezervacije GetById(int id);
         //List<Model.Rezervacije>Get(RezervacijeDatumSearchRequest? requestDatum);

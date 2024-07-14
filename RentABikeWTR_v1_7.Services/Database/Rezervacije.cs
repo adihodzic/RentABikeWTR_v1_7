@@ -15,7 +15,7 @@ namespace RentABikeWTR_v1_7.Services.Database
         public string? Napomena { get; set; }
         public decimal CijenaUsluge { get; set; }
         public bool StatusPlacanja { get; set; }
-        public int? KorisnikID { get; set; }
+        public int? KorisnikID { get; set; } // za desktop korisnik koji unosi rezervaciju
         public virtual Korisnici Korisnik { get; set; }
         public int? KupacID { get; set; }
         public Kupci Kupac { get; set; }

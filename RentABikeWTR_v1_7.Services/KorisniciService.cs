@@ -67,12 +67,32 @@ namespace RentABikeWTR_v1_7.Services
         {
             //var query = _context.Korisnici.Include("KorisniciUloge.Uloga").AsQueryable();
             var query = _context.Korisnici.AsQueryable();
+            //if (!string.IsNullOrWhiteSpace(request?.Ime))
+            //{
+            //    query = query.Where(x => x.Ime.StartsWith(request.Ime));
+
+            //}
+            //if (!string.IsNullOrWhiteSpace(request?.Prezime))
+            //{
+            //    query = query.Where(x => x.Prezime.StartsWith(request.Prezime));
+            //}
+            if (!string.IsNullOrWhiteSpace(request?.KorisnickoIme))
+            {
+                query = query.Where(x => x.KorisnickoIme.StartsWith(request.KorisnickoIme));
+            }
+            var list = query.ToList();
+            return _mapper.Map<List<Model.Korisnici>>(list);
+        }
+        public List<Model.Korisnici> GetDetaljiKorisnici(KorisniciDetailsRequest request)
+        {
+            //var query = _context.Korisnici.Include("KorisniciUloge.Uloga").AsQueryable();
+            var query = _context.Korisnici.AsQueryable();
             //if(!string.IsNullOrWhiteSpace(request?.Ime))
             //{
             //    query = query.Where(x => x.Ime.StartsWith(request.Ime));
 
             //}
-            //if(!string.IsNullOrWhiteSpace(request?.Prezime))
+            //if (!string.IsNullOrWhiteSpace(request?.Prezime))
             //{
             //    query = query.Where(x => x.Prezime.StartsWith(request.Prezime));
             //}
@@ -86,30 +106,32 @@ namespace RentABikeWTR_v1_7.Services
         public List<Model.Korisnici> GetKupci(KorisniciSearchRequest request)
         {
             var query = _context.Korisnici.AsQueryable();
-            //if(!string.IsNullOrWhiteSpace(request?.Ime))
-            //{
-            //    query = query.Where(x => x.Ime.StartsWith(request.Ime));
+            if (!string.IsNullOrWhiteSpace(request?.Ime))
+            {
+                query = query.Where(x => x.Ime.StartsWith(request.Ime));
 
-            //}
-            //if(!string.IsNullOrWhiteSpace(request?.Prezime))
-            //{
-            //    query = query.Where(x => x.Prezime.StartsWith(request.Prezime));
-            //}
-            if (!string.IsNullOrWhiteSpace(request?.KorisnickoIme) && (request.UlogaID == 4))
+            }
+            if (!string.IsNullOrWhiteSpace(request?.Prezime))
+            {
+                query = query.Where(x => x.Prezime.StartsWith(request.Prezime));
+            }
+
+            if (!string.IsNullOrWhiteSpace(request?.KorisnickoIme))
             {
                 query = query.Where(x => x.KorisnickoIme.StartsWith(request.KorisnickoIme));
 
 
+            }
+            var list = query.Where(x=>x.UlogaID==4).ToList();
+            return _mapper.Map<List<Model.Korisnici>>(list);
 
-                var list = query.ToList();
-                return _mapper.Map<List<Model.Korisnici>>(list);
-            }
-            else
-            {
-                query = query.Where(x => x.UlogaID == 4);
-                var li = query.ToList();
-                return _mapper.Map<List<Model.Korisnici>>(li);
-            }
+
+            //else
+            //{
+            //    query = query.Where(x => x.UlogaID == 4);
+            //    var li = query.ToList();
+            //    return _mapper.Map<List<Model.Korisnici>>(li);
+            //}
 
         }
         public Model.Korisnici GetProfilKorisnika(string username)
@@ -121,7 +143,14 @@ namespace RentABikeWTR_v1_7.Services
             return _mapper.Map<Model.Korisnici>(entity);
 
         }
+        
         public Model.Korisnici GetById(int id)
+        {
+            //var entity = _context.Korisnici.Include("KorisniciUloge").Where(x => x.KorisnikId == id).FirstOrDefault();
+            var entity = _context.Korisnici.Where(x => x.KorisnikId == id).FirstOrDefault();
+            return _mapper.Map<Model.Korisnici>(entity);
+        }
+        public Model.Korisnici GetProfilKorisnikaById(int id)
         {
             //var entity = _context.Korisnici.Include("KorisniciUloge").Where(x => x.KorisnikId == id).FirstOrDefault();
             var entity = _context.Korisnici.Where(x => x.KorisnikId == id).FirstOrDefault();
@@ -238,5 +267,43 @@ namespace RentABikeWTR_v1_7.Services
             _context.SaveChanges();
             return _mapper.Map<Model.Korisnici>(entity);
         }
+        public Model.Korisnici Patch(int id, KorisniciUpdateRequest request)
+        {
+            var entity = _context.Korisnici.Where(x => x.KorisnikId == id).FirstOrDefault();
+            _context.Korisnici.Attach(entity);
+            //_context.Korisnici.Patch(entity);
+            entity.KorisnikId = id;
+            entity.Ime = request.Ime ?? entity.Ime;
+            entity.Prezime = request.Prezime ?? entity.Prezime;
+            entity.KorisnickoIme = request.KorisnickoIme ?? entity.KorisnickoIme;
+            entity.Email = request.Email ?? entity.Email;
+            entity.Aktivan=request.Aktivan.Value;
+            entity.DrzavaID= request.DrzavaID ?? entity.DrzavaID;
+            entity.Telefon = request.Telefon ?? entity.Telefon;
+            entity.DatumRegistracije = request.DatumRegistracije ?? entity.DatumRegistracije;
+            entity.UlogaID = request.UlogaID ?? entity.UlogaID;
+            
+
+
+
+            //if (!string.IsNullOrWhiteSpace(request?.Password))
+            //{
+            //    if (request.Password != request.PasswordPotvrda)
+            //    {
+            //        throw new Exception("Ne slazu se passwordi");
+            //    }
+            //    entity.LozinkaSalt = GenerateSalt();
+            //    entity.LozinkaHash = GenerateHash(entity.LozinkaSalt, request.Password);
+            //}
+            _context.SaveChanges();
+
+            _mapper.Map(request, entity);
+            _context.SaveChanges();
+            return _mapper.Map<Model.Korisnici>(entity);
+        }
+    
+
+
+        
     }
 }

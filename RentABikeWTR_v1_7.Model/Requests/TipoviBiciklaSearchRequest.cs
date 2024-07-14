@@ -8,7 +8,7 @@ namespace RentABikeWTR_v1_7.Model.Requests
 {
     public class TipoviBiciklaSearchRequest
     {
-        public int TipID { get; set; }
-        public string NazivTipa { get; set; }
+        public int? TipId { get; set; }
+        public string? NazivTipa { get; set; }
     }
 }

@@ -8,27 +8,27 @@ namespace RentABikeWTR_v1_7.Model
     public class Bicikli
     {
         [Key]
-        public int BiciklId { get; set; }
-        public string NazivBicikla { get; set; }
-        public string Boja { get; set; }
+        public int? BiciklId { get; set; }
+        public string? Boja { get; set; }
+        public string? NazivBicikla { get; set; }
 
-        public decimal NabavnaCijena { get; set; }
-
-
-        public DateTime GodinaProizvodnje { get; set; }
-        public DateTime DatumOtpisa { get; set; }
-        public decimal CijenaBicikla { get; set; }
+        public decimal? NabavnaCijena { get; set; }
 
 
-        public DateTime DatumZadnjegServisa { get; set; }
-        public string VrstaRama { get; set; }
+        public DateTime? GodinaProizvodnje { get; set; }
+        public DateTime? DatumOtpisa { get; set; }
+        public decimal? CijenaBicikla { get; set; }
+
+
+        public DateTime? DatumZadnjegServisa { get; set; }
+        public string? VrstaRama { get; set; }
 
         public byte[]? Slika { get; set; }
-
+        
 
         public int? VelicinaBiciklaID { get; set; }
 
-        public int? StatusID { get; set; }// statusi, ako je iznajmljen, otpisan, NaStanju
+        public int? StatusID { get; set; }// statusi, ako je na servisu, otpisan, NaStanju
 
         public int? PoslovnicaID { get; set; }
 

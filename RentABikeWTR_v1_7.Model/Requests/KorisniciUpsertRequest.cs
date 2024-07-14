@@ -27,7 +27,7 @@ namespace RentABikeWTR_v1_7.Model.Requests
         public bool Aktivan { get; set; }
         //public List<int> Uloge { get; set; } = new List<int>();
         public int? DrzavaID { get; set; }
-        public string? NazivDrzave { get; set; }
+        //public string? NazivDrzave { get; set; }
         public int UlogaID { get; set; }
 
         [Required]

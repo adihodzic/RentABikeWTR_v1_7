@@ -9,7 +9,7 @@ namespace RentABikeWTR_v1_7.Services
 {
     public interface IBicikliMobilnaService
     {
-        public List<Model.Bicikli> Get(BicikliSearchRequest search);
+        public List<Model.BicikliPregled> Get(BicikliSearchRequest search);
         public Model.Bicikli GetById(int id);
         public List<Model.Bicikli> Recommend(int biciklid);
 

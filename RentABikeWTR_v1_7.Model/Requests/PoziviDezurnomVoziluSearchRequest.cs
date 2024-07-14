@@ -18,7 +18,8 @@ namespace RentABikeWTR_v1_7.Model.Requests
         //public bool LosiVremenskiUslovi { get; set; }
 
 
-        public DateTime DatumPoziva { get; set; }
+        public DateTime DatumOd { get; set; }
+        public DateTime DatumDo  { get; set; }
         //public DateTime VrijemePoziva { get; set; }
 
         //public int DezurnoVoziloID { get; set; }

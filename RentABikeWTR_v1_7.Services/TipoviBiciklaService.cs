@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RentABikeWTR_v1_7.Services
 {
-    public class TipoviBiciklaService : BaseService<Model.TipoviBicikla, TipoviBiciklaSearchRequest, Database.TipoviBicikla>
+    public class TipoviBiciklaService : BaseCRUDService<Model.TipoviBicikla, TipoviBiciklaSearchRequest,TipoviBiciklaUpsertRequest, TipoviBiciklaUpsertRequest, Database.TipoviBicikla>
     {
         public TipoviBiciklaService(RentABikeWTR_v1_7Context context, IMapper mapper) : base(context, mapper)
         {
