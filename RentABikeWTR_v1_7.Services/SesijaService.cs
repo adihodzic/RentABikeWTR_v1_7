@@ -29,11 +29,12 @@ namespace RentABikeWTR_v1_7.Services
 
 
 
+        //public async Task<string> CreateCheckout(string nazivBicikla)
         public async Task<string> CreateCheckout(string nazivBicikla)
         {
             //var thisApiUrl = "https://localhost:7136/api";
-            var thisApiUrl = "https://localhost:7136/api";
-            var s_wasmClientURL = "https://localhost:7136/api";
+            var thisApiUrl = "https://localhost:44335/api";
+            var s_wasmClientURL = "https://localhost:44335/api";
             //          var values = new Dictionary<string, string>
             //{
             //    { "sessionId", "hello" },

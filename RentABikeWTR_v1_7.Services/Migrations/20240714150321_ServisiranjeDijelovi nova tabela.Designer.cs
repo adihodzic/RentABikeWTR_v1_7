@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RentABikeWTR_v1_7.Services.Database;
 
@@ -11,9 +12,11 @@ using RentABikeWTR_v1_7.Services.Database;
 namespace RentABikeWTR_v1_7.Services.Migrations
 {
     [DbContext(typeof(RentABikeWTR_v1_7Context))]
-    partial class RentABikeWTR_v1_7ContextModelSnapshot : ModelSnapshot
+    [Migration("20240714150321_ServisiranjeDijelovi nova tabela")]
+    partial class ServisiranjeDijelovinovatabela
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

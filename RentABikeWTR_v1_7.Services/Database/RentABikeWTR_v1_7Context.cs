@@ -32,6 +32,7 @@ namespace RentABikeWTR_v1_7.Services.Database
         public virtual DbSet<PoziviDezurnomVozilu> PoziviDezurnomVozilu { get; set; }
         public virtual DbSet<ProizvodjaciBicikla> ProizvodjaciBicikla { get; set; }
         public virtual DbSet<Rezervacije> Rezervacije { get; set; }
+        public virtual DbSet<ServisiranjaDijelovi> ServisiranjaDijelovi { get; set; }
         public virtual DbSet<RezervniDijelovi> RezervniDijelovi { get; set; }
         public virtual DbSet<Servisiranja> Servisiranja { get; set; }
         public virtual DbSet<Statusi> Statusi { get; set; }
@@ -493,6 +494,35 @@ namespace RentABikeWTR_v1_7.Services.Database
                     .HasConstraintName("FK_Rezervacije_TuristRute")
                     .IsRequired(false);
             });
+            modelBuilder.Entity<ServisiranjaDijelovi>(entity =>
+            {
+                entity.HasKey(e => e.ServisiranjaDijeloviId);
+
+
+
+                
+
+                // entity.(c => c.User);
+                entity.HasOne(d => d.RezervniDio)
+                    .WithMany(p => p.ServisiranjaDijelovi)
+                    .HasForeignKey(d => d.RezervniDijeloviID)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ServisiranjaDijelovi_RezervniDijelovi")
+                    .IsRequired(false);
+                
+
+                entity.HasOne(d => d.Servisiranje)
+                   .WithMany(p => p.ServisiranjaDijelovi)
+                   .HasForeignKey(d => d.ServisiranjeID)
+                   .OnDelete(DeleteBehavior.ClientSetNull)
+                   .HasConstraintName("FK_ServisiranjaDijelovi_Servisiranja")
+                   .IsRequired(false);
+
+
+
+
+
+            });
 
             modelBuilder.Entity<RezervniDijelovi>(entity =>
             {
@@ -511,12 +541,12 @@ namespace RentABikeWTR_v1_7.Services.Database
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_RezervniDijelovi_KategorijeDijelova");
 
-                entity.HasOne(d => d.Servisiranje)
-                   .WithMany(p => p.RezervniDijelovi)
-                   .HasForeignKey(d => d.ServisiranjeID)
-                   .OnDelete(DeleteBehavior.ClientSetNull)
-                   .HasConstraintName("FK_RezervniDijelovi_Servisiranja")
-                   .IsRequired(false);
+                //entity.HasOne(d => d.Servisiranje)
+                //   .WithMany(p => p.RezervniDijelovi)
+                //   .HasForeignKey(d => d.ServisiranjeID)
+                //   .OnDelete(DeleteBehavior.ClientSetNull)
+                //   .HasConstraintName("FK_RezervniDijelovi_Servisiranja")
+                //   .IsRequired(false);
 
 
 

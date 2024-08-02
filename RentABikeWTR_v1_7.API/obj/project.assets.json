@@ -6378,6 +6378,7 @@
       "Newtonsoft.Json >= 13.0.3",
       "RentABikeWTR_v1_7.Model >= 1.0.0",
       "RentABikeWTR_v1_7.Services >= 1.0.0",
+      "Stripe.net >= 41.19.0",
       "Swashbuckle.AspNetCore >= 6.5.0"
     ]
   },
@@ -6474,6 +6475,10 @@
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[13.0.3, )"
+          },
+          "Stripe.net": {
+            "target": "Package",
+            "version": "[41.19.0, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",

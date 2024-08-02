@@ -5,19 +5,23 @@ using System.Text;
 
 namespace RentABikeWTR_v1_7.Model
 {
-    public class NajaveOdmora
+    public class NajaveOdmoraPregled
     {
-        public int NajavaOdmoraId { get; set; }
+        public int? NajavaOdmoraId { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime DatumOdmora { get; set; }
+        public DateTime? DatumOdmora { get; set; }
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:hh/mm/ss}", ApplyFormatInEditMode = true)]
-        public DateTime PocetakOdmora { get; set; }
+        public DateTime? PocetakOdmora { get; set; }
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:hh/mm/ss}", ApplyFormatInEditMode = true)]
-        public DateTime ZavrsetakOdmora { get; set; }
-        public int NapitakKolicina { get; set; } = 0;
-        public int LaunchPaketKolicina { get; set; } = 0;
+        public DateTime? ZavrsetakOdmora { get; set; }
+        public int? NapitakKolicina { get; set; } = 0;
+        public int? LaunchPaketKolicina { get; set; } = 0;
+        public int? LokacijaOdmoraID { get; set; }
+        public string? NazivLokacije { get; set; } // naziv lokacije
+        public int? TuristickiVodicID { get; set; }
+        public string? NazivVodica { get; set; }
     }
 }

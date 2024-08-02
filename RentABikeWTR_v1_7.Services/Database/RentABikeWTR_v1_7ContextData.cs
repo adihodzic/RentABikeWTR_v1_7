@@ -391,20 +391,20 @@ namespace RentABikeWTR_v1_7.Services.Database
             );
             //U redu
             modelBuilder.Entity<RezervniDijelovi>().HasData(
-            new RezervniDijelovi() { RezervniDijeloviId = 1, NazivRezervnogDijela = "Guma unutrasnja", KategorijaDijelovaID = 1, SerijskiBroj = "S132G1", NaStanju = true },
-            new RezervniDijelovi() { RezervniDijeloviId = 2, NazivRezervnogDijela = "Guma vanjska", KategorijaDijelovaID = 1, SerijskiBroj = "S132G2", NaStanju = true },
-            new RezervniDijelovi() { RezervniDijeloviId = 3, NazivRezervnogDijela = "Lanac", KategorijaDijelovaID = 2, SerijskiBroj = "S132G3", NaStanju = true },
-            new RezervniDijelovi() { RezervniDijeloviId = 4, NazivRezervnogDijela = "Set kocnice", KategorijaDijelovaID = 3, SerijskiBroj = "S132G4", NaStanju = true },
-            new RezervniDijelovi() { RezervniDijeloviId = 5, NazivRezervnogDijela = "Mjenjac prednji", KategorijaDijelovaID = 4, SerijskiBroj = "S132G5", NaStanju = true },
-            new RezervniDijelovi() { RezervniDijeloviId = 6, NazivRezervnogDijela = "Mjenjac zadnji", KategorijaDijelovaID = 4, SerijskiBroj = "S132G6", NaStanju = true },
-            new RezervniDijelovi() { RezervniDijeloviId = 7, NazivRezervnogDijela = "Rucke volana", KategorijaDijelovaID = 5, SerijskiBroj = "S132G7", NaStanju = true },
-            new RezervniDijelovi() { RezervniDijeloviId = 8, NazivRezervnogDijela = "Osovina prednja", KategorijaDijelovaID = 6, SerijskiBroj = "S132G8", NaStanju = true },
-            new RezervniDijelovi() { RezervniDijeloviId = 9, NazivRezervnogDijela = "Osovina zadnja", KategorijaDijelovaID = 6, SerijskiBroj = "S132G9", NaStanju = true },
-            new RezervniDijelovi() { RezervniDijeloviId = 10, NazivRezervnogDijela = "Prednji tocak", KategorijaDijelovaID = 7, SerijskiBroj = "S132G10", NaStanju = true },
-            new RezervniDijelovi() { RezervniDijeloviId = 11, NazivRezervnogDijela = "Zadnji tocak", KategorijaDijelovaID = 7, SerijskiBroj = "S132G11", NaStanju = true },
-            new RezervniDijelovi() { RezervniDijeloviId = 12, NazivRezervnogDijela = "Set pedala", KategorijaDijelovaID = 8, SerijskiBroj = "S132G12", NaStanju = true },
-            new RezervniDijelovi() { RezervniDijeloviId = 13, NazivRezervnogDijela = "Volan", KategorijaDijelovaID = 9, SerijskiBroj = "S132G13", NaStanju = true },
-            new RezervniDijelovi() { RezervniDijeloviId = 14, NazivRezervnogDijela = "Sjediste", KategorijaDijelovaID = 10, SerijskiBroj = "S132G14", NaStanju = true }
+            new RezervniDijelovi() { RezervniDijeloviId = 1, NazivRezervnogDijela = "Guma unutrasnja", KategorijaDijelovaID = 1, SifraArtikla = "S132G1", NaStanju = 1 },
+            new RezervniDijelovi() { RezervniDijeloviId = 2, NazivRezervnogDijela = "Guma vanjska", KategorijaDijelovaID = 1, SifraArtikla = "S132G2", NaStanju = 1 },
+            new RezervniDijelovi() { RezervniDijeloviId = 3, NazivRezervnogDijela = "Lanac", KategorijaDijelovaID = 2, SifraArtikla = "S132G3", NaStanju = 1 },
+            new RezervniDijelovi() { RezervniDijeloviId = 4, NazivRezervnogDijela = "Set kocnice", KategorijaDijelovaID = 3, SifraArtikla = "S132G4", NaStanju = 1 },
+            new RezervniDijelovi() { RezervniDijeloviId = 5, NazivRezervnogDijela = "Mjenjac prednji", KategorijaDijelovaID = 4, SifraArtikla = "S132G5", NaStanju = 1 },
+            new RezervniDijelovi() { RezervniDijeloviId = 6, NazivRezervnogDijela = "Mjenjac zadnji", KategorijaDijelovaID = 4, SifraArtikla = "S132G6", NaStanju = 1 },
+            new RezervniDijelovi() { RezervniDijeloviId = 7, NazivRezervnogDijela = "Rucke volana", KategorijaDijelovaID = 5, SifraArtikla = "S132G7", NaStanju = 1 },
+            new RezervniDijelovi() { RezervniDijeloviId = 8, NazivRezervnogDijela = "Osovina prednja", KategorijaDijelovaID = 6, SifraArtikla = "S132G8", NaStanju = 1 },
+            new RezervniDijelovi() { RezervniDijeloviId = 9, NazivRezervnogDijela = "Osovina zadnja", KategorijaDijelovaID = 6, SifraArtikla = "S132G9", NaStanju = 1 },
+            new RezervniDijelovi() { RezervniDijeloviId = 10, NazivRezervnogDijela = "Prednji tocak", KategorijaDijelovaID = 7, SifraArtikla = "S132G10", NaStanju = 1 },
+            new RezervniDijelovi() { RezervniDijeloviId = 11, NazivRezervnogDijela = "Zadnji tocak", KategorijaDijelovaID = 7, SifraArtikla = "S132G11", NaStanju = 1 },
+            new RezervniDijelovi() { RezervniDijeloviId = 12, NazivRezervnogDijela = "Set pedala", KategorijaDijelovaID = 8, SifraArtikla = "S132G12", NaStanju = 1 },
+            new RezervniDijelovi() { RezervniDijeloviId = 13, NazivRezervnogDijela = "Volan", KategorijaDijelovaID = 9, SifraArtikla = "S132G13", NaStanju = 1 },
+            new RezervniDijelovi() { RezervniDijeloviId = 14, NazivRezervnogDijela = "Sjediste", KategorijaDijelovaID = 10, SifraArtikla = "S132G14", NaStanju = 1 }
 
             );
 

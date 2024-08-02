@@ -9,7 +9,7 @@ namespace RentABikeWTR_v1_7.Model.Requests
     public class ServisiranjaSearchRequest
     {
 
-        public int? BiciklId { get; set; } //.... provjeriti jer dodaju se rezervni dijelovi za odredjeni bicikl
+        public int? BiciklID { get; set; } //.... provjeriti jer dodaju se rezervni dijelovi za odredjeni bicikl
                                            // tako da se radi i servis za odredjeni bicikl...
                                            //public int ServisID { get; set; }
                                            //public string OpisKvara { get; set; }

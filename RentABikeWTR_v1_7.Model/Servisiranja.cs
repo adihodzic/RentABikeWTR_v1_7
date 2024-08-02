@@ -13,7 +13,6 @@ namespace RentABikeWTR_v1_7.Model
         public string? PreduzetaAkcija { get; set; }
         public string? KomentarServisera { get; set; }
         public int? BiciklID { get; set; }
-        public Bicikli Bicikl { get; set; }
-        public ICollection<RezervniDijelovi> RezervniDijelovi { get; set; }
+        public List<RezervniDijelovi>? RezervniDijelovi { get; set; }
     }
 }

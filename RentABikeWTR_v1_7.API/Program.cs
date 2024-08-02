@@ -10,7 +10,7 @@ using Microsoft.OpenApi.Models;
 using Mapster;
 using RentABikeWTR_v1_7.API.Security;
 using RentABikeWTR_v1_7.Model.Requests;
-//using Stripe;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,11 +32,10 @@ builder.Services.AddTransient<ICRUDService<RentABikeWTR_v1_7.Model.DezurnaVozila
 builder.Services.AddTransient<ICRUDService<RentABikeWTR_v1_7.Model.ModeliBicikla, ModeliSearchRequest, ModeliUpsertRequest, ModeliUpsertRequest>, ModeliBiciklaService>();
 
 
-builder.Services.AddTransient<ICRUDService<RentABikeWTR_v1_7.Model.NajaveOdmora, NajaveOdmoraSearchRequest, NajaveOdmoraUpsertRequest, NajaveOdmoraUpsertRequest>, NajaveOdmoraService>();
+
 builder.Services.AddTransient<ICRUDService<RentABikeWTR_v1_7.Model.TipoviBicikla, TipoviBiciklaSearchRequest, TipoviBiciklaUpsertRequest, TipoviBiciklaUpsertRequest>, TipoviBiciklaService>();
 ////services.AddScoped<ICRUDService<Model.Proizvodjaci, object, ProizvodjaciUpsertRequest, ProizvodjaciUpsertRequest>, BaseCRUDService<Model.Proizvodjaci, object, Database.Proizvodjaci, ProizvodjaciUpsertRequest, ProizvodjaciUpsertRequest>>();
 ////builder.Services.AddScoped<ICRUDService<RentABikeWTR_v1_7.Model.Ocjene, object, OcjeneUpsertRequest, OcjeneUpsertRequest>, BaseCRUDService<Model.Ocjene, object, Database.Ocjene, OcjeneUpsertRequest, OcjeneUpsertRequest>>();
-builder.Services.AddTransient<ICRUDService<RentABikeWTR_v1_7.Model.Poslovnice, PoslovniceSearchRequest, PoslovniceUpsertRequest, PoslovniceUpsertRequest>, PoslovniceService>();
 builder.Services.AddTransient<IService<RentABikeWTR_v1_7.Model.KategorijeDijelova, object>, BaseService<RentABikeWTR_v1_7.Model.KategorijeDijelova, object, RentABikeWTR_v1_7.Services.Database.KategorijeDijelova>>();
 builder.Services.AddTransient<IService<RentABikeWTR_v1_7.Model.LokacijeOdmora, object>, BaseService<RentABikeWTR_v1_7.Model.LokacijeOdmora, object, RentABikeWTR_v1_7.Services.Database.LokacijeOdmora>>();
 builder.Services.AddTransient<IService<RentABikeWTR_v1_7.Model.Uloge, object>, BaseService<RentABikeWTR_v1_7.Model.Uloge, object, RentABikeWTR_v1_7.Services.Database.Uloge>>();
@@ -51,8 +50,11 @@ builder.Services.AddTransient<ICRUDService<RentABikeWTR_v1_7.Model.ProizvodjaciB
 ////builder.Services.AddTransient<ICRUDService< RentABikeWTR_v1_6.Model.Rezervacije, RezervacijeSearchRequest, RezervacijeUpsertRequest, RezervacijeUpsertRequest>, RezervacijeService>();
 
 builder.Services.AddTransient<IRezervacijeService, RezervacijeService>();
-builder.Services.AddTransient<ICRUDService<RentABikeWTR_v1_7.Model.RezervniDijelovi, RezervniDijeloviSearchRequest, RezervniDijeloviUpsertRequest, RezervniDijeloviUpsertRequest>, RezervniDijeloviService>();
-builder.Services.AddTransient<ICRUDService<RentABikeWTR_v1_7.Model.Servisiranja, ServisiranjaSearchRequest, ServisiranjaUpsertRequest, ServisiranjaUpsertRequest>, ServisiranjaService>();
+builder.Services.AddTransient<IRezervniDijeloviService, RezervniDijeloviService>();
+builder.Services.AddTransient<IServisiranjaService, ServisiranjaService>();
+builder.Services.AddTransient<IPoslovniceService, PoslovniceService>();
+builder.Services.AddTransient<INajaveOdmoraService, NajaveOdmoraService>();
+
 builder.Services.AddTransient<IKorisniciService, KorisniciService>();
 builder.Services.AddTransient<ICRUDService<RentABikeWTR_v1_7.Model.Kupci, KupciSearchRequest, KupciUpsertRequest, KupciUpsertRequest>, KupciService>();
 ////Model.Statusi
@@ -95,6 +97,11 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddMapster();
 
 var app = builder.Build();
+//StripeConfiguration.ApiKey = "sk_test_51NDWrCFgNQXat14Z6GFt4yKNpMH9NO1eVE8fG5S2IilbH3NQZ0yMwPgZduiKZviiNI5Rpc1Gx6fgvqtejZkbPDQ400oMsWFisR";
+//ovo je za Stripe - samo ovaj i radi (samo njega i cita aplikacija) - provjeriti zasto ne cita appsettings.json
+
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe")["SecretKey"];
+//rijeseno je i sada cita iz appsettings.json-a
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

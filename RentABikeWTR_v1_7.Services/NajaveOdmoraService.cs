@@ -9,32 +9,104 @@ using System.Threading.Tasks;
 
 namespace RentABikeWTR_v1_7.Services
 {
-    public class NajaveOdmoraService : BaseCRUDService<Model.NajaveOdmora, NajaveOdmoraSearchRequest, NajaveOdmoraUpsertRequest, NajaveOdmoraUpsertRequest, Database.NajaveOdmora>
+    public class NajaveOdmoraService : INajaveOdmoraService
     {
-        public NajaveOdmoraService(RentABikeWTR_v1_7Context context, IMapper mapper) : base(context, mapper)
+        private readonly RentABikeWTR_v1_7Context _context;
+        private readonly IMapper _mapper;
+
+        public NajaveOdmoraService(RentABikeWTR_v1_7Context context, IMapper mapper)
         {
+            _context = context;
+            _mapper = mapper;
         }
-        public override List<Model.NajaveOdmora> Get(NajaveOdmoraSearchRequest request)
+        public List<Model.NajaveOdmora> Get(NajaveOdmoraSearchRequest? request)
         {
             var query = _context.NajaveOdmora.AsQueryable();
-            query = _context.NajaveOdmora.Where(x => x.DatumOdmora.Date == request.DatumOdmora.Date);
+            if (request != null) {
+                query = _context.NajaveOdmora.Where(x => x.DatumOdmora.Date == request.DatumOdmora.Date);
+                var lista = query.ToList();
+
+                return _mapper.Map<List<Model.NajaveOdmora>>(lista);
+            }
+            else
+            {
+                var lista2=query.ToList();
+                return _mapper.Map<List<Model.NajaveOdmora>>(lista2);
+
+            }
+            
+        }
+
+        public List<Model.NajaveOdmoraPregled> GetNajavePregled(DateTime? DatumOd, DateTime? DatumDo)
+        {
+            var query = _context.NajaveOdmora.AsQueryable()
+                .Where(x => x.DatumOdmora.Date>= DatumOd && x.DatumOdmora.Date<= DatumDo)
+                .Select(b => new
+                {
+                    NajavaOdmoraId = b.NajavaOdmoraId,
+                    DatumOdmora = b.DatumOdmora,
+                    PocetakOdmora = b.PocetakOdmora,
+                    ZavrsetakOdmora = b.ZavrsetakOdmora,
+                    NapitakKolicina = b.NapitakKolicina,
+                    LaunchPaketKolicina = b.LaunchPaketKolicina,
+                    LokacijaOdmoraID = b.LokacijaOdmoraID,
+                    NazivLokacije = b.LokacijaOdmora.Naziv,
+                    TuristickiVodicID = b.TuristickiVodicID,
+                    NazivVodica = b.TuristickiVodic.Naziv
+
+                });
+
+            //query = _context.NajaveOdmora.Where(x => x.DatumOdmora.Date == request.DatumOdmora.Date);
             var lista = query.ToList();
 
-            return _mapper.Map<List<Model.NajaveOdmora>>(lista);
+            return _mapper.Map<List<Model.NajaveOdmoraPregled>>(lista);
         }
-        public override Model.NajaveOdmora Insert(NajaveOdmoraUpsertRequest request)
+        public Model.NajaveOdmora GetById(int id)
         {
+            var entity = _context.Poslovnice.Where(x => x.PoslovnicaId == id).FirstOrDefault();
+            return _mapper.Map<Model.NajaveOdmora>(entity);
+        }
+
+        public Model.NajaveOdmora Update(int id, NajaveOdmoraUpsertRequest request)
+        {
+            var entity = _context.NajaveOdmora.Where(x => x.NajavaOdmoraId == id).FirstOrDefault();
+            _context.NajaveOdmora.Attach(entity);
+            _context.NajaveOdmora.Update(entity);
+
+            _context.SaveChanges();
+
+            _mapper.Map(request, entity);
+            _context.SaveChanges();
+            return _mapper.Map<Model.NajaveOdmora>(entity);
+        }
+        public Model.NajaveOdmora Insert(NajaveOdmoraUpsertRequest request)
+        {
+
             var entity = _mapper.Map<Database.NajaveOdmora>(request);
-            //entity.ProizvodjacBiciklaID = (int)request.ProizvodjacBiciklaID;
-            //entity.TipBiciklaID = (int)request.TipBiciklaID;
-            //entity.TipBicikla.NazivTipa = request.NazivTipa;
-            //entity.ProizvodjacBicikla.NazivProizvodjaca = request.NazivProizvodjaca;
             _context.NajaveOdmora.Add(entity);
             _context.SaveChanges();
 
-
             return _mapper.Map<Model.NajaveOdmora>(entity);
-
         }
+        
+        //public Model.NajaveOdmora Patch(int id, NajaveOdmoraUpsertRequest request)
+        //{
+        //    var entity = _context.Poslovnice.Where(x => x.PoslovnicaId == id).FirstOrDefault();
+        //    _context.Poslovnice.Attach(entity);
+
+        //    entity.NazivPoslovnice = request.NazivPoslovnice ?? entity.NazivPoslovnice;
+        //    entity.EmailKontakt = request.EmailKontakt ?? entity.EmailKontakt;
+        //    entity.Adresa = request.Adresa ?? entity.Adresa;
+        //    entity.BrojTelefona = request.BrojTelefona ?? entity.BrojTelefona;
+
+        //    _context.SaveChanges();
+
+        //    _mapper.Map(request, entity);
+        //    _context.SaveChanges();
+        //    return _mapper.Map<Model.Poslovnice>(entity);
+        //}
+
+        
+        
     }
 }

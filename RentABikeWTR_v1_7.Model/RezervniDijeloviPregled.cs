@@ -4,13 +4,14 @@ using System.Text;
 
 namespace RentABikeWTR_v1_7.Model
 {
-    public class RezervniDijelovi
+    public class RezervniDijeloviPregled
     {
-        public int RezervniDijeloviId { get; set; }
+        public int? RezervniDijeloviId { get; set; }
         public string? NazivRezervnogDijela { get; set; }
         public string? SifraArtikla { get; set; }
         public int? NaStanju { get; set; }
-        public int? KategorijaDijelovaID { get; set; }
+       
+        public string? NazivKategorije { get; set; }
         
     }
 }
