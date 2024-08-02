@@ -35,7 +35,7 @@ class RezervacijaKorak3bicScreen extends StatelessWidget {
 
   Future<String> makeRequest() async {
     var url = Uri.parse(
-        'https://10.0.2.2:7140/api/Sesija?nazivBicikla=${argumentsBic.nazivBicikla}');
+        'https://10.0.2.2:44335/api/Sesija?nazivBicikla=${argumentsBic.nazivBicikla}');
 
     var headers = {
       'accept': 'text/plain',

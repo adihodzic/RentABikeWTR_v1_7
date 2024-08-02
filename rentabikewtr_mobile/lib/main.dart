@@ -74,8 +74,11 @@ void main() async {
       new MyHttpOverrides(); // Ovo sam dodao zbog certifikata kod sesije
   //initializeStripe();
   //String stripePublishableKey;
-  Stripe.publishableKey =
-      "pk_test_51NDWrCFgNQXat14ZALPUUNLEwB7tf3ByFuIp7fjjgX9fPtm7bcWkK6zWsaiHsE1zRWywqzcOnLj27Z1U6MKgkXxV00fY3XOvkl";
+/////////////////////////////////////////////////////////////////////////////
+  ///Ovdje nije trebao biti upisan Stripe.publishable key ...Mora biti na ChekcoutPage-u i CheckoutTrPage-u
+  // Stripe.publishableKey =
+  //     "pk_test_51NDWrCFgNQXat14ZALPUUNLEwB7tf3ByFuIp7fjjgX9fPtm7bcWkK6zWsaiHsE1zRWywqzcOnLj27Z1U6MKgkXxV00fY3XOvkl";
+
   //await Stripe.instance.applySettings();
   //await dotenv.load(fileName: "assets/.env");
 
@@ -110,7 +113,7 @@ void main() async {
           primaryColor: Colors.deepPurple,
           textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-                  primary: Colors.deepPurple,
+                  foregroundColor: Colors.deepPurple,
                   textStyle: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -119,8 +122,10 @@ void main() async {
           // Define the default `TextTheme`. Use this to specify the default
           // text styling for headlines, titles, bodies of text, and more.
           textTheme: const TextTheme(
-            headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-            headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+            headlineLarge:
+                TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+            headlineSmall:
+                TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
           ),
         ),
         home: HomePage(),
@@ -255,7 +260,6 @@ void main() async {
             return MaterialPageRoute(
                 builder: ((context) => KupacOcjeneScreen(args: objekatKO)));
           }
-         
         }
         //},
         ),
@@ -278,7 +282,7 @@ class HomePage extends StatelessWidget {
         Provider.of<KorisniciProfilProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Flutter Row Example"),
+        title: Text("Login"),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -374,6 +378,7 @@ class HomePage extends StatelessWidget {
                     Authorization.password = _passwordController.text;
 
                     await _korisniciProvider.get();
+
                     //morao sam uraditi zbog logina i ovaj get iznad na _korisniciProvider
                     //provjera koji je tip korisnika
                     var currentUser = await _korisniciProfilProvider
@@ -389,10 +394,11 @@ class HomePage extends StatelessWidget {
                           context, VodicPocetnaScreen.routeName);
                     }
                   } catch (e) {
+                    print('Greska iz konteksta: $e');
                     showDialog(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
-                              title: Text("Error"),
+                              title: Text("Greška"),
                               //content: Text(e.toString()),
                               content: Text(
                                   "Pogrešno korisničko ime ili lozinka!!!"),

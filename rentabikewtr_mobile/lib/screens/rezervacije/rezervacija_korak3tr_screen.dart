@@ -39,7 +39,7 @@ class RezervacijaKorak3trScreen extends StatelessWidget {
 
   Future<String> makeRequest() async {
     var url = Uri.parse(
-        'https://10.0.2.2:7140/api/Sesija/xSesija?nazivBicikla=${args.argumentsBic!.nazivBicikla}&nazivRute=${args.argumentsTR!.naziv}&jezikVodica=${args.argumentsTV!.jezik}');
+        'https://10.0.2.2:44335/api/Sesija/xSesija?nazivBicikla=${args.argumentsBic!.nazivBicikla}&nazivRute=${args.argumentsTR!.naziv}&jezikVodica=${args.argumentsTV!.jezik}');
 
     var headers = {
       'accept': 'text/plain',

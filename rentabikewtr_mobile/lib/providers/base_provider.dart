@@ -17,7 +17,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
   BaseProvider(String endpoint) {
     _baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue:
-            "https://10.0.2.2:7140/api/"); // localhost kad koristim windows prikaz a pisalo je 44346
+            "https://10.0.2.2:44335/api/"); // localhost kad koristim windows prikaz a pisalo je 44346 44335 24257 za http
     print("baseurl: $_baseUrl");
 
     if (_baseUrl!.endsWith("/") == false) {
@@ -36,6 +36,9 @@ abstract class BaseProvider<T> with ChangeNotifier {
     Map<String, String> headers = createHeaders();
 
     var response = await http!.get(url, headers: headers);
+    print(
+        'Error: ${response.statusCode}'); // ovo je provjera konekcije preko 10.0.2.2
+    print('Response body: ${response.body}');
 
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);
