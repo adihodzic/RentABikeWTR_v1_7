@@ -4,38 +4,63 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:email_validator/email_validator.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:rentabikewtr_desktop/model/poslovnice.dart';
+import 'package:rentabikewtr_desktop/main.dart';
+import 'package:rentabikewtr_desktop/model/drzave.dart';
+import 'package:rentabikewtr_desktop/model/korisniciDetalji.dart';
+import 'package:rentabikewtr_desktop/model/korisniciPregled.dart';
+import 'package:rentabikewtr_desktop/model/korisniciUpsert.dart';
+import 'package:rentabikewtr_desktop/model/poslovniceDetalji.dart';
 import 'package:rentabikewtr_desktop/model/poslovnicePregled.dart';
+import 'package:rentabikewtr_desktop/model/poziviDezurnomVoziluPregled.dart';
+import 'package:rentabikewtr_desktop/model/turistRuteDetalji.dart';
+import 'package:rentabikewtr_desktop/model/turistRutePregled.dart';
+import 'package:rentabikewtr_desktop/providers/poslovniceDetalji_provider.dart';
 import 'package:rentabikewtr_desktop/providers/poslovnicePregled_provider.dart';
-import 'package:rentabikewtr_desktop/providers/poslovnice_provider.dart';
+import 'package:rentabikewtr_desktop/providers/poziviDezurnomVoziluPregled_provider.dart';
+
+import 'package:rentabikewtr_desktop/providers/turistRute_detalji_provider.dart';
+
+import 'package:rentabikewtr_desktop/screens/adminPortal_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_poslovnice_screen.dart';
+
+import 'package:rentabikewtr_desktop/screens/lista_vodici_screen.dart';
 import 'package:rentabikewtr_desktop/screens/radnikPortal_screen.dart';
+import 'package:rentabikewtr_desktop/utils/util.dart';
+
+import 'package:rentabikewtr_desktop/widgets/menuAdmin.dart';
 import 'package:rentabikewtr_desktop/widgets/menuRadnik.dart';
 
-class DodajPoslovnicuScreen extends StatefulWidget {
-  const DodajPoslovnicuScreen({super.key});
+class PoslovniceDetaljiScreen extends StatefulWidget {
+  final PoslovnicePregled argumentsP;
+  const PoslovniceDetaljiScreen({Key? key, required this.argumentsP})
+      : super(key: key);
 
   @override
-  State<DodajPoslovnicuScreen> createState() => _DodajPoslovnicuScreenState();
+  State<PoslovniceDetaljiScreen> createState() =>
+      _PoslovniceDetaljiScreenState();
 }
 
-class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
+class _PoslovniceDetaljiScreenState extends State<PoslovniceDetaljiScreen> {
   TextEditingController _nazivPoslovniceController = TextEditingController();
   TextEditingController _emailKontaktController = TextEditingController();
   TextEditingController _adresaController = TextEditingController();
   TextEditingController _brojTelefonaController = TextEditingController();
 
-  Poslovnice? poslovnica; //-- ako koristimo prosljeđivanje objekta
-
-  bool dupliNaziv = false;
+  PoslovnicePregled?
+      poslovnicaPregled; //-- ako koristimo prosljeđivanje objekta
 
   List<PoslovnicePregled> poslovnicePregled = [];
   PoslovnicePregledProvider? _poslovnicePregledProvider;
-  PoslovniceProvider? _poslovniceProvider;
+  PoslovniceDetaljiProvider? _poslovniceDetaljiProvider;
+  int poslovnicaid = 0;
+
+  PoslovniceDetalji? poslovnicaDetalji;
 
   GlobalKey<FormState>? _formKey;
 
@@ -56,25 +81,32 @@ class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
     _formKey = GlobalKey();
 
     _poslovnicePregledProvider = context.read<PoslovnicePregledProvider>();
-    _poslovniceProvider = context.read<PoslovniceProvider>();
+    _poslovniceDetaljiProvider = context.read<PoslovniceDetaljiProvider>();
 
-    poslovnica = Poslovnice(
-      nazivPoslovnice: null,
-      emailKontakt: null,
-      adresa: null,
-      brojTelefona: null,
-    );
-
-    loadData(); //moram ovdje postaviti prije nego sto budem koristio argumentsKor
+    loadPoslovniceDetalji(); //moram ovdje postaviti prije nego sto budem koristio argumentsKor
     setState(() {});
     super.initState();
   }
 
-  Future<void> loadData() async {
-    var tmpPoslovnicePregled = await _poslovnicePregledProvider?.get();
+  Future<void> loadPoslovniceDetalji() async {
+    var tmpPoslovnicaPregled = widget.argumentsP;
+    var tmpPoslovnicaDetalji = await _poslovniceDetaljiProvider
+        ?.getById(widget.argumentsP.poslovnicaId!);
 
     setState(() {
-      poslovnicePregled = tmpPoslovnicePregled!;
+      poslovnicaid = widget.argumentsP.poslovnicaId!;
+      poslovnicaPregled = tmpPoslovnicaPregled;
+      poslovnicaDetalji = tmpPoslovnicaDetalji!;
+
+      // poslovnicaPregled!.nazivPoslovnice = widget.argumentsP.nazivPoslovnice;
+      // poslovnicaPregled!.emailKontakt = widget.argumentsP.emailKontakt;
+      // poslovnicaPregled!.adresa = widget.argumentsP.adresa;
+      // poslovnicaPregled!.brojTelefona = widget.argumentsP.brojTelefona;
+
+      _nazivPoslovniceController.text = poslovnicaDetalji!.nazivPoslovnice!;
+      _emailKontaktController.text = poslovnicaDetalji!.emailKontakt!;
+      _adresaController.text = poslovnicaDetalji!.adresa!;
+      _brojTelefonaController.text = poslovnicaDetalji!.brojTelefona!;
     });
   }
 
@@ -112,7 +144,7 @@ class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
                             height: 20,
                           ),
                           Text(
-                            "RentABikeWTR -Dodaj poslovnicu",
+                            "RentABikeWTR -Poslovnica - detalji",
                             style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
@@ -347,20 +379,6 @@ class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
     );
   }
 
-  bool isPostojeciNaziv(String input) {
-    var brojac = 0;
-    for (var pos in poslovnicePregled) {
-      if (input == pos.nazivPoslovnice) {
-        brojac = brojac + 1;
-      }
-    }
-    if (brojac > 0) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   void validateController() {
     if (!_formKey!.currentState!.validate()) {
       _showDialog(context, 'Error', 'Pogrešan unos pokušajte ponovo');
@@ -375,39 +393,29 @@ class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
   Future<void> _handleFormSubmission() async {
     _updatePoslovnicaData();
 
-    await _poslovniceProvider?.insert(poslovnica);
-
+    await _poslovniceDetaljiProvider?.patch(poslovnicaid, poslovnicaDetalji);
+    // currentUser = await _korisniciDetaljiProvider
+    //     ?.getProfilKorisnika(korisnikDetalji!.korisnickoIme!);
     await _showDialog(
         context, 'Success', 'Učitavaju se podaci za poslovnicu...');
+    // _updateTuristickiVodicData();
   }
 
   Future<void> _handleSubmissionError(e) async {
-    if (dupliNaziv) {
-      //   _nazivController.text = "";
-      await _showDialog(context, 'Error', 'Naziv već postoji!');
-    } else {
-      await _showDialog(context, 'Error', 'Došlo je do greške!');
-      print('Greška:Poruka o kontekstu greške $e');
-    }
+    print('Greska: Kontekst greške $e');
+    await _showDialog(context, 'Error', 'Došlo je do greške!');
   }
 
   void _updatePoslovnicaData() {
     setState(() {
-      if (!isPostojeciNaziv(_nazivPoslovniceController.text)) {
-        poslovnica!.nazivPoslovnice = _nazivPoslovniceController.text;
-      } else {
-        dupliNaziv = true;
-        _nazivPoslovniceController.text = "";
-        throw Exception(); // ovo mi je bitno da odmah baci exception, da ne prođe na API
-        //nije ubace tekst zbog naredne poruke
-      }
-
-      poslovnica!.emailKontakt = _emailKontaktController.text;
-      poslovnica!.adresa = _adresaController.text;
-      poslovnica!.brojTelefona = _brojTelefonaController.text;
+      poslovnicaDetalji!.poslovnicaId = poslovnicaid;
+      poslovnicaDetalji!.nazivPoslovnice = _nazivPoslovniceController.text;
+      poslovnicaDetalji!.emailKontakt = _emailKontaktController.text;
+      poslovnicaDetalji!.adresa = _adresaController.text;
+      poslovnicaDetalji!.brojTelefona = _brojTelefonaController.text;
 
       // Print the final value of cijena for debugging
-      print('Final : ${poslovnica?.nazivPoslovnice}');
+      print('Final Cijena: ${poslovnicaDetalji?.nazivPoslovnice}');
     });
   }
 

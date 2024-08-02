@@ -4,77 +4,102 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:email_validator/email_validator.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:rentabikewtr_desktop/model/poslovnice.dart';
-import 'package:rentabikewtr_desktop/model/poslovnicePregled.dart';
-import 'package:rentabikewtr_desktop/providers/poslovnicePregled_provider.dart';
-import 'package:rentabikewtr_desktop/providers/poslovnice_provider.dart';
-import 'package:rentabikewtr_desktop/screens/lista_poslovnice_screen.dart';
+import 'package:rentabikewtr_desktop/main.dart';
+import 'package:rentabikewtr_desktop/model/drzave.dart';
+import 'package:rentabikewtr_desktop/model/korisniciDetalji.dart';
+import 'package:rentabikewtr_desktop/model/korisniciPregled.dart';
+import 'package:rentabikewtr_desktop/model/korisniciUpsert.dart';
+import 'package:rentabikewtr_desktop/model/poziviDezurnomVoziluPregled.dart';
+import 'package:rentabikewtr_desktop/model/rezervniDijeloviDetalji.dart';
+import 'package:rentabikewtr_desktop/model/rezervniDijeloviPregled.dart';
+import 'package:rentabikewtr_desktop/model/turistRuteDetalji.dart';
+import 'package:rentabikewtr_desktop/model/turistRutePregled.dart';
+import 'package:rentabikewtr_desktop/providers/poziviDezurnomVoziluPregled_provider.dart';
+import 'package:rentabikewtr_desktop/providers/rezervniDijeloviPregled_provider.dart';
+import 'package:rentabikewtr_desktop/providers/rezervniDijelovi_detalji_provider.dart';
+
+import 'package:rentabikewtr_desktop/providers/turistRute_detalji_provider.dart';
+
+import 'package:rentabikewtr_desktop/screens/adminPortal_screen.dart';
+import 'package:rentabikewtr_desktop/screens/lista_rezervniDijelovi_screen.dart';
+
+import 'package:rentabikewtr_desktop/screens/lista_vodici_screen.dart';
 import 'package:rentabikewtr_desktop/screens/radnikPortal_screen.dart';
+import 'package:rentabikewtr_desktop/utils/util.dart';
+
+import 'package:rentabikewtr_desktop/widgets/menuAdmin.dart';
 import 'package:rentabikewtr_desktop/widgets/menuRadnik.dart';
 
-class DodajPoslovnicuScreen extends StatefulWidget {
-  const DodajPoslovnicuScreen({super.key});
+class RezervniDijeloviNaStanjuDetaljiScreen extends StatefulWidget {
+  final RezervniDijeloviPregled argumentsR;
+  const RezervniDijeloviNaStanjuDetaljiScreen(
+      {Key? key, required this.argumentsR})
+      : super(key: key);
 
   @override
-  State<DodajPoslovnicuScreen> createState() => _DodajPoslovnicuScreenState();
+  State<RezervniDijeloviNaStanjuDetaljiScreen> createState() =>
+      _RezervniDijeloviNaStanjuDetaljiScreenState();
 }
 
-class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
-  TextEditingController _nazivPoslovniceController = TextEditingController();
-  TextEditingController _emailKontaktController = TextEditingController();
-  TextEditingController _adresaController = TextEditingController();
-  TextEditingController _brojTelefonaController = TextEditingController();
+class _RezervniDijeloviNaStanjuDetaljiScreenState
+    extends State<RezervniDijeloviNaStanjuDetaljiScreen> {
+  TextEditingController _nazivRezervnogDijelaController =
+      TextEditingController();
+  TextEditingController _sifraArtiklaController = TextEditingController();
+  TextEditingController _naStanjuController = TextEditingController();
+  TextEditingController _nazivKategorijeController = TextEditingController();
+  TextEditingController _novoNaStanjuController = TextEditingController();
 
-  Poslovnice? poslovnica; //-- ako koristimo prosljeđivanje objekta
+  RezervniDijeloviDetalji?
+      rezervniDio; //-- ako koristimo prosljeđivanje objekta
 
-  bool dupliNaziv = false;
+  List<RezervniDijeloviPregled> rezervniDijeloviPregled = [];
+  RezervniDijeloviPregled? rezervniDioPregled;
+  RezervniDijeloviPregledProvider? _rezervniDijeloviPregledProvider;
+  RezervniDijeloviDetaljiProvider? _rezervniDijeloviDetaljiProvider;
 
-  List<PoslovnicePregled> poslovnicePregled = [];
-  PoslovnicePregledProvider? _poslovnicePregledProvider;
-  PoslovniceProvider? _poslovniceProvider;
+  int dioid = 0;
 
   GlobalKey<FormState>? _formKey;
 
-  bool isEmail(String input) {
-    if (EmailValidator.validate(input)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  bool isPhone(String input) =>
-      RegExp(r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$')
-          .hasMatch(input);
+  bool isCijena(String input) {
+    // This regular expression allows numbers like 1, 1.0, 12.34, 123.456, etc.
+    final RegExp regex = RegExp(r'^\d+$');
+    return regex.hasMatch(input);
+  } // potrebno za validaciju
 
   @override
   void initState() {
     _formKey = GlobalKey();
 
-    _poslovnicePregledProvider = context.read<PoslovnicePregledProvider>();
-    _poslovniceProvider = context.read<PoslovniceProvider>();
+    _rezervniDijeloviPregledProvider =
+        context.read<RezervniDijeloviPregledProvider>();
+    _rezervniDijeloviDetaljiProvider =
+        context.read<RezervniDijeloviDetaljiProvider>();
 
-    poslovnica = Poslovnice(
-      nazivPoslovnice: null,
-      emailKontakt: null,
-      adresa: null,
-      brojTelefona: null,
-    );
-
-    loadData(); //moram ovdje postaviti prije nego sto budem koristio argumentsKor
+    loadRezervniDijeloviDetalji(); //moram ovdje postaviti prije nego sto budem koristio argumentsKor
     setState(() {});
     super.initState();
   }
 
-  Future<void> loadData() async {
-    var tmpPoslovnicePregled = await _poslovnicePregledProvider?.get();
+  Future<void> loadRezervniDijeloviDetalji() async {
+    var tmpRezervniDijeloviPregled = widget.argumentsR;
+    var tmpRezervniDio = await _rezervniDijeloviDetaljiProvider
+        ?.getById(widget.argumentsR.rezervniDijeloviId!);
 
     setState(() {
-      poslovnicePregled = tmpPoslovnicePregled!;
+      dioid = widget.argumentsR.rezervniDijeloviId!;
+      rezervniDio = tmpRezervniDio;
+      _nazivRezervnogDijelaController.text = rezervniDio!.nazivRezervnogDijela!;
+      _sifraArtiklaController.text = rezervniDio!.sifraArtikla!;
+      _naStanjuController.text = rezervniDio!.naStanju!.toString();
+      _nazivKategorijeController.text = widget.argumentsR.nazivKategorije!;
     });
   }
 
@@ -112,7 +137,7 @@ class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
                             height: 20,
                           ),
                           Text(
-                            "RentABikeWTR -Dodaj poslovnicu",
+                            "RentABikeWTR -Poziv dežurnom vozilu - detalji",
                             style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
@@ -132,7 +157,7 @@ class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
                                       minWidth: 100,
                                       maxWidth: 300,
                                       minHeight: 100,
-                                      maxHeight: 430),
+                                      maxHeight: 360),
                                   // width: 300,
                                   // height: 450,
                                   child: Card(
@@ -147,94 +172,78 @@ class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
                                       child: Column(
                                         children: [
                                           TextFormField(
-                                            //readOnly: true,
+                                            readOnly: true,
                                             controller:
-                                                _nazivPoslovniceController,
+                                                _nazivRezervnogDijelaController,
                                             decoration: const InputDecoration(
                                                 border: OutlineInputBorder(),
-                                                labelText: "Naziv poslovnice",
+                                                labelText: "Rezervni dio",
                                                 hintText: 'Unesite naziv'),
                                             maxLength: 20,
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Naziv je obavezno polje.';
-                                              } else if (value
-                                                      .characters.length <
-                                                  3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera..';
-                                              } else {
-                                                return null;
-                                              }
-                                            },
-                                            autovalidateMode: AutovalidateMode
-                                                .onUserInteraction,
                                           ),
                                           TextFormField(
-                                            //readOnly: true,
-                                            controller: _emailKontaktController,
+                                            readOnly: true,
+                                            controller: _sifraArtiklaController,
                                             decoration: const InputDecoration(
                                                 border: OutlineInputBorder(),
-                                                labelText: "e-mail",
-                                                hintText: 'Unesite e-mail'),
-                                            maxLength: 30,
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'E-mail je obavezno polje';
-                                              } else if (!isEmail(value)) {
-                                                return 'Pravilno unesite e-mail.';
-                                                //   } else if (isPostojeciEmail(
-                                                //       value)) {
-                                                //     return 'Email već postoji!';
-                                              } else {
-                                                return null;
-                                              }
-                                            },
-                                            autovalidateMode: AutovalidateMode
-                                                .onUserInteraction,
-                                          ),
-                                          TextFormField(
-                                            //readOnly: true,
-                                            controller: _adresaController,
-                                            decoration: const InputDecoration(
-                                                border: OutlineInputBorder(),
-                                                labelText: "Adresa",
-                                                hintText: 'Unesite adresu'),
+                                                labelText: "Šifra artikla",
+                                                hintText: ''),
                                             maxLength: 20,
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Naziv je obavezno polje.';
-                                              } else if (value
-                                                      .characters.length <
-                                                  3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera..';
-                                              } else {
-                                                return null;
-                                              }
-                                            },
-                                            autovalidateMode: AutovalidateMode
-                                                .onUserInteraction,
                                           ),
                                           TextFormField(
-                                            //readOnly: true,
-                                            controller: _brojTelefonaController,
+                                            readOnly: true,
+                                            controller: _naStanjuController,
                                             decoration: const InputDecoration(
                                                 border: OutlineInputBorder(),
-                                                labelText: "Broj telefona",
+                                                labelText:
+                                                    "Trenutno(na stanju)",
+                                                hintText: ''),
+                                            maxLength: 20,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Flexible(
+                                child: Container(
+                                  constraints: BoxConstraints(
+                                      minWidth: 100,
+                                      maxWidth: 300,
+                                      minHeight: 100,
+                                      maxHeight: 270),
+                                  // width: 300,
+                                  // height: 450,
+                                  child: Card(
+                                    elevation: 10,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                    color: Color.fromARGB(255, 246, 249, 252),
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          16, 30, 16, 10),
+                                      child: Column(
+                                        children: [
+                                          TextFormField(
+                                            controller: _novoNaStanjuController,
+                                            minLines: 1,
+                                            maxLines: 3,
+                                            keyboardType:
+                                                TextInputType.multiline,
+                                            decoration: const InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                labelText: "Novo stanje",
                                                 hintText:
-                                                    'Unesite broj telefona'),
-                                            maxLength: 20,
+                                                    'Unesite novu količinu na stanju'),
+                                            maxLength: 5,
                                             validator: (value) {
                                               if (value == null ||
-                                                  value.isEmpty ||
-                                                  !isPhone(value)) {
-                                                return 'Telefon je obavezan.';
-                                              } else if (value
-                                                      .characters.length <
-                                                  10) {
-                                                return 'Telefon mora imati minimalno 10 karaktera.';
+                                                  value.isEmpty) {
+                                                return 'Cijena je obavezno polje.';
+                                              } else if (!isCijena(value)) {
+                                                return 'Cijena mora biti u formatu cijelog broja #';
                                               } else {
                                                 return null;
                                               }
@@ -242,7 +251,7 @@ class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
-                                          SizedBox(height: 30),
+                                          SizedBox(height: 20),
                                           Row(children: [
                                             Flexible(
                                               child: Container(
@@ -259,7 +268,7 @@ class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
                                                     Navigator.of(context).push(
                                                       MaterialPageRoute(
                                                         builder: (context) =>
-                                                            ListaPoslovniceScreen(),
+                                                            ListaRezervniDijeloviScreen(),
                                                       ),
                                                     );
                                                   },
@@ -347,18 +356,30 @@ class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
     );
   }
 
-  bool isPostojeciNaziv(String input) {
-    var brojac = 0;
-    for (var pos in poslovnicePregled) {
-      if (input == pos.nazivPoslovnice) {
-        brojac = brojac + 1;
-      }
-    }
-    if (brojac > 0) {
-      return true;
-    } else {
-      return false;
-    }
+  Future<void> _handleFormSubmission() async {
+    _updateRezervniDioData();
+
+    await _rezervniDijeloviDetaljiProvider?.patch(dioid, rezervniDio);
+
+    await _showDialog(context, 'Success',
+        'Učitavaju se podaci za novo količinu na stanju...');
+    // _updateTuristickiVodicData();
+  }
+
+  void _updateRezervniDioData() {
+    setState(() {
+      rezervniDio!.rezervniDijeloviId = dioid;
+      rezervniDio!.naStanju = int.parse(_novoNaStanjuController.text);
+
+      // }
+
+      // Print the value of _cijenaController.text for debugging
+      print('Stanje text: ${rezervniDio!.naStanju}');
+    });
+  }
+
+  Future<void> _handleSubmissionError(e) async {
+    await _showDialog(context, 'Error', 'Došlo je do greške!');
   }
 
   void validateController() {
@@ -367,48 +388,9 @@ class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
       // value is false.. textFields are rebuilt in order to show errorLabels
       return;
     } else {
-      _showDialog(context, 'Success', 'Uspješno ste editovali poslovnicu');
+      _showDialog(context, 'Success', 'Uspješno ste dodali dio na stanje');
     }
     // action WHEN values are valid
-  }
-
-  Future<void> _handleFormSubmission() async {
-    _updatePoslovnicaData();
-
-    await _poslovniceProvider?.insert(poslovnica);
-
-    await _showDialog(
-        context, 'Success', 'Učitavaju se podaci za poslovnicu...');
-  }
-
-  Future<void> _handleSubmissionError(e) async {
-    if (dupliNaziv) {
-      //   _nazivController.text = "";
-      await _showDialog(context, 'Error', 'Naziv već postoji!');
-    } else {
-      await _showDialog(context, 'Error', 'Došlo je do greške!');
-      print('Greška:Poruka o kontekstu greške $e');
-    }
-  }
-
-  void _updatePoslovnicaData() {
-    setState(() {
-      if (!isPostojeciNaziv(_nazivPoslovniceController.text)) {
-        poslovnica!.nazivPoslovnice = _nazivPoslovniceController.text;
-      } else {
-        dupliNaziv = true;
-        _nazivPoslovniceController.text = "";
-        throw Exception(); // ovo mi je bitno da odmah baci exception, da ne prođe na API
-        //nije ubace tekst zbog naredne poruke
-      }
-
-      poslovnica!.emailKontakt = _emailKontaktController.text;
-      poslovnica!.adresa = _adresaController.text;
-      poslovnica!.brojTelefona = _brojTelefonaController.text;
-
-      // Print the final value of cijena for debugging
-      print('Final : ${poslovnica?.nazivPoslovnice}');
-    });
   }
 
   Future<void> _showDialog(

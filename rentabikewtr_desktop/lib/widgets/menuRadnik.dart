@@ -14,11 +14,12 @@ import 'package:rentabikewtr_desktop/screens/dodaj_turistRutu_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_bicikli_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_dezurnaVozila_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_modeliBicikla_screen.dart';
-import 'package:rentabikewtr_desktop/screens/lista_poslovnice.dart';
-import 'package:rentabikewtr_desktop/screens/lista_poziviDezurnomVozilu.dart';
-import 'package:rentabikewtr_desktop/screens/lista_proizvodjaciBicikla.dart';
+import 'package:rentabikewtr_desktop/screens/lista_najaveOdmora_screen.dart';
+import 'package:rentabikewtr_desktop/screens/lista_poslovnice_screen.dart';
+import 'package:rentabikewtr_desktop/screens/lista_poziviDezurnomVozilu_screen.dart';
+import 'package:rentabikewtr_desktop/screens/lista_proizvodjaciBicikla_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_rezervniDijelovi_screen.dart';
-import 'package:rentabikewtr_desktop/screens/lista_servisiranja.dart';
+import 'package:rentabikewtr_desktop/screens/lista_servisiranja_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_tipoviBicikla.dart';
 import 'package:rentabikewtr_desktop/screens/lista_turistRute_screen.dart';
 import 'package:rentabikewtr_desktop/screens/periodicniIzvjestajRezervacije_screen.dart';
@@ -296,16 +297,16 @@ class MenuRadnik extends StatelessWidget {
               },
               child: const MenuAcceleratorLabel('Lista rezervnih dijelova'),
             ),
-            MenuItemButton(
-              onPressed: () async {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => DodajRezervniDioScreen(),
-                  ),
-                );
-              },
-              child: const MenuAcceleratorLabel('Dodaj rezervni dio'),
-            ),
+            // MenuItemButton(
+            //   onPressed: () async {
+            //     Navigator.of(context).push(
+            //       MaterialPageRoute(
+            //         builder: (context) => DodajRezervniDioScreen(),
+            //       ),
+            //     );
+            //   },
+            //   child: const MenuAcceleratorLabel('Dodaj rezervni dio'),
+            // ),
           ],
           child: const MenuAcceleratorLabel('&Rezervni dijelovi'),
         ),
@@ -340,7 +341,7 @@ class MenuRadnik extends StatelessWidget {
               onPressed: () async {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => ListaPoziviDezurnomVoziluScreen(),
+                    builder: (context) => ListaNajaveOdmoraScreen(),
                   ),
                 );
               },

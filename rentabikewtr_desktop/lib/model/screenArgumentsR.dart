@@ -16,7 +16,7 @@ class ScreenArgumentsR {
   //TuristRute? argumentsTR;
   TuristickiVodici? argumentsTV;
   DateTime? datumPretrage;
-  ScreenArgumentsR(this.argumentsB, this.argumentsTV, this.datumPretrage);
+  ScreenArgumentsR({this.argumentsB, this.argumentsTV, this.datumPretrage});
 }
 
 //   ScreenArgumentsR() {}

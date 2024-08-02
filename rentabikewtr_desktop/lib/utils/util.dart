@@ -8,6 +8,22 @@ class Authorization {
   static String? password;
 }
 
+class RDIsKoristenPregled {
+  int? rezervniDijeloviId;
+  String? nazivRezervnogDijela;
+  String? sifraArtikla;
+  int? naStanju; // Naziv turistickog vodica
+  String? nazivKategorije;
+  bool isKoristen;
+  RDIsKoristenPregled(
+      {this.rezervniDijeloviId,
+      this.nazivRezervnogDijela,
+      this.sifraArtikla,
+      this.naStanju,
+      this.nazivKategorije,
+      this.isKoristen = false});
+}
+
 Image imageFromBase64String(String base64String) {
   return Image.memory(base64Decode(base64String));
 }

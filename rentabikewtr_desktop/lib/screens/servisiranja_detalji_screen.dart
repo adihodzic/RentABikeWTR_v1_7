@@ -4,20 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:rentabikewtr_desktop/model/bicikliPregled.dart';
 
 import 'package:rentabikewtr_desktop/model/rezervniDijeloviDetalji.dart';
 import 'package:rentabikewtr_desktop/model/rezervniDijeloviPregled.dart';
-import 'package:rentabikewtr_desktop/model/servisiranja.dart';
 import 'package:rentabikewtr_desktop/model/servisiranjaDetalji.dart';
 import 'package:rentabikewtr_desktop/model/servisiranjaPregled.dart';
-import 'package:rentabikewtr_desktop/providers/bicikliPregled_provider.dart';
 
 import 'package:rentabikewtr_desktop/providers/rezervniDijeloviPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/rezervniDijelovi_detalji_provider.dart';
 import 'package:rentabikewtr_desktop/providers/servisiranjaPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/servisiranja_detalji_provider.dart';
-import 'package:rentabikewtr_desktop/providers/servisiranja_provider.dart';
 
 import 'package:rentabikewtr_desktop/screens/lista_servisiranja_screen.dart';
 
@@ -27,41 +23,40 @@ import 'package:rentabikewtr_desktop/utils/util.dart';
 
 import 'package:rentabikewtr_desktop/widgets/menuRadnik.dart';
 
-class DodajServisiranjeScreen extends StatefulWidget {
-  const DodajServisiranjeScreen({super.key});
+class ServisiranjaDetaljiScreen extends StatefulWidget {
+  final ServisiranjaPregled argumentsS;
+  const ServisiranjaDetaljiScreen({Key? key, required this.argumentsS})
+      : super(key: key);
 
   @override
-  State<DodajServisiranjeScreen> createState() =>
-      _DodajServisiranjeScreenState();
+  State<ServisiranjaDetaljiScreen> createState() =>
+      _ServisiranjaDetaljiScreenState();
 }
 
-class _DodajServisiranjeScreenState extends State<DodajServisiranjeScreen> {
+class _ServisiranjaDetaljiScreenState extends State<ServisiranjaDetaljiScreen> {
   TextEditingController _nazivBiciklaController = TextEditingController();
   TextEditingController _datumServisiranjaController = TextEditingController();
   TextEditingController _opisKvaraController = TextEditingController();
   TextEditingController _preduzetaAkcijaController = TextEditingController();
   TextEditingController _komentarServiseraController = TextEditingController();
 
-  //ServisiranjaPregled? argumentsS; //-- ako koristimo prosljeđivanje objekta
-  //List<ServisiranjaPregled> servisiranjaPregled = [];
+  ServisiranjaPregled? argumentsS; //-- ako koristimo prosljeđivanje objekta
+  List<ServisiranjaPregled> servisiranjaPregled = [];
 
-  //ServisiranjaDetalji? servisiranjeDetalji;
-  Servisiranja? servisiranje;
+  ServisiranjaDetalji? servisiranjeDetalji;
   RezervniDijeloviPregled? rezervniDio;
-  //List<RezervniDijeloviPregled> pocetnaListaSelected = [];
+  List<RezervniDijeloviPregled> pocetnaListaSelected = [];
   List<RezervniDijeloviPregled> lista = [];
   List<RezervniDijeloviPregled>? listaSelected = [];
 
   RezervniDijeloviDetalji dio = RezervniDijeloviDetalji();
-  //RezervniDijeloviDetalji dioPocetna = RezervniDijeloviDetalji();
+  RezervniDijeloviDetalji dioPocetna = RezervniDijeloviDetalji();
 
+  RDIsKoristenPregled? koristen;
   List<RDIsKoristenPregled>? statusLista = [];
   List<RDIsKoristenPregled>? statusListaSelected = [];
 
   int biciklid = 0;
-  List<BicikliPregled>? bicikli = [];
-  BicikliPregled? bic;
-  BicikliPregled? _selectedBic;
 
   //String title = "Dodaj";
 
@@ -69,32 +64,19 @@ class _DodajServisiranjeScreenState extends State<DodajServisiranjeScreen> {
   int? servisiranjeid;
   RezervniDijeloviPregledProvider? _rezervniDijeloviPregledProvider = null;
   RezervniDijeloviDetaljiProvider? _rezervniDijeloviDetaljiProvider = null;
-  //ServisiranjaPregledProvider? _servisiranjaPregledProvider = null;
-  //ServisiranjaDetaljiProvider? _servisiranjaDetaljiProvider = null;
-  ServisiranjaProvider? _servisiranjaProvider = null;
-  BicikliPregledProvider? _bicikliPregledProvider = null;
+  ServisiranjaPregledProvider? _servisiranjaPregledProvider = null;
+  ServisiranjaDetaljiProvider? _servisiranjaDetaljiProvider = null;
   GlobalKey<FormState>? _formKey;
 
   @override
   void initState() {
     _formKey = GlobalKey();
-    // _servisiranjaPregledProvider = context.read<ServisiranjaPregledProvider>();
-    // _servisiranjaDetaljiProvider = context.read<ServisiranjaDetaljiProvider>();
-    _servisiranjaProvider = context.read<ServisiranjaProvider>();
+    _servisiranjaPregledProvider = context.read<ServisiranjaPregledProvider>();
+    _servisiranjaDetaljiProvider = context.read<ServisiranjaDetaljiProvider>();
     _rezervniDijeloviPregledProvider =
         context.read<RezervniDijeloviPregledProvider>();
-    _bicikliPregledProvider = context.read<BicikliPregledProvider>();
 
-    servisiranje = Servisiranja(
-        opisKvara: null,
-        datumServisiranja: DateTime.now(),
-        preduzetaAkcija: null,
-        komentarServisera: null,
-        //this.nazivBicikla,
-        biciklID: null,
-        rezervniDijelovi: null);
-
-    loadData(); //moram ovdje postaviti prije nego sto budem koristio argumentsS
+    loadServisiranjaDetalji(); //moram ovdje postaviti prije nego sto budem koristio argumentsS
     setState(() {
       //DateTime? pickedDate = DateTime.now();
       //_datePickerController.text = DateFormat('dd-MM-yyyy').format(pickedDate);
@@ -102,30 +84,37 @@ class _DodajServisiranjeScreenState extends State<DodajServisiranjeScreen> {
     super.initState();
   }
 
-  Future<void> loadData() async {
+  Future<void> loadServisiranjaDetalji() async {
     var tmpLista = await _rezervniDijeloviPregledProvider?.get();
-    var tmpBicikli = await _bicikliPregledProvider?.get();
-    // pocetnaListaSelected = widget.argumentsS!.rezervniDijelovi!;
-    //var tmpservisiranjeDetalji = await _servisiranjaDetaljiProvider
-    //    ?.getById(widget.argumentsS.servisiranjeId!);
+    pocetnaListaSelected = widget.argumentsS!.rezervniDijelovi!;
+    var tmpservisiranjeDetalji = await _servisiranjaDetaljiProvider
+        ?.getById(widget.argumentsS.servisiranjeId!);
 
     setState(() {
-      // servisiranjeDetalji = tmpservisiranjeDetalji!;
-      // servisiranjeid = widget.argumentsS.servisiranjeId!;
-      // biciklid = widget.argumentsS.biciklID!;
-      // listaSelected = pocetnaListaSelected!;
-      bicikli = tmpBicikli!;
+      servisiranjeDetalji = tmpservisiranjeDetalji!;
+      servisiranjeid = widget.argumentsS.servisiranjeId!;
+      biciklid = widget.argumentsS.biciklID!;
+      listaSelected = pocetnaListaSelected!;
       lista = tmpLista!;
       statusLista = convertToStatusLista(lista); //2. dio konverzije
       statusListaSelected = convertToStatusLista(listaSelected!);
 
-      // _nazivBiciklaController.text = widget.argumentsS.nazivBicikla!;
-      dateServ = DateTime.now();
+      for (var it in statusListaSelected!) {
+        //koristen = it;
+        koristen = statusLista!.firstWhere(
+            (element) => element.rezervniDijeloviId == it.rezervniDijeloviId);
+        setState(() {
+          koristen!.isKoristen = true;
+        });
+      }
+
+      _nazivBiciklaController.text = widget.argumentsS.nazivBicikla!;
+      dateServ = widget.argumentsS.datumServisiranja!;
       _datumServisiranjaController.text =
           DateFormat('dd-MM-yyyy').format(dateServ!);
-      // _opisKvaraController.text = widget.argumentsS.opisKvara!;
-      // _preduzetaAkcijaController.text = widget.argumentsS.preduzetaAkcija ?? "";
-      // _komentarServiseraController.text = widget.argumentsS.komentarServisera!;
+      _opisKvaraController.text = widget.argumentsS.opisKvara!;
+      _preduzetaAkcijaController.text = widget.argumentsS.preduzetaAkcija ?? "";
+      _komentarServiseraController.text = widget.argumentsS.komentarServisera!;
     });
   }
 
@@ -198,53 +187,29 @@ class _DodajServisiranjeScreenState extends State<DodajServisiranjeScreen> {
                                       child: SingleChildScrollView(
                                         child: Column(
                                           children: [
-                                            Container(
-                                              alignment: Alignment.bottomLeft,
-                                              child: Text(
-                                                "Tip bicikla",
-                                                style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: Color.fromARGB(
-                                                        255, 135, 134, 134)),
-                                                textAlign: TextAlign.left,
-                                              ),
-                                            ),
-                                            DropdownButtonFormField<
-                                                BicikliPregled>(
-                                              decoration: InputDecoration(
-                                                hintText: 'Odaberite biciklo',
-                                                border: OutlineInputBorder(),
-                                              ),
-                                              value: _selectedBic,
-                                              //value: _selectedValue,
-                                              onChanged:
-                                                  (BicikliPregled? newValue) {
-                                                setState(() {
-                                                  _selectedBic = newValue;
-                                                });
-                                              },
-                                              items: bicikli!
-                                                  .map((BicikliPregled bic) {
-                                                //bilo je Drzave drzava
-                                                return DropdownMenuItem<
-                                                    BicikliPregled>(
-                                                  value: bic,
-                                                  //value: drzava,
-                                                  child:
-                                                      Text(bic.nazivBicikla!),
-                                                );
-                                              }).toList(),
+                                            TextFormField(
+                                              readOnly: true,
+                                              controller:
+                                                  _nazivBiciklaController,
+                                              decoration: const InputDecoration(
+                                                  border: OutlineInputBorder(),
+                                                  labelText: "Naziv bicikla",
+                                                  hintText: 'Unesite ime'),
+                                              maxLength: 20,
                                               validator: (value) {
-                                                if (value == null) {
-                                                  return 'Odaberite biciklo';
+                                                if (value == null ||
+                                                    value.isEmpty) {
+                                                  return 'Ime je obavezno polje.';
+                                                } else if (value
+                                                        .characters.length <
+                                                    3) {
+                                                  return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                                                } else {
+                                                  return null;
                                                 }
-                                                return null;
                                               },
                                               autovalidateMode: AutovalidateMode
                                                   .onUserInteraction,
-                                            ),
-                                            SizedBox(
-                                              height: 16,
                                             ),
                                             TextFormField(
                                               readOnly: true,
@@ -413,7 +378,7 @@ class _DodajServisiranjeScreenState extends State<DodajServisiranjeScreen> {
                                                           await _showDialog(
                                                               context,
                                                               'Success',
-                                                              'Uspješno ste kreirali podatke o servisiranju');
+                                                              'Uspješno ste editovali podatke o servisiranju');
                                                           await Navigator.of(
                                                                   context)
                                                               .push(MaterialPageRoute(
@@ -557,7 +522,8 @@ class _DodajServisiranjeScreenState extends State<DodajServisiranjeScreen> {
     await _showDialog(context, 'Success',
         'Učitavaju se promijenjeni podaci za servisiranje...');
 
-    await _servisiranjaProvider?.insert(servisiranje);
+    await _servisiranjaDetaljiProvider?.patch(
+        servisiranjeid!, servisiranjeDetalji);
   }
 
   Future<void> _handleSubmissionError(e) async {
@@ -567,19 +533,19 @@ class _DodajServisiranjeScreenState extends State<DodajServisiranjeScreen> {
 
   Future<void> _updateServisiranjeData() async {
     setState(() async {
-      // servisiranje!.servisiranjeId = servisiranjeid;
-      servisiranje?.biciklID = _selectedBic!.biciklId;
-      servisiranje!.datumServisiranja = dateServ;
-      servisiranje!.opisKvara = _opisKvaraController.text;
-      servisiranje!.preduzetaAkcija = _preduzetaAkcijaController.text;
-      servisiranje!.komentarServisera = _komentarServiseraController.text;
+      servisiranjeDetalji!.servisiranjeId = servisiranjeid;
+
+      servisiranjeDetalji!.opisKvara = _opisKvaraController.text;
+      servisiranjeDetalji!.preduzetaAkcija = _preduzetaAkcijaController.text;
+      servisiranjeDetalji!.komentarServisera =
+          _komentarServiseraController.text;
 
       if (statusListaSelected != null) {
         listaSelected = convertToLista(statusListaSelected!);
-        servisiranje!.rezervniDijelovi = listaSelected;
+        servisiranjeDetalji!.rezervniDijelovi = listaSelected;
       } else {
         listaSelected = null;
-        servisiranje!.rezervniDijelovi = null;
+        servisiranjeDetalji!.rezervniDijelovi = null;
       }
 
       print('Serviser(Komentar) text: ${_komentarServiseraController.text}');
@@ -587,23 +553,21 @@ class _DodajServisiranjeScreenState extends State<DodajServisiranjeScreen> {
   }
 
 //ovdje u buttonSubmission se smanjuje naStanju, ali mora proci kroz petlju u API-ju.
-//mogla bi se obrisati e.naStanju - 1, pa dodati u petlji u API-ju. To je ispravljeno.
+//mogla bi se obrisati e.naStanju - 1, pa dodati u petlji u API-ju
 //u API-ju se povecava naStanju
-
   bool _handleButtonSubmission(RDIsKoristenPregled e) {
     setState(() {
       if (statusListaSelected != null) {
         if (e.isKoristen == false && (e.naStanju as int) == 0) {
           throw Exception(_showDialog(
-              context, "Greška", "Nema rezervnog dijela na stanju!"));
+              context, 'Error', 'Nema rezervnog dijela na stanju!'));
         } else if (e.isKoristen == false && (e.naStanju as int) > 0) {
           e.isKoristen = true;
           //e.naStanju = (e.naStanju as int) - 1;
-          //provjeriti da li je problem kada se vise puta klikne na dugme bez spasavanja podataka (naStanju)
           statusListaSelected!.add(e);
         } else {
           e.isKoristen = false;
-          //e.naStanju = (e.naStanju as int) + 1;
+          e.naStanju = (e.naStanju as int) + 1;
           statusListaSelected!.removeWhere(
               (element) => element.rezervniDijeloviId == e.rezervniDijeloviId);
         }
@@ -620,7 +584,7 @@ class _DodajServisiranjeScreenState extends State<DodajServisiranjeScreen> {
       return;
     } else {
       _showDialog(context, 'Success',
-          'Uspješno ste kreirali podatke o servisiranju!!!');
+          'Uspješno ste editovali podatke o servisiranju!!!');
     }
   }
 

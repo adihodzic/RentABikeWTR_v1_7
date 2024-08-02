@@ -110,6 +110,32 @@ abstract class BaseProvider<T> with ChangeNotifier {
     }
   }
 
+  Future<List<T?>> getServisiranjaPregled([int? id]) async {
+    var url = "$_baseUrl$_endpoint";
+    if (id != null) {
+      //String queryString = getQueryString(id);
+      url = url + "?" + "id=$id";
+      //{(DateTime.parse(search) as DateTime).toIso8601String()}";
+    }
+
+    var uri = Uri.parse(url);
+
+    Map<String, String> headers = createHeaders();
+
+    var response = await http!.get(uri, headers: headers);
+
+    if (isValidResponseCode(response)) {
+      var data = jsonDecode(response.body);
+      return data.map((x) => fromJson(x)).cast<T>().toList();
+      //T data = jsonDecode(response.body).cast<T>();
+      //['data'];
+      //return data! as T?; //ovo je ChatGPT predlozio
+      //return fromJson(data) as T?;
+    } else {
+      throw Exception("Exception... handle this gracefully");
+    }
+  }
+
   Future<List<T?>> getRezervacijeDostupni([dynamic search]) async {
     var url = "$_baseUrl$_endpoint";
 
@@ -167,6 +193,30 @@ abstract class BaseProvider<T> with ChangeNotifier {
   }
 
   Future<List<T?>> getPoziviPregled(DateTime search, DateTime search2) async {
+    var url = "$_baseUrl$_endpoint";
+
+    if (search != null && search2 != null) {
+      //String queryString = getQueryString(search);
+      url = url + "?" + "datumOd=$search&datumDo=$search2";
+      //{(DateTime.parse(search) as DateTime).toIso8601String()}";
+    }
+
+    var uri = Uri.parse(url);
+    //var url = Uri.parse("$_baseUrl$_endpoint?datumIzdavanja=$datumIzdavanja");
+
+    Map<String, String> headers = createHeaders();
+
+    var response = await http!.get(uri, headers: headers);
+
+    if (isValidResponseCode(response)) {
+      var data = jsonDecode(response.body);
+      return data.map((x) => fromJson(x)).cast<T>().toList();
+    } else {
+      throw Exception("Exception... handle this gracefully");
+    }
+  }
+
+  Future<List<T?>> getNajavePregled(DateTime search, DateTime search2) async {
     var url = "$_baseUrl$_endpoint";
 
     if (search != null && search2 != null) {

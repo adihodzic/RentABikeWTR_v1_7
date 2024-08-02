@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rentabikewtr_desktop/model/kupci.dart';
-import 'package:rentabikewtr_desktop/model/poziviDezurnomVoziluPregled.dart';
-import 'package:rentabikewtr_desktop/model/proizvodjaciBiciklaPregled.dart';
-import 'package:rentabikewtr_desktop/model/velicineBiciklaPregled.dart';
-import 'package:rentabikewtr_desktop/model/xRezervacije.dart';
 import 'package:rentabikewtr_desktop/providers/bicikliPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/bicikli_detalji_provider.dart';
 import 'package:rentabikewtr_desktop/providers/bicikli_provider.dart';
@@ -11,6 +6,7 @@ import 'package:rentabikewtr_desktop/providers/dezurnaVozilaPregled_provider.dar
 import 'package:rentabikewtr_desktop/providers/dezurnaVozila_detalji_provider.dart';
 import 'package:rentabikewtr_desktop/providers/dezurnaVozila_provider.dart';
 import 'package:rentabikewtr_desktop/providers/drzave_provider.dart';
+import 'package:rentabikewtr_desktop/providers/kategorijeDijelovaPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/korisniciDetalji_provider.dart';
 import 'package:rentabikewtr_desktop/providers/korisniciPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/korisniciRezervacijePregled_provider.dart';
@@ -19,13 +15,21 @@ import 'package:rentabikewtr_desktop/providers/kupci_provider.dart';
 import 'package:rentabikewtr_desktop/providers/modeliBiciklaDetalji_provider.dart';
 import 'package:rentabikewtr_desktop/providers/modeliBiciklaPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/modeliBicikla_provider.dart';
+import 'package:rentabikewtr_desktop/providers/najaveOdmoraPregled_provider.dart';
+import 'package:rentabikewtr_desktop/providers/poslovniceDetalji_provider.dart';
 import 'package:rentabikewtr_desktop/providers/poslovnicePregled_provider.dart';
+import 'package:rentabikewtr_desktop/providers/poslovnice_provider.dart';
 import 'package:rentabikewtr_desktop/providers/poziviDezurnomVoziluPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/poziviDezurnomVozilu_provider.dart';
 import 'package:rentabikewtr_desktop/providers/proizvodjaciBiciklaPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/rezervacijeBiciklDostupni_provider.dart';
 import 'package:rentabikewtr_desktop/providers/rezervacijeBicikl_provider.dart';
 import 'package:rentabikewtr_desktop/providers/rezervacije_provider.dart';
+import 'package:rentabikewtr_desktop/providers/rezervniDijeloviPregled_provider.dart';
+import 'package:rentabikewtr_desktop/providers/rezervniDijelovi_detalji_provider.dart';
+import 'package:rentabikewtr_desktop/providers/servisiranjaPregled_provider.dart';
+import 'package:rentabikewtr_desktop/providers/servisiranja_detalji_provider.dart';
+import 'package:rentabikewtr_desktop/providers/servisiranja_provider.dart';
 import 'package:rentabikewtr_desktop/providers/tipoviBiciklaPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/tipoviBicikla_provider.dart';
 import 'package:rentabikewtr_desktop/providers/tipoviBicikla_detalji_provider.dart';
@@ -82,6 +86,8 @@ void main() async {
       ChangeNotifierProvider(create: (_) => KupciProvider()),
       ChangeNotifierProvider(create: (_) => XRezervacijeResultProvider()),
       ChangeNotifierProvider(create: (_) => PoslovnicePregledProvider()),
+      ChangeNotifierProvider(create: (_) => PoslovniceDetaljiProvider()),
+      ChangeNotifierProvider(create: (_) => PoslovniceProvider()),
       ChangeNotifierProvider(create: (_) => TipoviBiciklaProvider()),
       ChangeNotifierProvider(
           create: (_) => PoziviDezurnomVoziluPregledProvider()),
@@ -89,6 +95,14 @@ void main() async {
       ChangeNotifierProvider(create: (_) => DezurnaVozilaPregledProvider()),
       ChangeNotifierProvider(create: (_) => DezurnaVozilaDetaljiProvider()),
       ChangeNotifierProvider(create: (_) => DezurnaVozilaProvider()),
+      ChangeNotifierProvider(create: (_) => RezervniDijeloviPregledProvider()),
+      ChangeNotifierProvider(
+          create: (_) => KategorijeDijelovaPregledProvider()),
+      ChangeNotifierProvider(create: (_) => RezervniDijeloviDetaljiProvider()),
+      ChangeNotifierProvider(create: (_) => ServisiranjaPregledProvider()),
+      ChangeNotifierProvider(create: (_) => ServisiranjaDetaljiProvider()),
+      ChangeNotifierProvider(create: (_) => ServisiranjaProvider()),
+      ChangeNotifierProvider(create: (_) => NajaveOdmoraPregledProvider()),
     ],
     child: const MyMaterialApp(),
   ));

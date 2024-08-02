@@ -56,7 +56,7 @@ import 'package:rentabikewtr_desktop/screens/dodaj_korisnika_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_vodica_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_bicikli_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_korisnici_screen.dart';
-import 'package:rentabikewtr_desktop/screens/lista_poziviDezurnomVozilu.dart';
+import 'package:rentabikewtr_desktop/screens/lista_poziviDezurnomVozilu_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_turistRute_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_vodici_screen.dart';
 import 'package:rentabikewtr_desktop/screens/periodicniIzvjestajRezervacije_screen.dart';

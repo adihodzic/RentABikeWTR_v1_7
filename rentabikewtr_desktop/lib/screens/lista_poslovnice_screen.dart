@@ -2,70 +2,38 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:rentabikewtr_desktop/main.dart';
-import 'package:rentabikewtr_desktop/model/bicikliPregled.dart';
-import 'package:rentabikewtr_desktop/model/kategorijeDijelovaPregled.dart';
-import 'package:rentabikewtr_desktop/model/proizvodjaciBiciklaPregled.dart';
-import 'package:rentabikewtr_desktop/model/rezervniDijeloviPregled.dart';
-import 'package:rentabikewtr_desktop/model/tipoviBiciklaPregled.dart';
-import 'package:rentabikewtr_desktop/model/turistickiVodici.dart';
-import 'package:rentabikewtr_desktop/providers/bicikliPregled_provider.dart';
-import 'package:rentabikewtr_desktop/providers/kategorijeDijelovaPregled_provider.dart';
-import 'package:rentabikewtr_desktop/providers/proizvodjaciBiciklaPregled_provider.dart';
-import 'package:rentabikewtr_desktop/providers/rezervniDijeloviPregled_provider.dart';
-import 'package:rentabikewtr_desktop/providers/tipoviBiciklaPregled_provider.dart';
-import 'package:rentabikewtr_desktop/providers/turistickiVodiciPregled_provider.dart';
-import 'package:rentabikewtr_desktop/providers/turistickiVodici_provider.dart';
-import 'package:rentabikewtr_desktop/screens/adminPortal_screen.dart';
-import 'package:rentabikewtr_desktop/screens/bicikli_detalji_screen.dart';
-import 'package:rentabikewtr_desktop/screens/dodaj_korisnika_screen.dart';
-import 'package:rentabikewtr_desktop/screens/dodaj_vodica_screen.dart';
-import 'package:rentabikewtr_desktop/screens/lista_korisnici_screen.dart';
-import 'package:rentabikewtr_desktop/screens/periodicniIzvjestajRezervacije_screen.dart';
-import 'package:rentabikewtr_desktop/screens/rezervacija_korak1_screen.dart';
-import 'package:rentabikewtr_desktop/screens/rezervacija_listaRezervacija_screen.dart';
-import 'package:rentabikewtr_desktop/screens/rezervniDijeloviNaStanju_detalji_screen.dart';
-import 'package:rentabikewtr_desktop/screens/vodici_detalji_screen.dart';
-import 'package:rentabikewtr_desktop/utils/util.dart';
+import 'package:rentabikewtr_desktop/model/poslovnicePregled.dart';
+import 'package:rentabikewtr_desktop/providers/poslovnicePregled_provider.dart';
+import 'package:rentabikewtr_desktop/screens/poslovnice_detalji_screen.dart';
 import 'package:rentabikewtr_desktop/widgets/menuRadnik.dart';
 
-class ListaRezervniDijeloviScreen extends StatefulWidget {
-  const ListaRezervniDijeloviScreen({super.key});
+class ListaPoslovniceScreen extends StatefulWidget {
+  const ListaPoslovniceScreen({super.key});
 
   @override
-  State<ListaRezervniDijeloviScreen> createState() =>
-      _ListaRezervniDijeloviScreenState();
+  State<ListaPoslovniceScreen> createState() => _ListaPoslovniceScreenState();
 }
 
-class _ListaRezervniDijeloviScreenState
-    extends State<ListaRezervniDijeloviScreen> {
-  RezervniDijeloviPregledProvider? _rezervniDijeloviPregledProvider = null;
-  //KategorijeDijelovaPregledProvider? _kategorijeDijelovaPregledProvider = null;
-  //CartProvider? _cartProvider = null;
-  //List<KategorijeDijelovaPregled> dataKategorije = [];
-  // KategorijeDijelovaPregled? kategorijaDijelova;
-  List<RezervniDijeloviPregled> data = [];
-  RezervniDijeloviPregled? dio;
+class _ListaPoslovniceScreenState extends State<ListaPoslovniceScreen> {
+  PoslovnicePregledProvider? _poslovnicePregledProvider = null;
+
+  List<PoslovnicePregled> data = [];
+  PoslovnicePregled? poslovnica;
   TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _rezervniDijeloviPregledProvider =
-        context.read<RezervniDijeloviPregledProvider>();
-    // _kategorijeDijelovaPregledProvider =
-    //     context.read<KategorijeDijelovaPregledProvider>();
+    _poslovnicePregledProvider = context.read<PoslovnicePregledProvider>();
     // _cartProvider = context.read<CartProvider>();
     print("called initState");
     loadData();
   }
 
   Future loadData() async {
-    //var tmpDataKategorije = await _kategorijeDijelovaPregledProvider?.get(null);
-    var tmpData = await _rezervniDijeloviPregledProvider?.get(null);
+    var tmpData = await _poslovnicePregledProvider?.get(null);
     setState(() {
-      // dataKategorije = tmpDataKategorije!;
       data = tmpData!;
     });
   }
@@ -105,7 +73,7 @@ class _ListaRezervniDijeloviScreenState
                         ),
 
                         Text(
-                          "RentABikeWTR -Lista rezervnih dijelova",
+                          "RentABikeWTR -Lista poslovnica",
                           style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
@@ -165,13 +133,13 @@ class _ListaRezervniDijeloviScreenState
                 print("login proceed");
                 //Navigator.of(context).pop();
 
-                var tmpdata = await _rezervniDijeloviPregledProvider?.get();
+                var tmpdata = await _poslovnicePregledProvider?.get();
 
                 setState(() {
                   data = tmpdata!;
                 });
 
-                print("data: ${data[0].nazivRezervnogDijela}");
+                print("data: ${data[0].nazivPoslovnice}");
               },
               child: Text("Pretraga")),
           SizedBox(
@@ -213,7 +181,7 @@ class _ListaRezervniDijeloviScreenState
             const DataColumn(
               label: Expanded(
                 child: Text(
-                  'Naziv rezervnog dijela',
+                  'Naziv poslovnice',
                   style: TextStyle(fontStyle: FontStyle.italic),
                 ),
               ),
@@ -221,7 +189,7 @@ class _ListaRezervniDijeloviScreenState
             const DataColumn(
               label: Expanded(
                 child: Text(
-                  'Šifra artikla',
+                  'e-mail',
                   style: TextStyle(fontStyle: FontStyle.italic),
                 ),
               ),
@@ -229,7 +197,7 @@ class _ListaRezervniDijeloviScreenState
             const DataColumn(
               label: Expanded(
                 child: Text(
-                  'Na stanju (kom.)',
+                  'Adresa',
                   style: TextStyle(fontStyle: FontStyle.italic),
                 ),
               ),
@@ -237,52 +205,36 @@ class _ListaRezervniDijeloviScreenState
             const DataColumn(
               label: Expanded(
                 child: Text(
-                  'Naziv kategorije',
+                  'Broj telefona',
                   style: TextStyle(fontStyle: FontStyle.italic),
                 ),
               ),
             ),
-            // const DataColumn(
-            //   label: Expanded(
-            //     child: Text(
-            //       'Slika',
-            //       style: TextStyle(fontStyle: FontStyle.italic),
-            //     ),
-            //   ),
-            // ),
           ],
           rows: data
-                  .map((RezervniDijeloviPregled e) => DataRow(
+                  .map((PoslovnicePregled e) => DataRow(
                           onSelectChanged: (selected) => {
                                 if (selected == true)
                                   {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            RezervniDijeloviNaStanjuDetaljiScreen(
-                                          argumentsR: e,
+                                            PoslovniceDetaljiScreen(
+                                          argumentsP: e,
                                         ),
                                       ),
                                     )
                                   }
                               },
                           cells: [
-                            DataCell(
-                                Text(e.rezervniDijeloviId?.toString() ?? "")),
-                            DataCell(Text(e.nazivRezervnogDijela ?? "")),
-                            DataCell(Text(e.sifraArtikla ?? "")),
-                            DataCell(Text(e.naStanju.toString() ?? "")),
-                            DataCell(Text(e.nazivKategorije ?? "")),
-
+                            DataCell(Text(e.poslovnicaId?.toString() ?? "")),
+                            DataCell(Text(e.nazivPoslovnice ?? "")),
+                            DataCell(Text(e.emailKontakt ?? "")),
+                            DataCell(Text(e.adresa ?? "")),
+                            DataCell(Text(e.brojTelefona ?? "")),
+                            // DataCell(Text(e.cijenaRute.toString())),
+                            // // DataCell(Text(e.nazivTipa ?? "")),
                             //DataCell(Text())
-                            //DataCell(Text(formatNumber(e.cijena))),
-                            // DataCell(e.slika != ""
-                            //     ? Container(
-                            //         width: 100,
-                            //         height: 100,
-                            //         child: imageFromBase64String(e.slika ?? ""),
-                            //       )
-                            //     : Text(""))
                           ]))
                   .toList() ??
               []),
