@@ -6,10 +6,14 @@ part 'bicikli.g.dart';
 
 @JsonSerializable()
 class Bicikli {
-  int? biciklId;
+  int? biciklID;
   String? nazivBicikla;
-  String? model;
-  String? tipBicikla;
+  num? cijenaBicikla;
+  String? nazivProizvodjaca;
+  String? nazivModela;
+  String? nazivTipa;
+  String? boja;
+  String? nazivPoslovnice;
   String? slika;
 
   Bicikli() {}

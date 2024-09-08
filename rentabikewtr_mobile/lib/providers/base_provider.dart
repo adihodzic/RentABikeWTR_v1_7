@@ -17,7 +17,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
   BaseProvider(String endpoint) {
     _baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue:
-            "https://10.0.2.2:44335/api/"); // localhost kad koristim windows prikaz a pisalo je 44346 44335 24257 za http
+            "http://10.0.2.2:44335/api/"); // localhost kad koristim windows prikaz a pisalo je 44346 44335 24257 za http
     print("baseurl: $_baseUrl");
 
     if (_baseUrl!.endsWith("/") == false) {
@@ -25,7 +25,19 @@ abstract class BaseProvider<T> with ChangeNotifier {
     }
 
     _endpoint = endpoint;
-    client.badCertificateCallback = (cert, host, port) => true;
+
+    // HttpClient createHttpClient(SecurityContext? context) {
+    //   final httpClient = HttpClient(context: context);
+    //   httpClient.badCertificateCallback =
+    //       (X509Certificate cert, String host, int port) => true;
+    //   return httpClient;
+    // }
+
+    final client = HttpClient();
+    client.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+
+    //client.badCertificateCallback = (cert, host, port) => true;
     http = IOClient(client);
   }
 
@@ -85,6 +97,56 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
   Future<List<T>> getRezervacijeKupac(int id) async {
     var url = Uri.parse("$_baseUrl$_endpoint?id=$id");
+
+    // if (id != null) {
+    //   String queryString = getQueryString(id);
+    //   url = url + "?" + queryString;
+    // }
+
+    //var uri = Uri.parse(url);
+
+    Map<String, String> headers = createHeaders();
+
+    var response = await http!.get(url, headers: headers);
+
+    if (isValidResponseCode(response)) {
+      var data = jsonDecode(response.body);
+      return data.map((x) => fromJson(x)).cast<T>().toList();
+    } else {
+      throw Exception("Exception... handle this gracefully");
+    }
+  }
+
+  Future<List<T?>> getRezervacijeDostupni([dynamic search]) async {
+    var url = "$_baseUrl$_endpoint";
+
+    if (search != null) {
+      //String queryString = getQueryString(search);
+      url = url + "?" + "datumIzdavanja=$search";
+      //{(DateTime.parse(search) as DateTime).toIso8601String()}";
+    }
+
+    var uri = Uri.parse(url);
+    //var url = Uri.parse("$_baseUrl$_endpoint?datumIzdavanja=$datumIzdavanja");
+
+    Map<String, String> headers = createHeaders();
+
+    var response = await http!.get(uri, headers: headers);
+
+    if (isValidResponseCode(response)) {
+      var data = jsonDecode(response.body);
+      return data.map((x) => fromJson(x)).cast<T>().toList();
+      //T data = jsonDecode(response.body).cast<T>();
+      //['data'];
+      //return data! as T?; //ovo je ChatGPT predlozio
+      //return fromJson(data) as T?;
+    } else {
+      throw Exception("Exception... handle this gracefully");
+    }
+  }
+
+  Future<List<T>> recommend(int id) async {
+    var url = Uri.parse("$_baseUrl$_endpoint/$id/Recommend");
 
     // if (id != null) {
     //   String queryString = getQueryString(id);

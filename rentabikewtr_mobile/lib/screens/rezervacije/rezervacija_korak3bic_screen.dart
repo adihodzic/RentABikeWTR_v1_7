@@ -1,9 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:rentabikewtr_mobile/model/checkoutArguments.dart';
+import 'package:rentabikewtr_mobile/model/korisniciProfil.dart';
 import 'package:rentabikewtr_mobile/model/rezervacije.dart';
 import 'package:rentabikewtr_mobile/providers/rezervacije_provider.dart';
+import 'package:rentabikewtr_mobile/widgets/header_widget.dart';
 //import 'package:rentabikewtr_mobile/widgets/eprodaja_drawer.dart';
 import 'package:rentabikewtr_mobile/widgets/master_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,7 +22,12 @@ import '../../utils/util.dart';
 import 'checkout_page.dart';
 
 class RezervacijaKorak3bicScreen extends StatelessWidget {
-  Bicikli argumentsBic;
+  String title = "Rezervacija bicikla-plaćanje";
+  //String cijena = argumentsBiciklo.cijenaBicikla.toString();
+  final TextEditingController _cijenaUslugeController = TextEditingController();
+  Bicikli argumentsBiciklo;
+  KorisniciProfil argumentsKorisnik;
+  DateTime argumentsDate;
   //Rezervacije rez = Rezervacije();
   double cijenaUsluge = 10.0;
   DateTime datumIzdavanja = DateTime.now();
@@ -29,13 +37,17 @@ class RezervacijaKorak3bicScreen extends StatelessWidget {
 
   late RezervacijeProvider _rezervacijeProvider;
 
-  RezervacijaKorak3bicScreen({Key? key, required this.argumentsBic})
+  RezervacijaKorak3bicScreen(
+      {Key? key,
+      required this.argumentsBiciklo,
+      required this.argumentsKorisnik,
+      required this.argumentsDate})
       : super(key: key);
   static const String routeName = "/rezervacijebic_placanje";
 
   Future<String> makeRequest() async {
     var url = Uri.parse(
-        'https://10.0.2.2:44335/api/Sesija?nazivBicikla=${argumentsBic.nazivBicikla}');
+        'https://10.0.2.2:44335/api/Sesija?nazivBicikla=${argumentsBiciklo.nazivBicikla}&cijenaBicikla=${argumentsBiciklo.cijenaBicikla}');
 
     var headers = {
       'accept': 'text/plain',
@@ -65,65 +77,198 @@ class RezervacijaKorak3bicScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Rezervacija bicikla-placanje'),
-      ),
-      body: ListView(
+    return MasterScreenWidget(
+      argumentsKor: argumentsKorisnik,
+      child: ListView(
         scrollDirection: Axis.vertical,
         children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(32.0),
-            // Name and Release date are in the same column
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Code to create the view for name.
-                Container(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Text(
-                    "Original Name: " + argumentsBic.nazivBicikla!,
+          HeaderWidget(title: title),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      //Container je bio ili SizedBox
+                      height: 100, //bio je height
+                      width: 150, //bio je width i kasnije 100
+
+                      child: imageFromBase64String(argumentsBiciklo.slika!)),
+                ),
+                //ovo je bilo prije x.slika!
+              ),
+              ////////////////////////////////////////////
+
+              // // Code to create the view for name.
+              // Container(
+              //   padding: const EdgeInsets.only(bottom: 8.0),
+              //   child: Text(
+              //     argumentsBiciklo.nazivBicikla!,
+              //     style: TextStyle(
+              //       fontWeight: FontWeight.normal,
+              //     ),
+              //   ),
+              // ),
+              // // Code to create the view for release date.
+              // Container(
+              //   height: 200,
+              //   width: 200,
+              //   child: imageFromBase64String(argumentsBiciklo.slika!),
+              // ),
+              Text(argumentsBiciklo.nazivBicikla!),
+              // //Text("Datum preuzimanja: " + rez.datumIzdavanja!.day.toString()),
+              // Text("Datum preuzimanja: " + datumIzdavanja.day.toString()),
+              // Text("Cijena usluge: " + cijenaUsluge.toString()),
+
+              // Container(),
+              SizedBox(
+                height: 50,
+              ),
+              Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                color: Color.fromARGB(255, 246, 249, 252),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    initialValue:
+                        DateFormat('dd-MM-yyyy').format(argumentsDate),
+                    readOnly: true,
+                    //controller: _datumPreuzimanjaController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Datum preuzimanja",
+                      labelStyle: TextStyle(color: Colors.blue),
+                      hintText: '',
+                      suffixIcon: Icon(Icons.calendar_view_day),
+                      suffixIconColor: Color.fromRGBO(239, 247, 5, 0.98),
+                    ),
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
                     ),
                   ),
                 ),
-                // Code to create the view for release date.
-                Container(
-                  height: 200,
-                  width: 200,
-                  child: imageFromBase64String(argumentsBic.slika!),
+              ),
+///////////////////////////////////////////////////////////////////////////////////////
+              Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
-                Text("Naziv bicikla: " + argumentsBic.nazivBicikla!),
-                //Text("Datum preuzimanja: " + rez.datumIzdavanja!.day.toString()),
-                Text("Datum preuzimanja: " + datumIzdavanja.day.toString()),
-                Text("Cijena usluge: " + cijenaUsluge.toString()),
+                color: Color.fromARGB(255, 246, 249, 252),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    initialValue: argumentsBiciklo.cijenaBicikla.toString(),
+                    readOnly: true,
+                    //controller: _cijenaUslugeController(text:argumentsBiciklo.cijenaBicikla),
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Cijena",
+                      labelStyle: TextStyle(color: Colors.blue),
+                      hintText: '',
+                      suffixIcon: Icon(Icons.price_change),
+                      suffixIconColor: Color.fromRGBO(239, 247, 5, 0.98),
+                    ),
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+///////////////////////////////////////////////////////////////////////////
+              ///
+              ///
+              ///
+              Row(
+                //crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: Card(
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      //color: Color.fromRGBO(143, 148, 251, .6),
+                      color: Color.fromARGB(233, 120, 180, 229),
 
-                Container(),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0), //prosiren inkWell
+                        child: InkWell(
+                          child: Center(
+                              child: Text("Izvrši plaćanje",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold))),
+                          onTap: () async {
+                            try {
+                              await makeRequest();
+                              Navigator.pushNamed(
+                                context,
+                                "${CheckoutPage.routeName}", //moram prepraviti
+                                arguments: CheckoutArguments(
+                                    sesijaId,
+                                    argumentsBiciklo,
+                                    argumentsKorisnik,
+                                    argumentsDate),
+                              );
+                            } catch (e) {
+                              throw Exception("Došlo je do greške");
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
 
-                Container(
-                  padding: EdgeInsets.all(2),
+              ///
+              ///
+              ///
+              Container(
+                padding: EdgeInsets.all(2),
+                child: Center(
+                    child: InkWell(
                   child: Center(
-                      child: ElevatedButton(
-                    child: Text("Izvrši plaćanje"),
-                    onPressed: () async {
+                      child: Text("Izvrši plaćanje",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold))),
+                  onTap: () async {
+                    try {
                       await makeRequest();
                       Navigator.pushNamed(
                         context,
                         "${CheckoutPage.routeName}", //moram prepraviti
-                        arguments: CheckoutArguments(sesijaId, argumentsBic),
+                        arguments: CheckoutArguments(sesijaId, argumentsBiciklo,
+                            argumentsKorisnik, argumentsDate),
                       );
-                    },
-                  )),
-                ),
-              ],
-            ),
+                    } catch (e) {
+                      throw Exception("Došlo je do greške");
+                    }
+                  },
+                )),
+              ),
+            ],
           ),
           //Icon to indicate the rating.
-          new Icon(
-            Icons.star,
-            color: Colors.red[500],
-          ),
+          // new Icon(
+          //   Icons.star,
+          //   color: Colors.red[500],
+          // ),
           //       //new Text('${bic.voteAverage}'),
         ],
       ),

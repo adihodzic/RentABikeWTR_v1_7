@@ -2,6 +2,7 @@
 using RentABikeWTR_v1_7.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -129,7 +130,7 @@ namespace RentABikeWTR_v1_7.Services.Database
                 Email = "admin1@mailovi.ba",
                 LozinkaSalt = "l2nwgA/slaq/gpcmdxY4Cg==",
                 LozinkaHash = "/JJNPyNrfNWniBdOIFOA+Kax2Ko=",
-                DatumRegistracije = Convert.ToDateTime("08.05.2020"),
+                DatumRegistracije = DateTime.ParseExact("08.05.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture),
                 UlogaID = 1,
                 Aktivan = true,
                 Telefon = "033/112211",
@@ -144,7 +145,7 @@ namespace RentABikeWTR_v1_7.Services.Database
                 Email = "admin2@mailovi.ba",
                 LozinkaSalt = "l2nwgA/slaq/gpcmdxY4Cg==",
                 LozinkaHash = "/JJNPyNrfNWniBdOIFOA+Kax2Ko=",
-                DatumRegistracije = Convert.ToDateTime("08.05.2020"),
+                DatumRegistracije = DateTime.ParseExact("08.05.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture),
                 UlogaID = 1,
                 Aktivan = true,
                 Telefon = "036/112222",
@@ -159,7 +160,7 @@ namespace RentABikeWTR_v1_7.Services.Database
                 Email = "radnik@mailovi.ba",
                 LozinkaSalt = "l2nwgA/slaq/gpcmdxY4Cg==",
                 LozinkaHash = "/JJNPyNrfNWniBdOIFOA+Kax2Ko=",
-                DatumRegistracije = Convert.ToDateTime("08.05.2020"),
+                DatumRegistracije = DateTime.ParseExact("08.05.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture),
                 UlogaID = 2,
                 Aktivan = true,
                 Telefon = "036/112233",
@@ -175,7 +176,7 @@ namespace RentABikeWTR_v1_7.Services.Database
                 Email = "vodicbhs@mailovi.ba",
                 LozinkaSalt = "l2nwgA/slaq/gpcmdxY4Cg==",
                 LozinkaHash = "/JJNPyNrfNWniBdOIFOA+Kax2Ko=",
-                DatumRegistracije = Convert.ToDateTime("08.05.2020"),
+                DatumRegistracije = DateTime.ParseExact("08.05.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture),
                 UlogaID = 3,
                 Aktivan = true,
                 Telefon = "036/112234",
@@ -192,7 +193,7 @@ namespace RentABikeWTR_v1_7.Services.Database
                 Email = "vodice@mailovi.ba",
                 LozinkaSalt = "l2nwgA/slaq/gpcmdxY4Cg==",
                 LozinkaHash = "/JJNPyNrfNWniBdOIFOA+Kax2Ko=",
-                DatumRegistracije = Convert.ToDateTime("08.05.2020"),
+                DatumRegistracije = DateTime.ParseExact("08.05.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture),
                 UlogaID = 3,
                 Aktivan = true,
                 Telefon = "036/112235",
@@ -208,7 +209,7 @@ namespace RentABikeWTR_v1_7.Services.Database
                 Email = "vodicnj@mailovi.ba",
                 LozinkaSalt = "l2nwgA/slaq/gpcmdxY4Cg==",
                 LozinkaHash = "/JJNPyNrfNWniBdOIFOA+Kax2Ko=",
-                DatumRegistracije = Convert.ToDateTime("08.05.2020"),
+                DatumRegistracije = DateTime.ParseExact("08.05.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture),
                 UlogaID = 3,
                 Aktivan = true,
                 Telefon = "036/112236",
@@ -224,7 +225,7 @@ namespace RentABikeWTR_v1_7.Services.Database
                 Email = "test@mailovi.ba",
                 LozinkaSalt = "l2nwgA/slaq/gpcmdxY4Cg==",
                 LozinkaHash = "/JJNPyNrfNWniBdOIFOA+Kax2Ko=",
-                DatumRegistracije = Convert.ToDateTime("08.05.2020"),
+                DatumRegistracije = DateTime.ParseExact("08.05.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture),
                 UlogaID = 4,
                 Aktivan = true,
                 Telefon = "036/112237",
@@ -240,7 +241,7 @@ namespace RentABikeWTR_v1_7.Services.Database
                 Email = "kupac8@mailovi.ba",
                 LozinkaSalt = "l2nwgA/slaq/gpcmdxY4Cg==",
                 LozinkaHash = "/JJNPyNrfNWniBdOIFOA+Kax2Ko=",
-                DatumRegistracije = Convert.ToDateTime("08.05.2020"),
+                DatumRegistracije = DateTime.ParseExact("08.05.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture),
                 UlogaID = 4,
                 Aktivan = true,
                 Telefon = "036/1122388",
@@ -255,7 +256,7 @@ namespace RentABikeWTR_v1_7.Services.Database
                 Email = "kupac9@mailovi.ba",
                 LozinkaSalt = "l2nwgA/slaq/gpcmdxY4Cg==",
                 LozinkaHash = "/JJNPyNrfNWniBdOIFOA+Kax2Ko=",
-                DatumRegistracije = Convert.ToDateTime("08.05.2020"),
+                DatumRegistracije = DateTime.ParseExact("08.05.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture),
                 UlogaID = 4,
                 Aktivan = true,
                 Telefon = "036/112239",
@@ -270,8 +271,8 @@ namespace RentABikeWTR_v1_7.Services.Database
 
                 );
             modelBuilder.Entity<NajaveOdmora>().HasData(
-            new NajaveOdmora() { NajavaOdmoraId = 1, DatumOdmora = Convert.ToDateTime("06.07.2020"), PocetakOdmora = Convert.ToDateTime("13:40:00.007"), ZavrsetakOdmora = Convert.ToDateTime("14:30:00.003"), LokacijaOdmoraID = 2, LaunchPaketKolicina = 5, NapitakKolicina = 5, TuristickiVodicID = 4 },
-            new NajaveOdmora() { NajavaOdmoraId = 2, DatumOdmora = Convert.ToDateTime("07.07.2020"), PocetakOdmora = Convert.ToDateTime("13:40:00.007"), ZavrsetakOdmora = Convert.ToDateTime("14:30:00.003"), LokacijaOdmoraID = 2, LaunchPaketKolicina = 5, NapitakKolicina = 5, TuristickiVodicID = 5 }
+            new NajaveOdmora() { NajavaOdmoraId = 1, DatumOdmora = DateTime.ParseExact("06.07.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture), PocetakOdmora = Convert.ToDateTime("13:40:00.007"), ZavrsetakOdmora = Convert.ToDateTime("14:30:00.003"), LokacijaOdmoraID = 2, LaunchPaketKolicina = 5, NapitakKolicina = 5, TuristickiVodicID = 4 },
+            new NajaveOdmora() { NajavaOdmoraId = 2, DatumOdmora = DateTime.ParseExact("07.07.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture), PocetakOdmora = Convert.ToDateTime("13:40:00.007"), ZavrsetakOdmora = Convert.ToDateTime("14:30:00.003"), LokacijaOdmoraID = 2, LaunchPaketKolicina = 5, NapitakKolicina = 5, TuristickiVodicID = 5 }
             );
 
 
@@ -282,8 +283,8 @@ namespace RentABikeWTR_v1_7.Services.Database
                 );
 
             modelBuilder.Entity<PoziviDezurnomVozilu>().HasData(
-                        new PoziviDezurnomVozilu() { PozivDezurnomVoziluId = 1, DatumPoziva = Convert.ToDateTime("06.07.2020"), VrijemePoziva = Convert.ToDateTime("13:40:00.007"), PoslovnicaID = 1, TuristickiVodicID = 4, DezurnoVoziloID = 1, Kvar = true },
-                        new PoziviDezurnomVozilu() { PozivDezurnomVoziluId = 2, DatumPoziva = Convert.ToDateTime("07.07.2020"), VrijemePoziva = Convert.ToDateTime("12:40:00.007"), PoslovnicaID = 1, TuristickiVodicID = 4, DezurnoVoziloID = 1, Kvar = true }
+                        new PoziviDezurnomVozilu() { PozivDezurnomVoziluId = 1, DatumPoziva = DateTime.ParseExact("06.07.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture), VrijemePoziva = Convert.ToDateTime("13:40:00.007"), PoslovnicaID = 1, TuristickiVodicID = 4, DezurnoVoziloID = 1, Kvar = true },
+                        new PoziviDezurnomVozilu() { PozivDezurnomVoziluId = 2, DatumPoziva = DateTime.ParseExact("07.07.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture), VrijemePoziva = Convert.ToDateTime("12:40:00.007"), PoslovnicaID = 1, TuristickiVodicID = 4, DezurnoVoziloID = 1, Kvar = true }
                         );
 
 
@@ -294,7 +295,7 @@ namespace RentABikeWTR_v1_7.Services.Database
                     Boja = "Crna",
                     CijenaBicikla = 10,
                     DrzavaID = 3,
-                    GodinaProizvodnje = Convert.ToDateTime("07.05.2020"),
+                    GodinaProizvodnje = DateTime.ParseExact("07.05.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture),
                     ModelBiciklaID = 1,
                     NabavnaCijena = 300,
                     NazivBicikla = "Polar Wizard",
@@ -315,7 +316,7 @@ namespace RentABikeWTR_v1_7.Services.Database
                     Boja = "Crna",
                     CijenaBicikla = 10,
                     DrzavaID = 4,
-                    GodinaProizvodnje = Convert.ToDateTime("07.05.2020"),
+                    GodinaProizvodnje = DateTime.ParseExact("07.05.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture),
                     ModelBiciklaID = 1,
                     NabavnaCijena = 500,
                     NazivBicikla = "Cube Sport",
@@ -335,7 +336,7 @@ namespace RentABikeWTR_v1_7.Services.Database
                     Boja = "Crna",
                     CijenaBicikla = 10,
                     DrzavaID = 10,
-                    GodinaProizvodnje = Convert.ToDateTime("07.05.2020"),
+                    GodinaProizvodnje = DateTime.ParseExact("07.05.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture),
                     ModelBiciklaID = 1,
                     NabavnaCijena = 500,
                     NazivBicikla = "Nakamura Echo",
@@ -355,7 +356,7 @@ namespace RentABikeWTR_v1_7.Services.Database
                     Boja = "Crna",
                     CijenaBicikla = 10,
                     DrzavaID = 3,
-                    GodinaProizvodnje = Convert.ToDateTime("07.05.2020"),
+                    GodinaProizvodnje = DateTime.ParseExact("07.05.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture),
                     ModelBiciklaID = 4,
                     NabavnaCijena = 500,
                     NazivBicikla = "Polar Grazia",
@@ -385,8 +386,8 @@ namespace RentABikeWTR_v1_7.Services.Database
 
                 );
             modelBuilder.Entity<Servisiranja>().HasData(
-            new Servisiranja() { ServisiranjeId = 1, OpisKvara = "Problem sa gumom", PreduzetaAkcija = "Zamjena gume", KomentarServisera = "Izvršen popravak", DatumServisiranja = Convert.ToDateTime("04.08.2020"), BiciklID = 1 },
-            new Servisiranja() { ServisiranjeId = 2, OpisKvara = "Problem sa mjenjacem", PreduzetaAkcija = "Zamjena prednjeg mjenjača", KomentarServisera = "Izvršen popravak", DatumServisiranja = Convert.ToDateTime("05.08.2020"), BiciklID = 2 }
+            new Servisiranja() { ServisiranjeId = 1, OpisKvara = "Problem sa gumom", PreduzetaAkcija = "Zamjena gume", KomentarServisera = "Izvršen popravak", DatumServisiranja = DateTime.ParseExact("04.08.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture), BiciklID = 1 },
+            new Servisiranja() { ServisiranjeId = 2, OpisKvara = "Problem sa mjenjacem", PreduzetaAkcija = "Zamjena prednjeg mjenjača", KomentarServisera = "Izvršen popravak", DatumServisiranja = DateTime.ParseExact("05.08.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture), BiciklID = 2 }
 
             );
             //U redu
@@ -410,18 +411,18 @@ namespace RentABikeWTR_v1_7.Services.Database
 
             //moram unijeti makar jednog kupca prije...
             modelBuilder.Entity<Rezervacije>().HasData(
-            new Rezervacije() { RezervacijaId = 1, DatumIzdavanja = Convert.ToDateTime("16.07.2020"), VrijemePreuzimanja = Convert.ToDateTime("09:00:00.000"), VrijemeVracanja = Convert.ToDateTime("18:00:00.000"), BiciklID = 1, KupacID = 7, TuristickiVodicID = 4, TuristRutaID = 1, CijenaUsluge = 30 },
-            new Rezervacije() { RezervacijaId = 2, DatumIzdavanja = Convert.ToDateTime("17.07.2020"), VrijemePreuzimanja = Convert.ToDateTime("09:00:00.000"), VrijemeVracanja = Convert.ToDateTime("18:00:00.000"), BiciklID = 1, KupacID = 8, TuristickiVodicID = 4, TuristRutaID = 1, CijenaUsluge = 30 },
-            new Rezervacije() { RezervacijaId = 3, DatumIzdavanja = Convert.ToDateTime("18.07.2020"), VrijemePreuzimanja = Convert.ToDateTime("09:00:00.000"), VrijemeVracanja = Convert.ToDateTime("18:00:00.000"), BiciklID = 1, KupacID = 7, TuristickiVodicID = 4, TuristRutaID = 1, CijenaUsluge = 30 },
-            new Rezervacije() { RezervacijaId = 4, DatumIzdavanja = Convert.ToDateTime("19.07.2020"), VrijemePreuzimanja = Convert.ToDateTime("09:00:00.000"), VrijemeVracanja = Convert.ToDateTime("18:00:00.000"), BiciklID = 1, KupacID = 7, TuristickiVodicID = 4, TuristRutaID = 1, CijenaUsluge = 30 }
+            new Rezervacije() { RezervacijaId = 1, DatumIzdavanja = DateTime.ParseExact("16.07.2020","dd.MM.yyyy", CultureInfo.InvariantCulture), VrijemePreuzimanja = Convert.ToDateTime("09:00:00.000"), VrijemeVracanja = Convert.ToDateTime("18:00:00.000"), BiciklID = 1, KupacID = 7, TuristickiVodicID = 4, TuristRutaID = 1, CijenaUsluge = 30 },
+            new Rezervacije() { RezervacijaId = 2, DatumIzdavanja = DateTime.ParseExact("17.07.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture), VrijemePreuzimanja = Convert.ToDateTime("09:00:00.000"), VrijemeVracanja = Convert.ToDateTime("18:00:00.000"), BiciklID = 1, KupacID = 8, TuristickiVodicID = 4, TuristRutaID = 1, CijenaUsluge = 30 },
+            new Rezervacije() { RezervacijaId = 3, DatumIzdavanja = DateTime.ParseExact("18.07.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture), VrijemePreuzimanja = Convert.ToDateTime("09:00:00.000"), VrijemeVracanja = Convert.ToDateTime("18:00:00.000"), BiciklID = 1, KupacID = 7, TuristickiVodicID = 4, TuristRutaID = 1, CijenaUsluge = 30 },
+            new Rezervacije() { RezervacijaId = 4, DatumIzdavanja = DateTime.ParseExact("19.07.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture), VrijemePreuzimanja = Convert.ToDateTime("09:00:00.000"), VrijemeVracanja = Convert.ToDateTime("18:00:00.000"), BiciklID = 1, KupacID = 7, TuristickiVodicID = 4, TuristRutaID = 1, CijenaUsluge = 30 }
 
             );
 
             modelBuilder.Entity<Ocjene>().HasData(
-            new Ocjene() { OcjenaId = 1, KupacID = 8, BiciklID = 1, DatumOcjene = Convert.ToDateTime("16.07.2020"), Ocjena = 3 },
-            new Ocjene() { OcjenaId = 2, KupacID = 8, BiciklID = 1, DatumOcjene = Convert.ToDateTime("17.07.2020"), Ocjena = 4 },
-            new Ocjene() { OcjenaId = 3, KupacID = 7, BiciklID = 2, DatumOcjene = Convert.ToDateTime("18.07.2020"), Ocjena = 5 },
-            new Ocjene() { OcjenaId = 4, KupacID = 7, BiciklID = 2, DatumOcjene = Convert.ToDateTime("19.07.2020"), Ocjena = 5 }
+            new Ocjene() { OcjenaId = 1, KupacID = 8, BiciklID = 1, DatumOcjene = DateTime.ParseExact("16.07.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture), Ocjena = 3 },
+            new Ocjene() { OcjenaId = 2, KupacID = 8, BiciklID = 1, DatumOcjene = DateTime.ParseExact("17.07.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture), Ocjena = 4 },
+            new Ocjene() { OcjenaId = 3, KupacID = 7, BiciklID = 2, DatumOcjene = DateTime.ParseExact("18.07.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture), Ocjena = 5 },
+            new Ocjene() { OcjenaId = 4, KupacID = 7, BiciklID = 2, DatumOcjene = DateTime.ParseExact("19.07.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture), Ocjena = 5 }
 
             );
 

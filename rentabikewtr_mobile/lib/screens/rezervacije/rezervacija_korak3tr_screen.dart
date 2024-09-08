@@ -1,10 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:rentabikewtr_mobile/model/checkoutArguments.dart';
 import 'package:rentabikewtr_mobile/model/checkoutTrArguments.dart';
+import 'package:rentabikewtr_mobile/model/korisniciProfil.dart';
 import 'package:rentabikewtr_mobile/model/rezervacije.dart';
 import 'package:rentabikewtr_mobile/providers/rezervacije_provider.dart';
+import 'package:rentabikewtr_mobile/widgets/header_widget.dart';
 //import 'package:rentabikewtr_mobile/widgets/eprodaja_drawer.dart';
 import 'package:rentabikewtr_mobile/widgets/master_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,24 +25,51 @@ import '../../providers/sesija_provider.dart';
 import '../../utils/util.dart';
 import 'checkout_tr_page.dart';
 
-class RezervacijaKorak3trScreen extends StatelessWidget {
-  final ScreenArguments args;
+class RezervacijaKorak3trScreen extends StatefulWidget {
+  final ScreenArguments arguments;
+  // final Bicikli argumentsBic;
+  // final KorisniciProfil argumentsKor;
+  // final TuristRute argumentsTR;
+  // final TuristickiVodici argumentsTV;
+
+  RezervacijaKorak3trScreen({Key? key, required this.arguments})
+      // required this.argumentsBic,
+      // required this.argumentsKor,
+      // required this.argumentsTR,
+      // required this.argumentsTV})
+      : super(key: key);
+
+  static const String routeName = "/rezervacijetr_placanje";
+
+  @override
+  State<RezervacijaKorak3trScreen> createState() =>
+      _RezervacijaKorak3trScreenState();
+}
+
+class _RezervacijaKorak3trScreenState extends State<RezervacijaKorak3trScreen> {
+  String title = 'Rezervacija turist rute-placanje';
+  //ScreenArguments? arguments;
+  TuristRute? argumentsTR;
+
+  TuristickiVodici? argumentsTV;
+
   //Rezervacije rez = Rezervacije();
-  double cijenaUsluge = 30.0;
+
+  double cijenaUsluge = 0.0;
+
   DateTime datumIzdavanja = DateTime.now();
+
   SesijaProvider? _sesijaProvider = null;
+
   String? sesijaId;
+
   Future<String>? s;
 
   late RezervacijeProvider _rezervacijeProvider;
 
-  RezervacijaKorak3trScreen({Key? key, required this.args}) : super(key: key);
-
-  static const String routeName = "/rezervacijetr_placanje";
-
   Future<String> makeRequest() async {
     var url = Uri.parse(
-        'https://10.0.2.2:44335/api/Sesija/xSesija?nazivBicikla=${args.argumentsBic!.nazivBicikla}&nazivRute=${args.argumentsTR!.naziv}&jezikVodica=${args.argumentsTV!.jezik}');
+        'http://10.0.2.2:44335/api/Sesija/xSesija?nazivBicikla=${widget.arguments!.argumentsBic!.nazivBicikla!}&nazivRute=${widget.arguments!.argumentsTR!.naziv}&jezikVodica=${widget.arguments!.argumentsTV!.jezik}&cijenaUsluge=$cijenaUsluge');
 
     var headers = {
       'accept': 'text/plain',
@@ -68,76 +98,250 @@ class RezervacijaKorak3trScreen extends StatelessWidget {
   }
 
   @override
+  void initState() {
+    //_formKey = GlobalKey();
+
+    // _drzaveProvider = context.read<DrzaveProvider>();
+    // _turistickiVodiciPregledProvider =
+    //     context.read<TuristickiVodiciPregledProvider>();
+    // _turistRutePregledProvider = context.read<TuristRutePregledProvider>();
+    // _korisniciPregledProvider = context.read<KorisniciPregledProvider>();
+    // _korisniciRezervacijePregledProvider =
+    //     context.read<KorisniciRezervacijePregledProvider>();
+    // _kupciProvider = context.read<KupciProvider>();
+
+    // _turistickiVodiciDetaljiProvider =
+    //     context.read<TuristickiVodiciDetaljiProvider>();
+
+    // _turistickiVodiciDetaljiProvider =
+    //     Provider.of<TuristickiVodiciDetaljiProvider>(context,
+    //       listen: false); //ovo mi je vazan red za inic providera
+    //loadData();
+    //loadRezervacijeBiciklDostupniDetalji(); //moram ovdje postaviti prije nego sto budem koristio argumentsKor
+    setState(() {
+      double cijenaVodica =
+          (widget.arguments.argumentsTV!.cijenaVodica!).toDouble();
+      double cijenaBicikla =
+          (widget.arguments.argumentsBic!.cijenaBicikla!).toDouble();
+      double cijenaTuristRute =
+          (widget.arguments.argumentsTR!.cijenaRute!).toDouble();
+      cijenaUsluge = cijenaVodica + cijenaBicikla + cijenaTuristRute;
+
+      //DateTime? pickedDate = DateTime.now();
+      //_datePickerController.text = DateFormat('dd-MM-yyyy').format(pickedDate);
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Rezervacija turist rute-placanje'),
-      ),
-      body: ListView(
+    return MasterScreenWidget(
+      argumentsKor: widget.arguments.argumentsKor!,
+      child: ListView(
         scrollDirection: Axis.vertical,
         children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(32.0),
-            // Name and Release date are in the same column
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Code to create the view for name.
-                Container(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Text(
-                    "Original Name: " + args.argumentsBic!.nazivBicikla!,
+          HeaderWidget(title: title),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Card(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                                //Container je bio ili SizedBox
+                                height: 100, //bio je height
+                                width: 150, //bio je width i kasnije 100
+
+                                child: imageFromBase64String(
+                                    widget.arguments.argumentsBic!.slika!)),
+                          ),
+                          //ovo je bilo prije x.slika!
+                        ),
+                        Center(
+                            child: Text(
+                                widget.arguments.argumentsBic!.nazivBicikla!)),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Card(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                                //Container je bio ili SizedBox
+                                height: 100, //bio je height
+                                width: 150, //bio je width i kasnije 100
+
+                                child: imageFromBase64String(
+                                    widget.arguments.argumentsTR!.slikaRute!)),
+                          ),
+                          //ovo je bilo prije x.slika!
+                        ),
+                        Center(
+                            child: Text(widget.arguments.argumentsTR!.naziv!)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+
+              ////////////////////////////////////////////
+
+              SizedBox(
+                height: 50,
+              ),
+              Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                color: Color.fromARGB(255, 246, 249, 252),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    initialValue: DateFormat('dd-MM-yyyy')
+                        .format(widget.arguments.argumentsDate!),
+                    readOnly: true,
+                    //controller: _datumPreuzimanjaController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Datum preuzimanja",
+                      labelStyle: TextStyle(color: Colors.blue),
+                      hintText: '',
+                      suffixIcon: Icon(Icons.calendar_view_day),
+                      suffixIconColor: Color.fromRGBO(239, 247, 5, 0.98),
+                    ),
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
                     ),
                   ),
                 ),
-                // Code to create the view for release date.
-                Container(
-                  height: 200,
-                  width: 200,
-                  child: imageFromBase64String(args.argumentsBic!.slika!),
+              ),
+              Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
-                Text("Naziv bicikla: " + args.argumentsBic!.nazivBicikla!),
-                //Text("Datum preuzimanja: " + rez.datumIzdavanja!.day.toString()),
-                Text("Datum usluge: " + datumIzdavanja.day.toString()),
-                //Text("Cijena usluge (Bicikl): " + cijenaUsluge.toString()),
-                //////////Turist ruta  //////////////////////////////
-                Container(
-                  height: 200,
-                  width: 200,
-                  child: imageFromBase64String(args.argumentsTR!.slikaRute!),
+                color: Color.fromARGB(255, 246, 249, 252),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    initialValue: widget.arguments.argumentsTV!.naziv!,
+                    readOnly: true,
+                    //controller: _datumPreuzimanjaController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Turistički vodič",
+                      labelStyle: TextStyle(color: Colors.blue),
+                      hintText: '',
+                      suffixIcon: Icon(Icons.calendar_view_day),
+                      suffixIconColor: Color.fromRGBO(239, 247, 5, 0.98),
+                    ),
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                  ),
                 ),
-                Text("Naziv rute: " + args.argumentsTR!.naziv!),
-                //Text("Datum preuzimanja: " + rez.datumIzdavanja!.day.toString()),
-                Text("Turistički vodič: ${args.argumentsTV!.naziv}"),
-                Text("Cijena usluge: " + cijenaUsluge.toString()),
+              ),
+              Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                color: Color.fromARGB(255, 246, 249, 252),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    initialValue: cijenaUsluge.toString(),
+                    readOnly: true,
+                    //controller: _datumPreuzimanjaController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Cijena",
+                      labelStyle: TextStyle(color: Colors.blue),
+                      hintText: '',
+                      suffixIcon: Icon(Icons.calendar_view_day),
+                      suffixIconColor: Color.fromRGBO(239, 247, 5, 0.98),
+                    ),
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+              ),
 
-                SizedBox(height: 30),
-                Center(),
-                Center(
-                    child: ElevatedButton(
-                  child: Text("Izvrši plaćanje"),
-                  onPressed: () async {
-                    await makeRequest();
-                    Navigator.pushNamed(context,
-                        "${CheckoutTrPage.routeName}", //moram prepraviti
-                        arguments: CheckoutTrArguments(
-                            sesijaId,
-                            args.argumentsBic,
-                            args.argumentsTR,
-                            args.argumentsTV)); //bila je sesijaId
-                  }, //moram prepraviti
-                  //arguments: args.argumentsBic);
-                )),
-              ],
-            ),
+              SizedBox(height: 30),
+
+              Row(
+                children: [
+                  Expanded(
+                    child: Card(
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      //color: Color.fromRGBO(143, 148, 251, .6),
+                      color: Color.fromARGB(233, 120, 180, 229),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: InkWell(
+                          child: Center(
+                              child: Text("Izvrši plaćanje",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold))),
+
+                          onTap: () async {
+                            try {} catch (e) {
+                              throw Exception("Došlo je do greške");
+                            }
+                            await makeRequest();
+                            Navigator.pushNamed(context,
+                                "${CheckoutTrPage.routeName}", //moram prepraviti
+                                arguments: CheckoutTrArguments(
+                                    sesijaId,
+                                    widget.arguments.argumentsBic!,
+                                    widget.arguments.argumentsKor,
+                                    widget.arguments.argumentsTR,
+                                    widget.arguments.argumentsTV,
+                                    widget.arguments
+                                        .argumentsDate)); //bila je sesijaId
+                          }, //moram prepraviti
+                          //arguments: args.argumentsBic);
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
           // Icon to indicate the rating.
-          new Icon(
-            Icons.star,
-            color: Colors.red[500],
-          ),
+          // new Icon(
+          //   Icons.star,
+          //   color: Colors.red[500],
+          // ),
           //new Text('${bic.voteAverage}'),
         ],
       ),

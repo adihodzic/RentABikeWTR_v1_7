@@ -4,6 +4,7 @@ import 'package:rentabikewtr_desktop/main.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_biciklo_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_dezurnoVozilo_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_modelBicikla_screen.dart';
+import 'package:rentabikewtr_desktop/screens/dodaj_poruku_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_poslovnicu_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_pozivDezurnomVozilu_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_proizvodjacaBicikla_screen.dart';
@@ -349,6 +350,21 @@ class MenuRadnik extends StatelessWidget {
             ),
           ],
           child: const MenuAcceleratorLabel('&Najava odmora'),
+        ),
+        SubmenuButton(
+          menuChildren: <Widget>[
+            MenuItemButton(
+              onPressed: () async {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => DodajPorukuScreen(),
+                  ),
+                );
+              },
+              child: const MenuAcceleratorLabel('Slanje poruka'),
+            ),
+          ],
+          child: const MenuAcceleratorLabel('&Poruke'),
         ),
       ],
     );

@@ -75,6 +75,10 @@ flutter:
     - assets/images/Logo.JPG
     - assets/images/Logo2.JPG
     - assets/images/clock.png
+    - assets/images/Logo4.JPG
+    - assets/images/Logo5.JPG
+    - assets/images/Logo6.JPG
+    - assets/images/logo7.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

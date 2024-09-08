@@ -2,16 +2,20 @@
 //import 'package:thirtyfour_app/providers/order_provider.dart';
 //import 'dart:html';
 import 'dart:io';
+import 'package:collection/collection.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutter/gestures.dart';
+import 'package:rentabikewtr_mobile/model/bicikliRecommend.dart';
 import 'package:rentabikewtr_mobile/model/korisniciProfil.dart';
 import 'package:rentabikewtr_mobile/model/korisnici.dart';
 import 'package:rentabikewtr_mobile/model/mojProfilArguments.dart';
 import 'package:rentabikewtr_mobile/model/mojeRezervacijeArguments.dart';
 import 'package:rentabikewtr_mobile/model/screenArguments.dart';
+import 'package:rentabikewtr_mobile/providers/bicikliRecommend_provider.dart';
 import 'package:rentabikewtr_mobile/providers/bicikli_provider.dart';
 import 'package:rentabikewtr_mobile/providers/korisniciProfil_provider.dart';
 import 'package:rentabikewtr_mobile/providers/korisniciProfil_provider.dart';
+import 'package:rentabikewtr_mobile/providers/rezervacijeBiciklDostupni_provider.dart';
 import 'package:rentabikewtr_mobile/providers/rezervacije_provider.dart';
 import 'package:rentabikewtr_mobile/providers/turistRute_provider.dart';
 import 'package:rentabikewtr_mobile/providers/turistickiVodici_provider.dart';
@@ -26,6 +30,7 @@ import 'package:rentabikewtr_mobile/screens/rezervacije/rezervacija_korak3bic_sc
 import 'package:rentabikewtr_mobile/screens/rezervacije/rezervacija_korak5bic_screen.dart';
 import 'package:rentabikewtr_mobile/screens/turistRute/turistRute_details_screen.dart';
 import 'package:rentabikewtr_mobile/screens/turistRute/turistRute_list_screen.dart';
+//import 'package:rentabikewtr_mobile/screens/turistRute/turistRute_list_screen.dart';
 import 'package:rentabikewtr_mobile/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -49,7 +54,7 @@ import 'providers/korisniciRegistracija_provider.dart';
 import 'providers/kupciProfil_provider.dart';
 import 'providers/kupci_provider.dart';
 import 'providers/lokacijeOdmora_provider.dart';
-import 'providers/najavaOdmora_provider.dart';
+import 'providers/najaveOdmora_provider.dart';
 import 'providers/ocjene_provider.dart';
 import 'providers/poslovnice_provider.dart';
 import 'providers/poziviDezurnomVozilu_provider.dart';
@@ -62,7 +67,7 @@ import 'screens/kupci/kupac_registracija_screen.dart';
 import 'screens/rezervacije/checkout_page.dart';
 import 'screens/rezervacije/checkout_tr_page.dart';
 import 'screens/rezervacije/rezervacija_korak5tr_screen.dart';
-import 'screens/vodicapp/vodic_najava_odmora_screen.dart';
+import 'screens/vodicapp/vodic_najave_odmora_screen.dart';
 import 'screens/vodicapp/vodic_pocetna_screen.dart';
 import 'screens/vodicapp/vodic_poziv_dezurnom_vozilu_screen.dart';
 
@@ -89,13 +94,15 @@ void main() async {
       ChangeNotifierProvider(create: (_) => DetaljiProvider()),
       ChangeNotifierProvider(create: (_) => KorisniciProvider()),
       ChangeNotifierProvider(create: (_) => RezervacijeProvider()),
+      ChangeNotifierProvider(
+          create: (_) => RezervacijeBiciklDostupniProvider()),
       ChangeNotifierProvider(create: (_) => RezervacijeKupacProvider()),
       ChangeNotifierProvider(create: (_) => TuristRuteProvider()),
       ChangeNotifierProvider(create: (_) => TuristickiVodiciProvider()),
       ChangeNotifierProvider(create: (_) => KorisniciProfilProvider()),
       ChangeNotifierProvider(create: (_) => KorisniciProfilUpdateProvider()),
       ChangeNotifierProvider(create: (_) => LokacijeOdmoraProvider()),
-      ChangeNotifierProvider(create: (_) => NajavaOdmoraProvider()),
+      ChangeNotifierProvider(create: (_) => NajaveOdmoraProvider()),
       ChangeNotifierProvider(create: (_) => PoziviDezurnomVoziluProvider()),
       ChangeNotifierProvider(create: (_) => DezurnaVozilaProvider()),
       ChangeNotifierProvider(create: (_) => PoslovniceProvider()),
@@ -104,6 +111,7 @@ void main() async {
       ChangeNotifierProvider(create: (_) => DrzaveProvider()),
       ChangeNotifierProvider(create: (_) => KupciProfilProvider()),
       ChangeNotifierProvider(create: (_) => OcjeneProvider()),
+      ChangeNotifierProvider(create: (_) => BicikliRecommendProvider()),
     ],
     child: MaterialApp(
         debugShowCheckedModeBanner: true,
@@ -132,8 +140,11 @@ void main() async {
         onGenerateRoute: (settings) {
           //Bicikli bic;
           if (settings.name == BicikliListScreen.routeName) {
+            final objekat0 = settings.arguments as KorisniciProfil;
             return MaterialPageRoute(
-                builder: ((context) => BicikliListScreen()));
+                builder: ((context) => BicikliListScreen(
+                      argumentsKor: objekat0,
+                    )));
             // } else if (settings.name == BicikliDetailsScreen.routeName) {
             //   final objekat = settings.arguments as int;
             //   return MaterialPageRoute(
@@ -143,25 +154,37 @@ void main() async {
             /////////////////////////////////Kopirano iznad da imam prosljeđivanje objekta
           } else if (settings.name == BicikliDetailsScreen.routeName) {
             final objekat = settings.arguments as Bicikli;
+            final objekat2 = settings.arguments as KorisniciProfil;
+            final objekat02 = settings.arguments as DateTime;
             return MaterialPageRoute(
-                builder: ((context) =>
-                    BicikliDetailsScreen(arguments: objekat)));
+                builder: ((context) => BicikliDetailsScreen(
+                      argumentsB: objekat,
+                      argumentsK: objekat2,
+                      argumentsDate: objekat02,
+                    )));
           } else if (settings.name == RezervacijaKorak1Screen.routeName) {
             final objekatk1 = settings.arguments as Bicikli;
+            final objekatk01 = settings.arguments as KorisniciProfil;
+            final objekatk001 = settings.arguments as DateTime;
             //final objekatk11 = settings.arguments as Bicikli;
             return MaterialPageRoute(
-              builder: ((context) => RezervacijaKorak1Screen(
-                    argumentsBic: objekatk1,
-                    //arguments: objekatk11,
-                  )),
-            );
+                builder: ((context) => RezervacijaKorak1Screen(
+                      argumentsBic: objekatk1,
+                      argumentsKor: objekatk01,
+                      argumentsDate: objekatk001,
+                      //arguments: objekatk11,
+                    )));
           } else if (settings.name == TuristRuteListScreen.routeName) {
             final objekatk2 = settings.arguments as Bicikli;
+            final objekatk02 = settings.arguments as KorisniciProfil;
+            final objekatk002 = settings.arguments as DateTime;
+            // final objekatk0002 = settings.arguments as TuristickiVodici;
             //final objekatk21 = settings.arguments as ;
             return MaterialPageRoute(
               builder: ((context) => TuristRuteListScreen(
                     argumentsBic: objekatk2,
-                    //arguments: objekatk21,
+                    argumentsKor: objekatk02,
+                    argumentsDate: objekatk002,
                   )),
             );
           } else if (settings.name == TuristRuteDetailsScreen.routeName) {
@@ -175,16 +198,29 @@ void main() async {
             );
           } else if (settings.name == RezervacijaKorak3bicScreen.routeName) {
             final objekatk3 = settings.arguments as Bicikli;
+            final objekatk03 = settings.arguments as KorisniciProfil;
+            final objekatk003 = settings.arguments as DateTime;
             return MaterialPageRoute(
-              builder: ((context) =>
-                  RezervacijaKorak3bicScreen(argumentsBic: objekatk3)),
+              builder: ((context) => RezervacijaKorak3bicScreen(
+                    argumentsBiciklo: objekatk3,
+                    argumentsKorisnik: objekatk03,
+                    argumentsDate: objekatk003,
+                  )),
             );
           } else if (settings.name == RezervacijaKorak3trScreen.routeName) {
-            final objekatktr31 = settings.arguments as ScreenArguments;
+            final objektktr31 = settings.arguments as ScreenArguments;
+            // final objekatktr31 = settings.arguments as Bicikli;
+            // final objekatktr031 = settings.arguments as KorisniciProfil;
+            // final objekatktr0031 = settings.arguments as TuristRute;
+            // final objekatktr00031 = settings.arguments as TuristickiVodici;
 
             return MaterialPageRoute(
               builder: ((context) => RezervacijaKorak3trScreen(
-                    args: objekatktr31,
+                    arguments: objektktr31,
+                    // argumentsBic: objekatktr31,
+                    // argumentsKor: objekatktr031,
+                    // argumentsTR: objekatktr0031,
+                    // argumentsTV: objekatktr00031,
                   )),
             );
           } else if (settings.name == CheckoutPage.routeName) {
@@ -215,18 +251,23 @@ void main() async {
                   RezervacijaKorak5trScreen(args: objekatk5)),
             );
           } else if (settings.name == VodicPocetnaScreen.routeName) {
-            //final objekat = settings.arguments as Bicikli;
+            final objekatv = settings.arguments as KorisniciProfil;
             return MaterialPageRoute(
-                builder: ((context) => VodicPocetnaScreen()));
+                builder: ((context) => VodicPocetnaScreen(
+                      argumentsKor: objekatv,
+                    )));
           } else if (settings.name ==
               VodicPozivDezurnomVoziluScreen.routeName) {
-            //final objekat = settings.arguments as Bicikli;
+            final objekatv2 = settings.arguments as KorisniciProfil;
             return MaterialPageRoute(
-                builder: ((context) => VodicPozivDezurnomVoziluScreen()));
-          } else if (settings.name == VodicNajavaOdmoraScreen.routeName) {
-            //final objekat = settings.arguments as Bicikli;
+                builder: ((context) =>
+                    VodicPozivDezurnomVoziluScreen(argumentsKor: objekatv2)));
+          } else if (settings.name == VodicNajaveOdmoraScreen.routeName) {
+            final objekatv3 = settings.arguments as KorisniciProfil;
             return MaterialPageRoute(
-                builder: ((context) => VodicNajavaOdmoraScreen()));
+                builder: ((context) => VodicNajaveOdmoraScreen(
+                      argumentsKor: objekatv3,
+                    )));
           } else if (settings.name == HomePage.routeName) {
             //final objekat = settings.arguments as Bicikli;
             return MaterialPageRoute(builder: ((context) => HomePage()));
@@ -282,45 +323,45 @@ class HomePage extends StatelessWidget {
         Provider.of<KorisniciProfilProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login"),
+        title: Text("RentABikeWTR"),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              height: 400,
+              height: 350,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("assets/images/Logo.JPG"),
+                      image: AssetImage("assets/images/Logo6.JPG"),
                       fit: BoxFit.fill)),
               child: Stack(children: [
-                Positioned(
-                    left: 120,
-                    top: 0,
-                    width: 80,
-                    height: 120,
-                    child: Container(
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                      image: AssetImage("assets/images/Logo2.JPG"),
-                    )))),
-                Positioned(
-                    right: 40,
-                    top: 0,
-                    width: 80,
-                    height: 120,
-                    child: Container(
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                      image: AssetImage("assets/images/clock.png"),
-                    )))),
+                // Positioned(
+                //     left: 120,
+                //     top: 0,
+                //     width: 80,
+                //     height: 120,
+                //     child: Container(
+                //         decoration: BoxDecoration(
+                //             image: DecorationImage(
+                //       image: AssetImage("assets/images/Logo2.JPG"),
+                //     )))),
+                // Positioned(
+                //     right: 40,
+                //     top: 0,
+                //     width: 80,
+                //     height: 120,
+                //     child: Container(
+                //         decoration: BoxDecoration(
+                //             image: DecorationImage(
+                //       image: AssetImage("assets/images/clock.png"),
+                //     )))),
                 Container(
                   child: Center(
                       child: Text(
                     "Login",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 40,
+                        fontSize: 30,
                         fontWeight: FontWeight.bold),
                   )),
                 )
@@ -341,18 +382,24 @@ class HomePage extends StatelessWidget {
                       controller: _usernameController,
                       decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: "Email or phone",
-                          hintStyle: TextStyle(color: Colors.grey[400])),
+                          prefixIcon: Icon(Icons.pedal_bike),
+                          hintText: "Korisničko ime",
+                          hintStyle: TextStyle(color: Colors.grey[400]),
+                          suffixIcon: Icon(Icons.person)),
                     ),
                   ),
                   Container(
                     padding: EdgeInsets.all(8),
-                    child: TextField(
+                    child: TextFormField(
+                      obscureText: true,
                       controller: _passwordController,
                       decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Password",
-                          hintStyle: TextStyle(color: Colors.grey[400])),
+                        border: InputBorder.none,
+                        prefixIcon: Icon(Icons.pedal_bike),
+                        hintText: "Lozinka",
+                        hintStyle: TextStyle(color: Colors.grey[400]),
+                        suffixIcon: Icon(Icons.password),
+                      ),
                     ),
                   ),
                 ]),
@@ -372,6 +419,7 @@ class HomePage extends StatelessWidget {
                 ]),
               ),
               child: InkWell(
+                // child: Icon(Icons.pedal_bike),
                 onTap: () async {
                   try {
                     Authorization.username = _usernameController.text;
@@ -391,7 +439,8 @@ class HomePage extends StatelessWidget {
                         currentUser.ulogaID == 3) {
                       //ovdje cu raditi pushReplacment da se ne bi mogao navigator vratiti na login page
                       Navigator.pushReplacementNamed(
-                          context, VodicPocetnaScreen.routeName);
+                          context, VodicPocetnaScreen.routeName,
+                          arguments: currentUser);
                     }
                   } catch (e) {
                     print('Greska iz konteksta: $e');
@@ -411,20 +460,25 @@ class HomePage extends StatelessWidget {
                             ));
                   }
                 },
-                child: Center(child: Text("Login")),
+                child: Center(
+                  child: Text(
+                    "Login",
+                  ),
+                ),
               ),
             ),
             SizedBox(
-              height: 40,
+              height: 10,
             ),
             InkWell(
                 onTap: () async {
                   Navigator.pushNamed(
                       context, KupacRegistracijaScreen.routeName);
                 },
-                child: Text("Registracija-kupac")),
+                child: Text("Registracija-kupac",
+                    style: TextStyle(color: Colors.blue))),
             SizedBox(
-              height: 40,
+              height: 20,
             ),
           ],
         ),

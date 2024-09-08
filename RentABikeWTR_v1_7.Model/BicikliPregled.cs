@@ -8,7 +8,7 @@ namespace RentABikeWTR_v1_7.Model
     public class BicikliPregled
     {
        
-        public int BiciklId { get; set; }
+        public int BiciklID { get; set; }
         public string NazivBicikla { get; set; }
         public string Boja { get; set; }
 

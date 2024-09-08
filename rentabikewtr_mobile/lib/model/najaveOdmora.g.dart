@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'najavaOdmora.dart';
+part of 'najaveOdmora.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-NajavaOdmora _$NajavaOdmoraFromJson(Map<String, dynamic> json) => NajavaOdmora(
+NajaveOdmora _$NajaveOdmoraFromJson(Map<String, dynamic> json) => NajaveOdmora(
       datumOdmora: json['datumOdmora'] == null
           ? null
           : DateTime.parse(json['datumOdmora'] as String),
@@ -22,7 +22,7 @@ NajavaOdmora _$NajavaOdmoraFromJson(Map<String, dynamic> json) => NajavaOdmora(
       turistickiVodicID: json['turistickiVodicID'] as int?,
     );
 
-Map<String, dynamic> _$NajavaOdmoraToJson(NajavaOdmora instance) =>
+Map<String, dynamic> _$NajaveOdmoraToJson(NajaveOdmora instance) =>
     <String, dynamic>{
       'datumOdmora': instance.datumOdmora?.toIso8601String(),
       'pocetakOdmora': instance.pocetakOdmora?.toIso8601String(),

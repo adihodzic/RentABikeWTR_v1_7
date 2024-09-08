@@ -90,6 +90,10 @@
               "target": "Package",
               "version": "[1.19.4, )"
             },
+            "NETCore.MailKit": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
@@ -241,6 +245,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "EasyNetQ": {
+              "target": "Package",
+              "version": "[7.8.0, )"
+            },
             "Mapster": {
               "target": "Package",
               "version": "[7.4.0, )"
@@ -274,6 +282,10 @@
             "Microsoft.ML.Recommender": {
               "target": "Package",
               "version": "[0.20.1, )"
+            },
+            "MimeKit": {
+              "target": "Package",
+              "version": "[4.7.1, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",

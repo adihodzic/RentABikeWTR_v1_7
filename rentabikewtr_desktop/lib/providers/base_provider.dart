@@ -17,7 +17,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
   BaseProvider(String endpoint) {
     _baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue:
-            "https://localhost:44335/api/"); // localhost kad koristim windows prikaz a pisalo je 44346
+            "http://localhost:44335/api/"); // localhost kad koristim windows prikaz a pisalo je 44346
     print("baseurl: $_baseUrl");
 
     if (_baseUrl!.endsWith("/") == false) {

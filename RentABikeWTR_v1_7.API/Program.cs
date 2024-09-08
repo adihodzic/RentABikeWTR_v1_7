@@ -11,6 +11,7 @@ using Mapster;
 using RentABikeWTR_v1_7.API.Security;
 using RentABikeWTR_v1_7.Model.Requests;
 using Stripe;
+using RentABikeWTR_v1_7.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,8 +20,17 @@ builder.Services.AddControllers();
 builder.Services.AddAuthentication("BasicAuthentication")
                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 //services.AddControllers().AddNewtonsoftJson(options=>options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-var connectionString = builder.Configuration.GetConnectionString("konekcija");
-builder.Services.AddDbContext<RentABikeWTR_v1_7Context>(o => o.UseSqlServer(connectionString));
+//var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+//string connectionString = "";
+
+      var  connectionString = builder.Configuration.GetConnectionString("konekcija");
+      builder.Services.AddDbContext<RentABikeWTR_v1_7Context>(o => o.UseSqlServer(connectionString));
+
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+
+
+
+
 ////builder.Services.AddAutoMapper(typeof(RentABikeWTR_v1_6.WebAPI.Mappers.Mapper));
 ////services.AddScoped<ICRUDService<Model.Drzave, DrzaveSearchRequest, DrzaveUpsertRequest, DrzaveUpsertRequest>, BaseCRUDService<Model.Drzave, object, Database.Drzave, DrzaveUpsertRequest, DrzaveUpsertRequest>>();
 builder.Services.AddTransient<ICRUDService<RentABikeWTR_v1_7.Model.Drzave, DrzaveSearchRequest, DrzaveUpsertRequest, DrzaveUpsertRequest>, DrzaveService>();
@@ -65,6 +75,7 @@ builder.Services.AddTransient<IXRezervacijeService, XRezervacijeService>();
 builder.Services.AddTransient<ITuristickiVodiciService, TuristickiVodiciService>();
 
 builder.Services.AddTransient<ICRUDService<RentABikeWTR_v1_7.Model.TuristRute, TuristRuteSearchRequest, TuristRuteUpsertRequest, TuristRuteUpsertRequest>, TuristRuteService>();
+builder.Services.AddTransient<IPorukeService, PorukeService>();
 //services.AddScoped<IPreporukeService, PreporukeService>();
 builder.Services.AddTransient<IBicikliService, BicikliService>();
 builder.Services.AddTransient<IBicikliMobilnaService, BicikliMobilnaService>();
@@ -97,18 +108,16 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddMapster();
 
 var app = builder.Build();
-//StripeConfiguration.ApiKey = "sk_test_51NDWrCFgNQXat14Z6GFt4yKNpMH9NO1eVE8fG5S2IilbH3NQZ0yMwPgZduiKZviiNI5Rpc1Gx6fgvqtejZkbPDQ400oMsWFisR";
-//ovo je za Stripe - samo ovaj i radi (samo njega i cita aplikacija) - provjeriti zasto ne cita appsettings.json
+
 
 StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe")["SecretKey"];
 //rijeseno je i sada cita iz appsettings.json-a
-
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
+//if (app.Environment.IsDevelopment())
+//{
+app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
@@ -121,9 +130,7 @@ using (var scope = app.Services.CreateScope())
         var dataContext = scope.ServiceProvider.GetRequiredService<RentABikeWTR_v1_7Context>();
 
         dataContext.Database.Migrate(); //koristicu ovo naredbu, a ne EnsureCreated();
-    //    
-    //    //ovo cu ja ukucati umjesto ovog koda gore zato sto sam vec uradio backup baze
-    //    dataContext.Database.EnsureCreated();
+    
  }
 
     app.Run();

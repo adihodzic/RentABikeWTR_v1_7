@@ -35,7 +35,7 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("CijenaBicikla")
-                        .HasColumnType("decimal(5,2)");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<DateTime>("DatumOtpisa")
                         .HasColumnType("datetime2");
@@ -52,7 +52,7 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("NabavnaCijena")
-                        .HasColumnType("decimal(5,2)");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("NazivBicikla")
                         .IsRequired()
@@ -816,9 +816,9 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                             LaunchPaketKolicina = 5,
                             LokacijaOdmoraID = 2,
                             NapitakKolicina = 5,
-                            PocetakOdmora = new DateTime(2024, 7, 14, 13, 40, 0, 7, DateTimeKind.Unspecified),
+                            PocetakOdmora = new DateTime(2024, 8, 26, 13, 40, 0, 7, DateTimeKind.Unspecified),
                             TuristickiVodicID = 4,
-                            ZavrsetakOdmora = new DateTime(2024, 7, 14, 14, 30, 0, 3, DateTimeKind.Unspecified)
+                            ZavrsetakOdmora = new DateTime(2024, 8, 26, 14, 30, 0, 3, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -827,9 +827,9 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                             LaunchPaketKolicina = 5,
                             LokacijaOdmoraID = 2,
                             NapitakKolicina = 5,
-                            PocetakOdmora = new DateTime(2024, 7, 14, 13, 40, 0, 7, DateTimeKind.Unspecified),
+                            PocetakOdmora = new DateTime(2024, 8, 26, 13, 40, 0, 7, DateTimeKind.Unspecified),
                             TuristickiVodicID = 5,
-                            ZavrsetakOdmora = new DateTime(2024, 7, 14, 14, 30, 0, 3, DateTimeKind.Unspecified)
+                            ZavrsetakOdmora = new DateTime(2024, 8, 26, 14, 30, 0, 3, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -894,6 +894,31 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                             KupacID = 7,
                             Ocjena = 5
                         });
+                });
+
+            modelBuilder.Entity("RentABikeWTR_v1_7.Services.Database.Poruke", b =>
+                {
+                    b.Property<int>("PorukaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PorukaId"));
+
+                    b.Property<DateTime?>("DatumPoruke")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("KorisnikID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Tekst")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PorukaId");
+
+                    b.HasIndex("KorisnikID");
+
+                    b.ToTable("Poruke");
                 });
 
             modelBuilder.Entity("RentABikeWTR_v1_7.Services.Database.Poslovnice", b =>
@@ -1004,7 +1029,7 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                             Nesreca = false,
                             PoslovnicaID = 1,
                             TuristickiVodicID = 4,
-                            VrijemePoziva = new DateTime(2024, 7, 14, 13, 40, 0, 7, DateTimeKind.Unspecified),
+                            VrijemePoziva = new DateTime(2024, 8, 26, 13, 40, 0, 7, DateTimeKind.Unspecified),
                             ZahtjevKlijenta = false
                         },
                         new
@@ -1017,7 +1042,7 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                             Nesreca = false,
                             PoslovnicaID = 1,
                             TuristickiVodicID = 4,
-                            VrijemePoziva = new DateTime(2024, 7, 14, 12, 40, 0, 7, DateTimeKind.Unspecified),
+                            VrijemePoziva = new DateTime(2024, 8, 26, 12, 40, 0, 7, DateTimeKind.Unspecified),
                             ZahtjevKlijenta = false
                         });
                 });
@@ -1069,7 +1094,7 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("CijenaUsluge")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<DateTime>("DatumIzdavanja")
                         .HasColumnType("datetime");
@@ -1125,8 +1150,8 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                             StatusPlacanja = false,
                             TuristRutaID = 1,
                             TuristickiVodicID = 4,
-                            VrijemePreuzimanja = new DateTime(2024, 7, 14, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            VrijemeVracanja = new DateTime(2024, 7, 14, 18, 0, 0, 0, DateTimeKind.Unspecified)
+                            VrijemePreuzimanja = new DateTime(2024, 8, 26, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            VrijemeVracanja = new DateTime(2024, 8, 26, 18, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -1138,8 +1163,8 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                             StatusPlacanja = false,
                             TuristRutaID = 1,
                             TuristickiVodicID = 4,
-                            VrijemePreuzimanja = new DateTime(2024, 7, 14, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            VrijemeVracanja = new DateTime(2024, 7, 14, 18, 0, 0, 0, DateTimeKind.Unspecified)
+                            VrijemePreuzimanja = new DateTime(2024, 8, 26, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            VrijemeVracanja = new DateTime(2024, 8, 26, 18, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -1151,8 +1176,8 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                             StatusPlacanja = false,
                             TuristRutaID = 1,
                             TuristickiVodicID = 4,
-                            VrijemePreuzimanja = new DateTime(2024, 7, 14, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            VrijemeVracanja = new DateTime(2024, 7, 14, 18, 0, 0, 0, DateTimeKind.Unspecified)
+                            VrijemePreuzimanja = new DateTime(2024, 8, 26, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            VrijemeVracanja = new DateTime(2024, 8, 26, 18, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -1164,8 +1189,8 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                             StatusPlacanja = false,
                             TuristRutaID = 1,
                             TuristickiVodicID = 4,
-                            VrijemePreuzimanja = new DateTime(2024, 7, 14, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            VrijemeVracanja = new DateTime(2024, 7, 14, 18, 0, 0, 0, DateTimeKind.Unspecified)
+                            VrijemePreuzimanja = new DateTime(2024, 8, 26, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            VrijemeVracanja = new DateTime(2024, 8, 26, 18, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -1477,7 +1502,7 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TuristRutaId"));
 
                     b.Property<decimal>("CijenaRute")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("Naziv")
                         .IsRequired()
@@ -1783,6 +1808,15 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                     b.Navigation("Bicikl");
 
                     b.Navigation("Kupac");
+                });
+
+            modelBuilder.Entity("RentABikeWTR_v1_7.Services.Database.Poruke", b =>
+                {
+                    b.HasOne("RentABikeWTR_v1_7.Services.Database.Korisnici", "Korisnik")
+                        .WithMany()
+                        .HasForeignKey("KorisnikID");
+
+                    b.Navigation("Korisnik");
                 });
 
             modelBuilder.Entity("RentABikeWTR_v1_7.Services.Database.PoziviDezurnomVozilu", b =>

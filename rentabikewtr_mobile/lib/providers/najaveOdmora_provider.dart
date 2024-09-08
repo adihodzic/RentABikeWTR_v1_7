@@ -8,13 +8,13 @@ import 'package:http/io_client.dart';
 import 'package:flutter/foundation.dart';
 
 import '../model/lokacijeOdmora.dart';
-import '../model/najavaOdmora.dart';
+import '../model/najaveOdmora.dart';
 
-class NajavaOdmoraProvider extends BaseProvider<NajavaOdmora> {
-  NajavaOdmoraProvider() : super("NajavaOdmora"); //ako promijenim
+class NajaveOdmoraProvider extends BaseProvider<NajaveOdmora> {
+  NajaveOdmoraProvider() : super("NajaveOdmora"); //ako promijenim
   //...ovaj key onda moram promijeniti i rutu u rezervacija_korak2_screen.dart
   @override
-  NajavaOdmora fromJson(data) {
-    return NajavaOdmora.fromJson(data);
+  NajaveOdmora fromJson(data) {
+    return NajaveOdmora.fromJson(data);
   }
 }

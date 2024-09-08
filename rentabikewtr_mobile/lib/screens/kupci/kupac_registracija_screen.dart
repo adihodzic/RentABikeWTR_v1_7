@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:rentabikewtr_mobile/main.dart';
 import 'package:rentabikewtr_mobile/screens/bicikli/bicikli_list_screen.dart';
 import 'package:rentabikewtr_mobile/utils/util.dart';
+import 'package:rentabikewtr_mobile/widgets/header_widget.dart';
 
 import '../../model/drzave.dart';
 import '../../model/korisniciUpsert.dart';
@@ -27,6 +28,7 @@ class KupacRegistracijaScreen extends StatefulWidget {
 }
 
 class _KupacRegistracijaScreenState extends State<KupacRegistracijaScreen> {
+  String title = "Registracija kupca";
   KorisniciUpsert koros = KorisniciUpsert();
   Kupci kupos = Kupci();
   Drzave? _selectedValue;
@@ -51,6 +53,7 @@ class _KupacRegistracijaScreenState extends State<KupacRegistracijaScreen> {
 
   @override
   void initState() {
+    //title = "Registracija kupca";
     Authorization.username = "test";
     Authorization.password = "test";
     koros = KorisniciUpsert(
@@ -101,11 +104,12 @@ class _KupacRegistracijaScreenState extends State<KupacRegistracijaScreen> {
     //     Provider.of<KorisniciProfilProvider>(context);
     // final _drzaveProvider = Provider.of<DrzaveProvider>(context);
     return Scaffold(
-      appBar: AppBar(
-          title: Text('Registracija kupca'), automaticallyImplyLeading: false),
+      appBar:
+          AppBar(title: Text('RentABikeWTR'), automaticallyImplyLeading: false),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            HeaderWidget(title: title!),
             SizedBox(height: 50.0),
             //Authorization.username = _korisnickoImeController.text;
             //Authorization.password = _passwordController.text;

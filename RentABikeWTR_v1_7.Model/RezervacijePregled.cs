@@ -16,6 +16,13 @@ namespace RentABikeWTR_v1_7.Model
         public string? KorisnickoIme { get; set; }
         public string? Ime { get; set; }
         public string? Prezime { get; set; }
-      
+
+        //dodajem jos
+        public int? TuristRutaID { get; set; }
+        public string? NazivRute { get; set; }
+        public int? TuristickiVodicID { get; set; }
+        public string? NazivVodica { get; set; } //naziv turistickog vodica
+        public double? CijenaUsluge { get; set; }
+
     }
 }

@@ -43,6 +43,7 @@ namespace RentABikeWTR_v1_7.Services.Database
         public virtual DbSet<VelicineBicikla> VelicineBicikla { get; set; }
         public virtual DbSet<Genderi> Genderi { get; set; }
         public virtual DbSet<GodineKupci> GodineKupci { get; set; }
+        public virtual DbSet<Poruke> Poruke { get; set; }
 
 
 
@@ -53,8 +54,8 @@ namespace RentABikeWTR_v1_7.Services.Database
             {
                 entity.HasKey(e => e.BiciklId);
 
-                entity.Property(e => e.NabavnaCijena).HasColumnType("decimal(5,2)");
-                entity.Property(e => e.CijenaBicikla).HasColumnType("decimal(5,2)");
+                entity.Property(e => e.NabavnaCijena).HasColumnType("decimal(10,2)");
+                entity.Property(e => e.CijenaBicikla).HasColumnType("decimal(10,2)");
                 entity.Property(e => e.GodinaProizvodnje).HasColumnType("datetime");
 
 
@@ -201,12 +202,10 @@ namespace RentABikeWTR_v1_7.Services.Database
                    .OnDelete(DeleteBehavior.ClientSetNull)
                    .HasConstraintName("FK_Korisnici_Drzave");
 
-                //one to one or zero
+                
 
 
-                //entity.HasOptional(k => k.Kupac)
-                //  .WihtRequired(p => p.Korisnici)
-                //  .HasConstraintName("FK_Korisnici_Kupci");
+                
             });
 
 
@@ -362,100 +361,19 @@ namespace RentABikeWTR_v1_7.Services.Database
 
 
 
-            //modelBuilder.Entity<Racuni>(entity =>
-            //{
-            //    entity.HasKey(e => e.RacunId);
-
-            //    entity.HasIndex(e => e.BrojRacuna)
-            //        .HasName("Racuni_BrojRacuna")
-            //        .IsUnique();
-
-            //    entity.Property(e => e.RacunId).HasColumnName("RacunID");
-
-            //    entity.Property(e => e.BrojRacuna)
-            //        .IsRequired()
-            //        .HasMaxLength(100);
-
-            //    entity.Property(e => e.Datum).HasColumnType("datetime");
-
-            //    entity.Property(e => e.IznajmljivanjeVozila).HasColumnType("decimal(18, 2)");
-
-            //    entity.Property(e => e.IznosBezPdv)
-            //        .HasColumnName("IznosBezPDV")
-            //        .HasColumnType("decimal(18, 2)");
-
-            //    entity.Property(e => e.IznosSaPdv)
-            //        .HasColumnName("IznosSaPDV")
-            //        .HasColumnType("decimal(18, 2)");
-
-            //    entity.Property(e => e.OpremaUkupno).HasColumnType("decimal(18, 2)");
-
-            //    entity.Property(e => e.OsiguranjeUkupno).HasColumnType("decimal(18, 2)");
-
-            //    entity.Property(e => e.Pdv)
-            //        .HasColumnName("PDV")
-            //        .HasColumnType("decimal(18, 2)");
-
-            //    entity.Property(e => e.Popust).HasColumnType("decimal(5, 2)");
-
-            //    entity.Property(e => e.QRCode)
-            //        .IsRequired()
-            //        .HasColumnName("QRCode");
-
-            //    entity.Property(e => e.RezervacijaId).HasColumnName("RezervacijaID");
-
-            //    entity.HasOne(d => d.Rezervacija)
-            //        .WithMany(p => p.Racuni)
-            //        .HasForeignKey(d => d.RezervacijaId)
-            //        .OnDelete(DeleteBehavior.ClientSetNull)
-            //        .HasConstraintName("FK_Racuni_Rezervacije");
-            //});
-
-            //modelBuilder.Entity<RegistracijeVozila>(entity =>
-            //{
-            //    entity.HasKey(e => e.RegistracijaVozilaId);
-
-            //    entity.Property(e => e.RegistracijaVozilaId).HasColumnName("RegistracijaVozilaID");
-
-            //    entity.Property(e => e.Cijena).HasColumnType("decimal(18, 2)");
-
-            //    entity.Property(e => e.KrajRegistracije).HasColumnType("datetime");
-
-            //    entity.Property(e => e.PocetakRegistracije).HasColumnType("datetime");
-
-            //    entity.Property(e => e.RegistarskeOznake)
-            //        .IsRequired()
-            //        .HasMaxLength(20);
-
-            //    entity.Property(e => e.UposlenikId).HasColumnName("UposlenikID");
-
-            //    entity.Property(e => e.VoziloId).HasColumnName("VoziloID");
-
-            //    entity.HasOne(d => d.Uposlenik)
-            //        .WithMany(p => p.RegistracijeVozila)
-            //        .HasForeignKey(d => d.UposlenikId)
-            //        .OnDelete(DeleteBehavior.ClientSetNull)
-            //        .HasConstraintName("FK_RegistracijeVozila_Korisnici");
-
-            //    entity.HasOne(d => d.Vozilo)
-            //        .WithMany(p => p.RegistracijeVozila)
-            //        .HasForeignKey(d => d.VoziloId)
-            //        .OnDelete(DeleteBehavior.ClientSetNull)
-            //        .HasConstraintName("FK_RegistracijeVozila_Vozila");
-            //});
+                      
 
             modelBuilder.Entity<Rezervacije>(entity =>
             {
                 entity.HasKey(e => e.RezervacijaId);
-
-                //entity.Property(e => e.RezervacijaId).HasColumnName("RezervacijaID");
 
                 entity.Property(e => e.DatumIzdavanja).HasColumnType("datetime");
 
                 entity.Property(e => e.VrijemeVracanja).HasColumnType("datetime");
 
                 entity.Property(e => e.VrijemePreuzimanja).HasColumnType("datetime");
-
+                entity.Property(e => e.CijenaUsluge).HasColumnType("decimal(10,2)");
+                
 
                 entity.Property(e => e.Napomena).HasMaxLength(200);
 
@@ -541,12 +459,7 @@ namespace RentABikeWTR_v1_7.Services.Database
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_RezervniDijelovi_KategorijeDijelova");
 
-                //entity.HasOne(d => d.Servisiranje)
-                //   .WithMany(p => p.RezervniDijelovi)
-                //   .HasForeignKey(d => d.ServisiranjeID)
-                //   .OnDelete(DeleteBehavior.ClientSetNull)
-                //   .HasConstraintName("FK_RezervniDijelovi_Servisiranja")
-                //   .IsRequired(false);
+               
 
 
 
@@ -558,7 +471,7 @@ namespace RentABikeWTR_v1_7.Services.Database
             {
                 entity.HasKey(e => e.ServisiranjeId);
 
-                //entity.Property(e => e.UlogaId).HasColumnName("UlogaID");
+                
 
                 entity.Property(e => e.OpisKvara)
                     .IsRequired()
@@ -570,7 +483,7 @@ namespace RentABikeWTR_v1_7.Services.Database
                 .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Servisi_Bicikli");
 
-                //entity.Property(e => e.OpisUloge).HasMaxLength(200);
+               
 
             });
 
@@ -578,8 +491,7 @@ namespace RentABikeWTR_v1_7.Services.Database
             {
                 entity.HasKey(e => e.StatusId);
 
-                //entity.Property(e => e.UlogaId).HasColumnName("UlogaID");
-                //entity.Property(e => e.OpisUloge).HasMaxLength(200);
+                
 
             });
             modelBuilder.Entity<TipoviBicikla>(entity =>
@@ -593,8 +505,7 @@ namespace RentABikeWTR_v1_7.Services.Database
             {
                 entity.HasKey(e => e.TuristickiVodicId);
                 entity.Property(e => e.CijenaVodica).HasColumnType("decimal(10,2)");
-                //entity.Property(e => e.UlogaId).HasColumnName("UlogaID");
-                //entity.Property(e => e.OpisUloge).HasMaxLength(200);
+                
 
                 // one to one or zero 
                 entity.HasOne(a => a.Korisnik)
@@ -606,9 +517,9 @@ namespace RentABikeWTR_v1_7.Services.Database
             modelBuilder.Entity<TuristRute>(entity =>
             {
                 entity.HasKey(e => e.TuristRutaId);
+                entity.Property(e => e.CijenaRute).HasColumnType("decimal(10,2)");
 
-                //entity.Property(e => e.UlogaId).HasColumnName("UlogaID");
-                //entity.Property(e => e.OpisUloge).HasMaxLength(200);
+                
 
             });
 
@@ -632,6 +543,9 @@ namespace RentABikeWTR_v1_7.Services.Database
                     .IsRequired();
             });
 
+
+           
+
             modelBuilder.Entity<KategorijeDijelova>(entity =>
             {
                 entity.HasKey(e => e.KategorijaDijelovaId);
@@ -640,7 +554,7 @@ namespace RentABikeWTR_v1_7.Services.Database
             {
                 entity.HasKey(e => e.ModelBiciklaId);
 
-                //entity.Property(e => e.ModelId).HasColumnName("ModelID");
+                
 
                 entity.Property(e => e.NazivModela)
                     .IsRequired()
@@ -648,9 +562,17 @@ namespace RentABikeWTR_v1_7.Services.Database
 
 
             });
+
+            modelBuilder.Entity<Poruke>(entity =>
+            {
+                entity.HasKey(e => e.PorukaId);
+                entity.Property(e => e.Tekst)
+                    .IsRequired();
+            });
+
+
             OnModelCreatingPartial(modelBuilder);
-            //modelBuilder.PopuniBazu();  //poziv extension metodi ide bez navedenih parametara jer tamo imamo this keyword
-            // ovaj poziv sam disable-irao kako bi mi prosla inicijalna migracija
+            
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

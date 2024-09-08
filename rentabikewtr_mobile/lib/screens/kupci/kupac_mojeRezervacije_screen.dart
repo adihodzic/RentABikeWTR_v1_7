@@ -4,6 +4,10 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:rentabikewtr_mobile/model/bicikli.dart';
 import 'package:rentabikewtr_mobile/screens/bicikli/bicikli_details_screen.dart';
+import 'package:rentabikewtr_mobile/screens/kupci/kupac_pocetna_screen.dart';
+import 'package:rentabikewtr_mobile/widgets/header_widget.dart';
+import 'package:rentabikewtr_mobile/widgets/kupac_drawer.dart';
+import 'package:rentabikewtr_mobile/widgets/master_screen.dart';
 
 import '../../model/korisniciProfil.dart';
 import '../../model/kupci.dart';
@@ -31,6 +35,8 @@ class KupacMojeRezervacijeScreen extends StatefulWidget {
 
 class _KupacMojeRezervacijeScreenState
     extends State<KupacMojeRezervacijeScreen> {
+  String title = "Moje rezervacije";
+  int currentIndex = 0;
   BicikliProvider? _bicikliProvider = null;
   RezervacijeKupacProvider? _rezervacijeKupacProvider = null;
   RezervacijePregled? rezPregled;
@@ -39,6 +45,7 @@ class _KupacMojeRezervacijeScreenState
   List<Bicikli> data = [];
   Bicikli? bic;
   List<RezervacijePregled> dataRezervacije = [];
+
   @override
   void initState() {
     // TODO: implement initState
@@ -74,16 +81,49 @@ class _KupacMojeRezervacijeScreenState
   Widget build(BuildContext context) {
     // final _rezervacijeKupacProvider =
     //     Provider.of<RezervacijeKupacProvider>(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Moje Rezervacije"),
-      ),
-      body: SingleChildScrollView(
+    return MasterScreenWidget(
+      argumentsKor: widget.argumentsKor,
+      // appBar: AppBar(
+      //   title: Text('RentABikeWTR '),
+      // ),
+      // drawer: KupacDrawer(
+      //   argumentsKor: widget.argumentsKor,
+      // ),
+      // //////////////////////////////////////////////////
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: 'Home',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.shopping_bag),
+      //       label: 'Moje rezervacije',
+      //     ),
+      //   ],
+      //   selectedItemColor: Colors.amber[800],
+      //   currentIndex: currentIndex,
+      //   onTap: _onItemTapped,
+      // ),
+      /////////////////////////////////////////////////////
+      child: SingleChildScrollView(
         child: Column(
           children: [
+            HeaderWidget(title: title),
+            Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+              Container(
+                height: 100,
+                width: 100,
+                child: Image.asset(
+                  'assets/images/logo7.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ]),
+            SizedBox(height: 20.0),
             Container(
-              height: 800,
-              width: 500, // promijenio sam visinu sa 200 na 400
+              height: 450,
+              // width: 500, // promijenio sam visinu sa 200 na 400
               child: GridView(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount:
@@ -135,21 +175,28 @@ class _KupacMojeRezervacijeScreenState
                     //arguments: x.biciklId); ... ovo je trebalo ici po ID-u,
                     //... ali sam izbacio
                   },
-                  child: Container(
-                      //Container je bio ili SizedBox
-                      height: 100, //bio je height
-                      width: 200,
-                      //bic=await _bicikliProvider.getById(biciklID); //bio je width i kasnije 100
+                  child: Card(
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
 
-                      //child: Text(x.datumIzdavanja!.toIso8601String()),
-                      child: imageFromBase64String(loadBicikliSlika(x))
-                      //ovo je bilo prije x.slika!
-                      ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                          //Container je bio ili SizedBox
+                          height: 100, //bio je height
+                          width: 150, //bio je width i kasnije 100
+
+                          child: imageFromBase64String(loadBicikliSlika(x))),
+                    ),
+                    //ovo je bilo prije x.slika!
+                  ),
                 ),
 
                 //child: Text(x.datumIzdavanja!.toIso8601String()),
-                Text("Rezervacija ID je" + (x.rezervacijaId).toString()),
-                Text("Kupac ID je" + (x.kupacID).toString()),
+                Text("Rezervacija broj: " + (x.rezervacijaId).toString()),
+                //Text("Kupac ID je" + (x.kupacID).toString()),
                 //Text((x.statusPlacanja).toString()),
                 // IconButton(
                 //   icon: Icon(Icons.shopping_cart),
@@ -168,15 +215,45 @@ class _KupacMojeRezervacijeScreenState
 
   String loadBicikliSlika(RezervacijePregled x) {
     //Bicikli bici;
-    var result = data.firstWhere((bic) => bic.biciklId == x.biciklID);
+    var result = data.firstWhere((bic) => bic.biciklID == x.biciklID);
 
     return result.slika!;
   }
 
   Bicikli loadBic(RezervacijePregled x) {
     //Bicikli bici;
-    var result = data.firstWhere((bic) => bic.biciklId == x.biciklID);
+    var result = data.firstWhere((bic) => bic.biciklID == x.biciklID);
 
     return result;
+  }
+
+  Widget _buildHeader() {
+    return Container(
+      alignment: Alignment.center,
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: Text(
+        "Moje rezervacije",
+        style: TextStyle(
+            color: Color.fromARGB(233, 120, 180, 229),
+            fontSize: 30,
+            fontWeight: FontWeight.w600),
+      ),
+    );
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+    if (currentIndex == 0) {
+      Navigator.pushNamed(context, KupacPocetnaScreen.routeName,
+          arguments: widget.argumentsKor);
+    } else if (currentIndex == 1) {
+      Navigator.pushNamed(context, KupacMojeRezervacijeScreen.routeName,
+          arguments: widget.argumentsKor);
+      // } else if (currentIndex == 2) {
+      //   Navigator.pushNamed(context, KupacMojeRezervacijeDetailsScreen.routeName);
+      // }
+    }
   }
 }

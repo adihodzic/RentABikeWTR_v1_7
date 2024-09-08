@@ -5,12 +5,16 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:rentabikewtr_mobile/model/korisniciProfil.dart';
 import 'package:rentabikewtr_mobile/model/mojProfilArguments.dart';
+import 'package:rentabikewtr_mobile/screens/kupci/kupac_mojeRezervacije_screen.dart';
 import 'package:rentabikewtr_mobile/utils/util.dart';
 
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:rentabikewtr_mobile/main.dart';
 import 'package:rentabikewtr_mobile/screens/bicikli/bicikli_list_screen.dart';
+import 'package:rentabikewtr_mobile/widgets/kupac_drawer.dart';
+import 'package:rentabikewtr_mobile/widgets/master_screen.dart';
+import 'package:rentabikewtr_mobile/widgets/header_widget.dart';
 
 import '../../model/bicikli.dart';
 import '../../model/drzave.dart';
@@ -33,6 +37,7 @@ class KupacMojProfilScreen extends StatefulWidget {
   static const String routeName = "/moj_profil";
   //final MojProfilArguments mojProfilArguments;
   final KorisniciProfil argumentsKor;
+
   //final Kupci argumentsKup;
   KupacMojProfilScreen({Key? key, required this.argumentsKor})
       : super(key: key);
@@ -42,6 +47,7 @@ class KupacMojProfilScreen extends StatefulWidget {
 }
 
 class _KupacMojProfilScreenState extends State<KupacMojProfilScreen> {
+  String? title;
   late DrzaveProvider _drzaveProvider;
   //late BicikliProvider _bicikliProvider;
   KupciProvider? _kupciProvider;
@@ -53,6 +59,7 @@ class _KupacMojProfilScreenState extends State<KupacMojProfilScreen> {
   // late Future<Korisnici?> _korisniciFuture;
   // late Future<Kupci?> _kupciFuture;
   //KorisniciUpsert koros = KorisniciUpsert();
+  List<Korisnici> korisniciPregled = [];
 
   KorisniciProfil? korosProfil; // = KorisniciProfil();
   List<KupciProfil> dataKupci = [];
@@ -69,6 +76,8 @@ class _KupacMojProfilScreenState extends State<KupacMojProfilScreen> {
   List<Drzave> data = [];
   //List<Kupci> dataKupci = [];
   Drzave? dod;
+  int currentIndex = 0;
+  var dupliEmail = false;
 
   TextEditingController _korisnickoImeController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -81,8 +90,12 @@ class _KupacMojProfilScreenState extends State<KupacMojProfilScreen> {
   TextEditingController _gradController = TextEditingController();
   TextEditingController _adresaController = TextEditingController();
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
+    title =
+        '${widget.argumentsKor.ime!}' + ' ' + '${widget.argumentsKor.prezime!}';
     super.initState();
 
     // kupos = KorisniciProfil(
@@ -104,6 +117,8 @@ class _KupacMojProfilScreenState extends State<KupacMojProfilScreen> {
     //loadKupac();
 
     //kupos = dataKupci;
+
+    //'${widget.argumentsKor.ime} + ${widget.argumentsKor.prezime}';
 
     _korisnickoImeController.text = widget.argumentsKor.korisnickoIme!;
     // _passwordController.text = "";
@@ -135,13 +150,16 @@ class _KupacMojProfilScreenState extends State<KupacMojProfilScreen> {
   // }
 
   Future<void> loadKupac() async {
-    var tmpKupac = await _kupciProfilProvider!
-        .getById(7); //widget.argumentsKor.korisnikId!);
+    var tmpKorisniciPregled = await _korisniciProvider.get();
+    var tmpKupac = await _kupciProfilProvider!.getById(
+        widget.argumentsKor.korisnikId ??
+            1); //widget.argumentsKor.korisnikId!);
     //kupos = await _kupciProvider.getById(widget.argumentsKor.korisnikId ?? 1)
     //as Kupci;
     //nisam await-ao kupce i zato mi se javljala greska
     //null check operator on null value!!!!!!!!!!!!!!!!!
     setState(() {
+      korisniciPregled = tmpKorisniciPregled;
       kuposProfil = tmpKupac;
       // kuposProfil = tmpKupac as KupciProfil;
     });
@@ -156,231 +174,532 @@ class _KupacMojProfilScreenState extends State<KupacMojProfilScreen> {
       _adresaController.text = kuposProfil!.adresa!;
     }
 
-    return Scaffold(
-      appBar:
-          AppBar(title: Text('Moj profil'), automaticallyImplyLeading: false),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 50.0),
-            //Authorization.username = _korisnickoImeController.text;
-            //Authorization.password = _passwordController.text;
-            Container(
-              padding: EdgeInsets.all(8),
-              child: TextField(
-                controller: _imeController,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Ime",
-                    hintStyle: TextStyle(color: Colors.grey[400])),
+    return MasterScreenWidget(
+      argumentsKor: widget.argumentsKor,
+      // appBar: AppBar(
+      //   title: Text('RentABikeWTR '),
+      // ),
+      // drawer: KupacDrawer(
+      //   argumentsKor: widget.argumentsKor,
+      // ),
+      // //////////////////////////////////////////////////
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: 'Home',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.shopping_bag),
+      //       label: 'Moje rezervacije',
+      //     ),
+      //   ],
+      //   selectedItemColor: Colors.amber[800],
+      //   currentIndex: currentIndex,
+      //   onTap: _onItemTapped,
+      // ),
+      /////////////////////////////////////////////////////
+      child: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                HeaderWidget(
+                  title: title!,
+                ),
+              ]),
+              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                Container(
+                  height: 100,
+                  width: 100,
+                  child: Image.asset(
+                    'assets/images/logo7.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ]),
+              SizedBox(height: 20.0),
+              //Authorization.username = _korisnickoImeController.text;
+              //Authorization.password = _passwordController.text;
+              Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                color: Color.fromARGB(255, 246, 249, 252),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    readOnly: false,
+                    controller: _imeController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Ime",
+                      labelStyle: TextStyle(color: Colors.blue),
+                      hintText: 'Unesite model',
+                      counterText: "", //sakriven counter od maxLength
+                      suffixIcon: Icon(Icons.person),
+                      suffixIconColor: Color.fromRGBO(239, 247, 5, 0.98),
+                    ),
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                    maxLength: 20,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Ime je obavezno polje.';
+                      } else if (value.characters.length < 3) {
+                        return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                      } else {
+                        return null;
+                      }
+                    },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                  ),
+                ),
               ),
-            ),
-            SizedBox(height: 2),
-            Container(
-              padding: EdgeInsets.all(8),
-              child: TextField(
-                controller: _prezimeController,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Prezime",
-                    hintStyle: TextStyle(color: Colors.grey[400])),
+              Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                color: Color.fromARGB(255, 246, 249, 252),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    readOnly: false,
+                    controller: _prezimeController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Prezime",
+                      labelStyle: TextStyle(color: Colors.blue),
+                      hintText: 'Unesite model',
+                      counterText: "", //sakriven counter od maxLength
+                      suffixIcon: Icon(Icons.person),
+                      suffixIconColor: Color.fromRGBO(239, 247, 5, 0.98),
+                    ),
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                    maxLength: 20,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Prezime je obavezno polje.';
+                      } else if (value.characters.length < 3) {
+                        return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                      } else {
+                        return null;
+                      }
+                    },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                  ),
+                ),
               ),
-            ),
-            SizedBox(height: 2),
-            Container(
-              padding: EdgeInsets.all(8),
-              child: TextField(
-                controller: _korisnickoImeController,
-                readOnly: true, // korisnicko ime kupac ne moze promijeniti
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Korisničko ime",
-                    hintStyle: TextStyle(color: Colors.grey[400])),
+              Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                color: Color.fromARGB(255, 246, 249, 252),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    readOnly: true,
+                    controller: _korisnickoImeController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Korisničko ime",
+                      labelStyle: TextStyle(color: Colors.blue),
+                      hintText: 'Unesite model',
+                      counterText: "", //sakriven counter od maxLength
+                      suffixIcon: Icon(Icons.person),
+                      suffixIconColor: Color.fromRGBO(239, 247, 5, 0.98),
+                    ),
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                    maxLength: 20,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Prezime je obavezno polje.';
+                      } else if (value.characters.length < 3) {
+                        return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                      } else {
+                        return null;
+                      }
+                    },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                  ),
+                ),
               ),
-            ),
-            SizedBox(height: 2),
-            Container(
-              padding: EdgeInsets.all(8),
-              child: TextField(
-                controller: _passwordController,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Lozinka",
-                    hintStyle: TextStyle(color: Colors.grey[400])),
+
+              Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                color: Color.fromARGB(255, 246, 249, 252),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    readOnly: false,
+                    controller: _emailController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "E-mail",
+                      labelStyle: TextStyle(color: Colors.blue),
+                      hintText: 'Unesite e-mail adresu',
+                      counterText: "", //sakriven counter od maxLength
+                      suffixIcon: Icon(Icons.mail),
+                      suffixIconColor: Color.fromRGBO(239, 247, 5, 0.98),
+                    ),
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                    maxLength: 20,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'E-mail je obavezan.';
+                      } else if (value.characters.length < 10) {
+                        return 'E-mail mora imati minimalno 10 karaktera.';
+                      } else {
+                        return null;
+                      }
+                    },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                  ),
+                ),
               ),
-            ),
-            SizedBox(height: 2),
-            Container(
-              padding: EdgeInsets.all(8),
-              child: TextField(
-                controller: _passwordPotvrdaController,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Potvrda lozinke",
-                    hintStyle: TextStyle(color: Colors.grey[400])),
+              Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                color: Color.fromARGB(255, 246, 249, 252),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    readOnly: false,
+                    controller: _telefonController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Telefon",
+                      labelStyle: TextStyle(color: Colors.blue),
+                      hintText: 'Unesite broj telefona',
+                      counterText: "", //sakriven counter od maxLength
+                      suffixIcon: Icon(Icons.phone),
+                      suffixIconColor: Color.fromRGBO(239, 247, 5, 0.98),
+                    ),
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                    maxLength: 20,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Telefon je obavezno polje.';
+                      } else if (value.characters.length < 3) {
+                        return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                      } else {
+                        return null;
+                      }
+                    },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                  ),
+                ),
               ),
-            ),
-            SizedBox(height: 2),
-            Container(
-              padding: EdgeInsets.all(8),
-              child: TextField(
-                controller: _emailController,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "e-mail adresa",
-                    hintStyle: TextStyle(color: Colors.grey[400])),
+              Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                color: Color.fromARGB(255, 246, 249, 252),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    readOnly: false,
+                    controller: _brojLKPasosaController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Broj LK/Pasoša",
+                      labelStyle: TextStyle(color: Colors.blue),
+                      hintText: 'Unesite broj LK ili pasoša',
+                      counterText: "", //sakriven counter od maxLength
+                      suffixIcon: Icon(Icons.book),
+                      suffixIconColor: Color.fromRGBO(239, 247, 5, 0.98),
+                    ),
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                    maxLength: 20,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Ovo je obavezno polje.';
+                      } else if (value.characters.length < 3) {
+                        return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                ),
               ),
-            ),
-            SizedBox(height: 2),
-            Container(
-              padding: EdgeInsets.all(8),
-              child: TextField(
-                controller: _telefonController,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Telefon",
-                    hintStyle: TextStyle(color: Colors.grey[400])),
+              Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                color: Color.fromARGB(255, 246, 249, 252),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    readOnly: false,
+                    controller: _adresaController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Adresa",
+                      labelStyle: TextStyle(color: Colors.blue),
+                      hintText: 'Unesite adresu',
+                      counterText: "", //sakriven counter od maxLength
+                      suffixIcon: Icon(Icons.location_pin),
+                      suffixIconColor: Color.fromRGBO(239, 247, 5, 0.98),
+                    ),
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                    maxLength: 20,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Adresa je obavezno polje.';
+                      } else if (value.characters.length < 3) {
+                        return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                ),
               ),
-            ),
-            SizedBox(height: 2),
-            Container(
-              padding: EdgeInsets.all(8),
-              child: TextField(
-                controller: _brojLKPasosaController,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Broj LK/Pasoša",
-                    hintStyle: TextStyle(color: Colors.grey[400])),
+              Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                color: Color.fromARGB(255, 246, 249, 252),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    readOnly: false,
+                    controller: _gradController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Grad",
+                      labelStyle: TextStyle(color: Colors.blue),
+                      hintText: 'Unesite naziv grada',
+                      counterText: "", //sakriven counter od maxLength
+                      suffixIcon: Icon(Icons.location_city),
+                      suffixIconColor: Color.fromRGBO(239, 247, 5, 0.98),
+                    ),
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                    maxLength: 20,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Grad je obavezno polje.';
+                      } else if (value.characters.length < 3) {
+                        return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                ),
               ),
-            ),
-            SizedBox(height: 2),
-            Container(
-              padding: EdgeInsets.all(8),
-              child: TextField(
-                controller: _adresaController,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Adresa",
-                    hintStyle: TextStyle(color: Colors.grey[400])),
+
+              Row(
+                children: [
+                  Expanded(
+                    child: Card(
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      //color: Color.fromRGBO(143, 148, 251, .6),
+                      color: Color.fromARGB(233, 120, 180, 229),
+
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0), //prosiren inkWell
+                        child: InkWell(
+                          child: Center(
+                              child: Text("Sačuvaj",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold))),
+                          onTap: () async {
+                            if (_formKey.currentState!.validate()) {
+                              try {
+                                await _handleFormSubmission();
+
+                                await Navigator.pushReplacementNamed(
+                                    context, KupacPocetnaScreen.routeName,
+                                    arguments: widget.argumentsKor);
+                              } catch (e) {
+                                await _handleSubmissionError(e);
+                              }
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            SizedBox(height: 2),
-            Container(
-              padding: EdgeInsets.all(8),
-              child: TextField(
-                controller: _gradController,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Grad",
-                    hintStyle: TextStyle(color: Colors.grey[400])),
-              ),
-            ),
-            SizedBox(height: 2),
-
-            // Container(
-            //   padding: EdgeInsets.all(8),
-            //   child: DropdownButton<Drzave>(
-            //       //hint: Text("Odaberite državu"),
-            //       value: _selectedValue,
-            //       // = _drzaveProvider.getById(widget.argumentsKor.drzavaID!) as Drzave,
-            //       icon: const Icon(Icons.keyboard_arrow_down),
-
-            //       // Array list of items
-            //       items: data.map<DropdownMenuItem<Drzave>>((dod) {
-            //         return DropdownMenuItem<Drzave>(
-            //           value: dod,
-            //           child: Text(dod.nazivDrzave!),
-            //         );
-            //       }).toList(),
-            //       // After selecting the desired option,it will
-            //       // change button value to selected value
-            //       onChanged: (dod) {
-            //         setState(() {
-            //           _selectedValue = dod!;
-            //         });
-            //       }),
-            // ),
-            SizedBox(
-              height: 30,
-            ),
-
-            SizedBox(height: 30.0),
-            ElevatedButton(
-              onPressed: () async {
-                try {
-                  setState(() {
-                    //koros!.datumRegistracije = DateTime.now();
-                    widget.argumentsKor.aktivan = true;
-                    //koros!.drzavaID = _selectedValue!.drzavaID;
-                    // //koros.nazivDrzave = dod!.nazivDrzave;  -- samo treba ID drzave
-                    // //Authorization.username = _usernameController.text;
-                    widget.argumentsKor.email = _emailController.text;
-                    widget.argumentsKor.ime = _imeController.text;
-                    widget.argumentsKor.prezime = _prezimeController.text;
-                    widget.argumentsKor.telefon = _telefonController.text;
-                    widget.argumentsKor.drzavaID = drzavaid;
-                    widget.argumentsKor.datumRegistracije = dateReg;
-                    var password = _passwordController.text;
-                    var passwordPotvrda = _passwordPotvrdaController.text;
-                    if (password != null) {
-                      widget.argumentsKor.password = _passwordController.text;
-                      widget.argumentsKor.passwordPotvrda =
-                          _passwordPotvrdaController.text;
-                    }
-                    if (password != passwordPotvrda) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                            content: Text(
-                                'Lozinke moraju biti iste!!! Unesite ponovo lozinku...'),
-                            backgroundColor: Color.fromARGB(255, 177, 43, 77)),
-                      );
-                    }
-
-                    kuposProfil!.adresa = _adresaController.text;
-                    kuposProfil!.brojLKPasosa = _brojLKPasosaController.text;
-                    kuposProfil!.grad = _gradController.text;
-
-                    // koros!.ulogaID = 4;
-                    // koros!.korisnickoIme = _korisnickoImeController.text;
-                    // kupos = _bicikliProvider
-                    //     .getById(widget.mojProfilArguments.argumentsKor!.korisnikId!) as Bicikli;
-
-                    //koros.password = _passwordController.text;
-                    //koros.passwordPotvrda = _passwordPotvrdaController.text;
-                  });
-
-                  await _korisniciProfilUpdateProvider.update(
-                      widget.argumentsKor.korisnikId!, widget.argumentsKor);
-
-                  int broj = 4;
-                  for (int i = 3; i >= 0; i--) {
-                    broj = broj - 1;
-                  }
-                  await _kupciProfilProvider?.update(
-                      widget.argumentsKor.korisnikId!, kuposProfil!);
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                        content: Text(
-                            'Uspješno ste izmijenili svoj profil!!! Učitavanje aplikacije...'),
-                        backgroundColor: Colors.blue),
-                  );
-
-                  await Navigator.pushReplacementNamed(
-                      context, KupacPocetnaScreen.routeName,
-                      arguments: widget.argumentsKor);
-                } catch (e) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('Došlo je do greške.'),
-                    backgroundColor: Colors.red,
-                  ));
-                }
-              },
-              child: Text("Sačuvaj"),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  Future<void> _handleFormSubmission() async {
+    // try{
+    await _updateKorisnikData();
+    await _korisniciProfilUpdateProvider.update(
+        widget.argumentsKor.korisnikId!, widget.argumentsKor);
+
+    int broj = 4;
+    for (int i = 3; i >= 0; i--) {
+      broj = broj - 1;
+    }
+    await _kupciProfilProvider?.update(
+        widget.argumentsKor.korisnikId!, kuposProfil!);
+
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text(
+          'Uspješno ste izmijenili svoj profil!!! Učitavanje aplikacije...'),
+      backgroundColor: Colors.blue,
+    ));
+    // }catch(e){
+    //_showDialog(context, "Greška", e.toString());
+    // }
+  }
+
+  Future<void> _updateKorisnikData() async {
+    setState(() {
+      //turistRuta!.statusID = 1;
+
+      widget.argumentsKor.aktivan = true;
+      //widget.argumentsKor.email = _emailController.text;
+      if (_emailController.text != widget.argumentsKor.email &&
+          isPostojeciEmail(_emailController.text)) {
+        dupliEmail = true;
+        //_emailController.text = "";
+        throw Exception(); // ovo mi je bitno da odmah baci exception, da ne prođe na API
+        //nije ubace tekst zbog naredne poruke
+      } else {
+        widget.argumentsKor!.email = _emailController.text;
+      }
+      widget.argumentsKor.ime = _imeController.text;
+      widget.argumentsKor.prezime = _prezimeController.text;
+      widget.argumentsKor.telefon = _telefonController.text;
+      widget.argumentsKor.drzavaID = drzavaid;
+      widget.argumentsKor.datumRegistracije = dateReg;
+      var password = _passwordController.text;
+      var passwordPotvrda = _passwordPotvrdaController.text;
+      if (password != null) {
+        widget.argumentsKor.password = _passwordController.text;
+        widget.argumentsKor.passwordPotvrda = _passwordPotvrdaController.text;
+      }
+      if (password != passwordPotvrda) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content:
+                  Text('Lozinke moraju biti iste!!! Unesite ponovo lozinku...'),
+              backgroundColor: Color.fromARGB(255, 177, 43, 77)),
+        );
+      }
+
+      kuposProfil!.adresa = _adresaController.text;
+      kuposProfil!.brojLKPasosa = _brojLKPasosaController.text;
+      kuposProfil!.grad = _gradController.text;
+    });
+  }
+
+  Future<void> _handleSubmissionError(e) async {
+    if (dupliEmail) {
+      //   _nazivController.text = "";
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('E-mail već postoji'),
+        backgroundColor: Colors.red,
+      ));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Došlo je do greške'),
+        backgroundColor: Colors.red,
+      ));
+      print('Greška:Poruka o kontekstu greške $e');
+    }
+  }
+
+  Widget _buildHeader() {
+    return Container(
+      // alignment: Alignment.center,
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: Text(
+        '${widget.argumentsKor.ime!}' + ' ' + '${widget.argumentsKor.prezime!}',
+        style: TextStyle(
+            color: Color.fromARGB(233, 120, 180, 229),
+            fontSize: 30,
+            fontWeight: FontWeight.w600),
+      ),
+    );
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+    if (currentIndex == 0) {
+      Navigator.pushNamed(context, KupacPocetnaScreen.routeName,
+          arguments: widget.argumentsKor);
+    } else if (currentIndex == 1) {
+      Navigator.pushNamed(context, KupacMojeRezervacijeScreen.routeName,
+          arguments: widget.argumentsKor);
+      // } else if (currentIndex == 2) {
+      //   Navigator.pushNamed(context, KupacMojeRezervacijeDetailsScreen.routeName);
+      // }
+    }
+  }
+
+  bool isPostojeciEmail(String input) {
+    var brojac = 0;
+    for (var kor in korisniciPregled) {
+      if (input == kor.email) {
+        brojac = brojac + 1;
+      }
+    }
+    if (brojac > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void validateController() {
+    if (!_formKey!.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('E-mail već postoji.'),
+        backgroundColor: Colors.red,
+      ));
+      // value is false.. textFields are rebuilt in order to show errorLabels
+      return;
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Uspješno ste editovali korisnika.'),
+        backgroundColor: Colors.blue,
+      ));
+    }
+    // action WHEN values are valid
   }
 }

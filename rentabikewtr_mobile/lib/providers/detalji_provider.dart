@@ -24,7 +24,7 @@ class DetaljiProvider with ChangeNotifier {
 
   DetaljiItem? findInCart(Bicikli bicikli) {
     DetaljiItem? item = detalji.items
-        .firstWhereOrNull((item) => item.bicikli.biciklId == bicikli.biciklId);
+        .firstWhereOrNull((item) => item.bicikli.biciklID == bicikli.biciklID);
     return item;
   }
 }

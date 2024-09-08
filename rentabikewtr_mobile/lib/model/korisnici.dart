@@ -10,9 +10,9 @@ class Korisnici {
   //int? korisnikId;
   String? korisnickoIme;
   //String? password;
-  // String? email;
-  // String? ime;
-  // String? prezime;
+  String? email;
+  //String? ime;
+  //String? prezime;
   // String? telefon;
   //DateTime datumRegistracija = DateTime.now();
   //bool? aktivan = true;

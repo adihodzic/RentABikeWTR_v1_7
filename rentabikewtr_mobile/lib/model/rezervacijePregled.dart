@@ -7,10 +7,12 @@ part 'rezervacijePregled.g.dart';
 @JsonSerializable()
 class RezervacijePregled {
   int? rezervacijaId;
+  DateTime? datumIzdavanja;
   int? biciklID;
   int? kupacID;
-  // int? turistickiVodicID;
-  // int? turistRutaID;
+  int? turistickiVodicID;
+  int? turistRutaID;
+  num? cijenaUsluge;
 
   RezervacijePregled() {}
 

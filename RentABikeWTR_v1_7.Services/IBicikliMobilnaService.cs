@@ -11,7 +11,7 @@ namespace RentABikeWTR_v1_7.Services
     {
         public List<Model.BicikliPregled> Get(BicikliSearchRequest search);
         public Model.Bicikli GetById(int id);
-        public List<Model.Bicikli> Recommend(int biciklid);
+        public List<Model.Bicikli> Recommend(int biciklID);
 
     }
 }

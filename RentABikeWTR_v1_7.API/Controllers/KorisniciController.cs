@@ -72,6 +72,7 @@ namespace RentABikeWTR_v1_7.API.Controllers
         {
             return _service.Insert(request);
         }
+        
         [HttpPut("{id}")]
         public Model.Korisnici Update(int id, [FromBody] KorisniciUpsertRequest request)
         {

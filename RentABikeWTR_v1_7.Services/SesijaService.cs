@@ -30,7 +30,7 @@ namespace RentABikeWTR_v1_7.Services
 
 
         //public async Task<string> CreateCheckout(string nazivBicikla)
-        public async Task<string> CreateCheckout(string nazivBicikla)
+        public async Task<string> CreateCheckout(string nazivBicikla, double cijenaBicikla)
         {
             //var thisApiUrl = "https://localhost:7136/api";
             var thisApiUrl = "https://localhost:44335/api";
@@ -67,7 +67,7 @@ namespace RentABikeWTR_v1_7.Services
                         PriceData = new SessionLineItemPriceDataOptions
                         {
 
-                            UnitAmount = 1000,// bicikli.Cijena, // Price is in USD cents.
+                            UnitAmount = (int)cijenaBicikla*100,// bicikli.Cijena, // Price is in USD cents.
                             Currency = "BAM",
                             ProductData = new SessionLineItemPriceDataProductDataOptions
                             {
@@ -93,11 +93,11 @@ namespace RentABikeWTR_v1_7.Services
             return session.Id;
 
         }
-        public async Task<string> xCreateCheckout(string nazivBicikla, string nazivRute, string jezikVodica)
+        public async Task<string> xCreateCheckout(string nazivBicikla, string nazivRute, string jezikVodica, double cijenaUsluge)
         {
             //var thisApiUrl = "https://localhost:7136/api";
-            var thisApiUrl = "https://localhost:7136/api";
-            var s_wasmClientURL = "https://localhost:7136/api";
+            var thisApiUrl = "https://localhost:44335/api";
+            var s_wasmClientURL = "https://localhost:44335/api";
 
 
             var options = new SessionCreateOptions
@@ -118,7 +118,7 @@ namespace RentABikeWTR_v1_7.Services
                         PriceData = new SessionLineItemPriceDataOptions
                         {
 
-                            UnitAmount = 3000,// bicikli.Cijena, // Price is in USD cents.
+                            UnitAmount = (int)cijenaUsluge*100,// bicikli.Cijena, // Price is in USD cents.
                             Currency = "BAM",
                             ProductData = new SessionLineItemPriceDataProductDataOptions
                             {

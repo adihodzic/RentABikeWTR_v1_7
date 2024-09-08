@@ -1,5 +1,6 @@
 //import 'dart:html';
 
+import 'package:rentabikewtr_mobile/model/korisniciProfil.dart';
 import 'package:rentabikewtr_mobile/model/screenArguments.dart';
 import 'package:rentabikewtr_mobile/model/turistickiVodici.dart';
 import 'package:rentabikewtr_mobile/model/turistRute.dart';
@@ -16,6 +17,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:rentabikewtr_mobile/widgets/header_widget.dart';
 
 import '../../model/bicikli.dart';
 //import '../../providers/cart_provider.dart';
@@ -35,8 +37,16 @@ class TuristRuteListScreen extends StatefulWidget {
   static const String routeName = "/TuristRute"; // rutu mijenjam
   //...ako mijenjam string na Super(bicikliProvider-u)
   final Bicikli argumentsBic;
+  KorisniciProfil? argumentsKor;
+  TuristRute? argumentsTR;
+  DateTime argumentsDate;
+  //TuristickiVodici? argumentsTV;
 
-  const TuristRuteListScreen({Key? key, required this.argumentsBic})
+  TuristRuteListScreen(
+      {Key? key,
+      required this.argumentsBic,
+      required this.argumentsKor,
+      required this.argumentsDate})
       : super(key: key);
 
   @override
@@ -44,6 +54,7 @@ class TuristRuteListScreen extends StatefulWidget {
 }
 
 class _TuristRuteListScreenState extends State<TuristRuteListScreen> {
+  String title = "Turist rute";
   TuristRuteProvider? _turistRuteProvider = null;
   TuristickiVodiciProvider? _turistickiVodiciProvider = null;
   BicikliProvider? _bicikliProvider = null;
@@ -91,107 +102,118 @@ class _TuristRuteListScreenState extends State<TuristRuteListScreen> {
   Widget build(BuildContext context) {
     print("called build $data");
     return MasterScreenWidget(
+        argumentsKor: widget.argumentsKor!,
         child: SingleChildScrollView(
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 30.0,
-            ),
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                HeaderWidget(title: title!),
+                SizedBox(
+                  height: 50.0,
+                ),
+                Card(
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  color: Color.fromARGB(255, 246, 249, 252),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: DropdownButtonFormField<TuristickiVodici>(
+                        decoration: InputDecoration(
+                          hintText: "Odaberite turističkog vodiča",
+                          hintStyle: TextStyle(color: Colors.blue),
+                          border: OutlineInputBorder(),
+                        ),
 
-            DropdownButton<TuristickiVodici>(
-                hint: Text("Odaberite turističkog vodiča"),
-                value: _selectedValue,
-                icon: const Icon(Icons.keyboard_arrow_down),
+                        // style: TextStyle(color: Colors.blue)),
+                        value: _selectedValue,
+                        icon: const Icon(Icons.keyboard_arrow_down),
 
-                // Array list of items
-                items: dataTV.map<DropdownMenuItem<TuristickiVodici>>(
-                    (TuristickiVodici vod) {
-                  return DropdownMenuItem<TuristickiVodici>(
-                    value: vod,
-                    child: Text(vod.naziv!),
-                  );
-                }).toList(),
-                // After selecting the desired option,it will
-                // change button value to selected value
-                onChanged: (vod) {
-                  setState(() {
-                    _selectedValue = vod!;
-                    argumentsTV = _selectedValue;
-                  });
-                }),
-            SizedBox(
-              height: 50.0,
+                        // Array list of items
+                        items: dataTV.map<DropdownMenuItem<TuristickiVodici>>(
+                            (TuristickiVodici vod) {
+                          return DropdownMenuItem<TuristickiVodici>(
+                            value: vod,
+                            child: Text(vod.naziv!,
+                                style: TextStyle(color: Colors.blue)),
+                          );
+                        }).toList(),
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Odaberite model';
+                          }
+                          return null;
+                        },
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        // After selecting the desired option,it will
+                        // change button value to selected value
+                        onChanged: (vod) {
+                          setState(() {
+                            _selectedValue = vod!;
+                            argumentsTV = _selectedValue;
+                          });
+                        }),
+                  ),
+                ),
+
+                // DropdownButton<TuristickiVodici>(
+                //     hint: Text("Odaberite turističkog vodiča",
+                //         style: TextStyle(color: Colors.blue)),
+                //     value: _selectedValue,
+                //     icon: const Icon(Icons.keyboard_arrow_down),
+
+                //     // Array list of items
+                //     items: dataTV.map<DropdownMenuItem<TuristickiVodici>>(
+                //         (TuristickiVodici vod) {
+                //       return DropdownMenuItem<TuristickiVodici>(
+                //         value: vod,
+                //         child: Text(vod.naziv!,
+                //             style: TextStyle(color: Colors.blue)),
+                //       );
+                //     }).toList(),
+                //     // After selecting the desired option,it will
+                //     // change button value to selected value
+                //     onChanged: (vod) {
+                //       setState(() {
+                //         _selectedValue = vod!;
+                //         argumentsTV = _selectedValue;
+                //       });
+                //     }),
+                SizedBox(
+                  height: 20.0,
+                ),
+
+                //_buildHeader(), // Ovo su widget-i
+                // _buildProductSearch(), // ovo su widget-i
+                Container(
+                  height: 400, // promijenio sam visinu sa 200 na 400
+                  child: GridView(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount:
+                            2, // bio je 1 ovo je broj osa (kolona ili redova)
+                        childAspectRatio: 4 / 3,
+                        crossAxisSpacing: 5, // bilo je 20
+                        mainAxisSpacing: 5), //bilo je 30
+                    scrollDirection: Axis.vertical, //bio je horizontal
+                    children: _buildProductCardList(),
+                  ),
+                )
+              ],
             ),
-            _buildHeader(), // Ovo su widget-i
-            // _buildProductSearch(), // ovo su widget-i
-            Container(
-              height: 400, // promijenio sam visinu sa 200 na 400
-              child: GridView(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount:
-                        2, // bio je 1 ovo je broj osa (kolona ili redova)
-                    childAspectRatio: 4 / 3,
-                    crossAxisSpacing: 5, // bilo je 20
-                    mainAxisSpacing: 5), //bilo je 30
-                scrollDirection: Axis.vertical, //bio je horizontal
-                children: _buildProductCardList(),
-              ),
-            )
-          ],
-        ),
-      ),
-    ));
+          ),
+        ));
   }
 
-  Widget _buildHeader() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Text(
-        "Turist rute",
-        style: TextStyle(
-            color: Colors.grey, fontSize: 40, fontWeight: FontWeight.w600),
-      ),
-    );
-  }
-
-  // Widget _buildProductSearch() {
-  //   return Row(
-  //     children: [
-  //       Expanded(
-  //         child: Container(
-  //           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-  //           child: TextField(
-  //             controller: _searchController,
-  //             onSubmitted: (value) async {
-  //               var tmpDataTV = await _turistickiVodiciProvider?.get(null);
-  //               setState(() {
-  //                 dataTV = tmpDataTV!;
-  //               });
-  //             },
-  //             decoration: InputDecoration(
-  //                 hintText: "Search",
-  //                 prefixIcon: Icon(Icons.search),
-  //                 border: OutlineInputBorder(
-  //                     borderRadius: BorderRadius.circular(10),
-  //                     borderSide: BorderSide(color: Colors.grey))),
-  //           ),
-  //         ),
-  //       ),
-  //       Container(
-  //         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-  //         child: IconButton(
-  //           icon: Icon(Icons.filter_list),
-  //           onPressed: () async {
-  //             var tmpDataTV = await _turistickiVodiciProvider?.get(null);
-  //             setState(() {
-  //               dataTV = tmpDataTV!;
-  //             });
-  //           },
-  //         ),
-  //       )
-  //     ],
+  // Widget _buildHeader() {
+  //   return Container(
+  //     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  //     child: Text(
+  //       "Turist rute",
+  //       style: const TextStyle(
+  //           color: Colors.grey, fontSize: 40, fontWeight: FontWeight.w600),
+  //     ),
   //   );
   // }
 
@@ -210,8 +232,12 @@ class _TuristRuteListScreenState extends State<TuristRuteListScreen> {
                     if (argumentsTV != null) {
                       Navigator.pushNamed(
                           context, "${TuristRuteDetailsScreen.routeName}",
-                          arguments: ScreenArguments(data[data.indexOf(x)],
-                              widget.argumentsBic, argumentsTV));
+                          arguments: ScreenArguments(
+                              widget.argumentsKor,
+                              data[data.indexOf(x)],
+                              widget.argumentsBic,
+                              argumentsTV,
+                              widget.argumentsDate));
                       //...vazno za prosljedjivanje objekta... mi daje tačan indeks
                       //...ne bi bilo ispravno da sam stavio data[x.bicikliId!]
                       //...nemam sve id-eve Bicikala u list
@@ -219,7 +245,7 @@ class _TuristRuteListScreenState extends State<TuristRuteListScreen> {
                       //... ali sam izbacio
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
+                        SnackBar(
                           content:
                               Text('Morate odabrati turističkog vodiča!!!'),
                           backgroundColor: Colors.red,
@@ -228,17 +254,33 @@ class _TuristRuteListScreenState extends State<TuristRuteListScreen> {
                     }
                     //args!.argumentsTR = data[data.indexOf(x)];
                   },
-                  child: Container(
-                    //Container je bio ili SizedBox
-                    height: 100, //bio je height
-                    width: 200, //bio je width i kasnije 100
+                  child: Card(
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
 
-                    child: imageFromBase64String(x.slikaRute!),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                          //Container je bio ili SizedBox
+                          height: 100, //bio je height
+                          width: 150, //bio je width i kasnije 100
+
+                          child: imageFromBase64String(x.slikaRute!)),
+                    ),
                     //ovo je bilo prije x.slika!
                   ),
+                  // child: Container(
+                  //   //Container je bio ili SizedBox
+                  //   height: 100, //bio je height
+                  //   width: 200, //bio je width i kasnije 100
+
+                  //  child: imageFromBase64String(x.slikaRute!),
+                  //ovo je bilo prije x.slika!
                 ),
 
-                Text(x.naziv ?? "Proba i tako to"),
+                Text(x.naziv ?? "Nema naziva"),
                 //Text(formatNumber(x.cijena)),
                 // IconButton(
                 //   icon: Icon(Icons.shopping_cart),

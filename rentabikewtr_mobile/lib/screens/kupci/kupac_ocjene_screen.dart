@@ -19,6 +19,7 @@ import 'package:rentabikewtr_mobile/providers/turistickiVodici_provider.dart';
 import 'package:rentabikewtr_mobile/utils/util.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:rentabikewtr_mobile/widgets/header_widget.dart';
 //import 'package:provider/provider.dart';
 
 //import 'package:rentabikewtr_mobile/providers/bicikli_provider.dart';
@@ -49,7 +50,9 @@ class KupacOcjeneScreen extends StatefulWidget {
 }
 
 class _KupacOcjeneScreenState extends State<KupacOcjeneScreen> {
+  bool hasShownSnackBar = false;
   //bool _isLoading = false;
+  String title = "Ocjena bicikla";
   List<Ocjene> data = [];
   Ocjene? ocj;
   int ocjenaID = 0;
@@ -66,6 +69,7 @@ class _KupacOcjeneScreenState extends State<KupacOcjeneScreen> {
   TuristRuteProvider? _turistRuteProvider;
   KorisniciProfilProvider? _korisniciProfilProvider;
   OcjeneProvider? _ocjeneProvider;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -126,202 +130,201 @@ class _KupacOcjeneScreenState extends State<KupacOcjeneScreen> {
   @override
   Widget build(BuildContext context) {
     final _ocjeneProvider = Provider.of<OcjeneProvider>(context);
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 64.0),
-        child: Column(
-          children: [
-            Column(
-              children: List.generate(
-                checkListItems.length,
-                (index) => CheckboxListTile(
-                  controlAffinity: ListTileControlAffinity.leading,
-                  contentPadding: EdgeInsets.zero,
-                  dense: true,
-                  title: Text(
-                    checkListItems[index]["title"],
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.black,
-                    ),
-                  ),
-                  value: checkListItems[index]["value"],
-                  onChanged: (value) {
-                    setState(() {
-                      for (var element in checkListItems) {
-                        element["value"] = false;
+    return MasterScreenWidget(
+      argumentsKor: widget.args.argumentsKor!,
+      //backgroundColor: Colors.white,
+      child: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                HeaderWidget(
+                  title: title,
+                ),
+              ]),
+              Column(
+                children: List.generate(
+                  checkListItems.length,
+                  (index) => FormField<bool>(
+                    initialValue: checkListItems[index]["value"],
+                    validator: (value) {
+                      if (checkListItems
+                          .every((item) => item["value"] == false)) {
+                        if (!hasShownSnackBar) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content: Text('Odaberite ocjenu...'),
+                                backgroundColor: Colors.red),
+                          );
+                          setState(() {
+                            hasShownSnackBar = true;
+                          });
+                        }
+                        return '';
                       }
-                      checkListItems[index]["value"] = value;
-                      oc = index + 1;
+                      return null;
+                    },
+                    builder: (FormFieldState<bool> state) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SwitchListTile(
+                            activeColor: Colors.amber,
+                            activeTrackColor: Colors.cyan,
+                            inactiveThumbColor: Colors.blueGrey.shade600,
+                            inactiveTrackColor: Colors.grey.shade400,
+                            splashRadius: 50.0,
+                            controlAffinity: ListTileControlAffinity.leading,
+                            contentPadding: EdgeInsets.zero,
+                            dense: true,
+                            title: Text(
+                              checkListItems[index]["title"],
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                                color: Colors.blue,
+                              ),
+                            ),
+                            value: checkListItems[index]["value"],
+                            onChanged: (value) {
+                              setState(() {
+                                for (var element in checkListItems) {
+                                  element["value"] = false;
+                                }
+                                checkListItems[index]["value"] = value;
+                                oc = index + 1;
 
-                      ocj!.datumOcjene = DateTime.now();
-                      ocj!.biciklID = widget.args.argumentsBic!.biciklId;
-                      ocj!.kupacID = widget.args.argumentsKor!.korisnikId;
+                                ocj!.datumOcjene = DateTime.now();
+                                ocj!.biciklID =
+                                    widget.args.argumentsBic!.biciklID;
+                                ocj!.kupacID =
+                                    widget.args.argumentsKor!.korisnikId;
 
-                      selected =
-                          "${checkListItems[index]["id"]}, ${checkListItems[index]["title"]}, ${checkListItems[index]["value"]}";
-                    });
-                  },
+                                selected =
+                                    "${checkListItems[index]["id"]}, ${checkListItems[index]["title"]}, ${checkListItems[index]["value"]}";
+                              });
+                              // if (checkListItems
+                              //     .every((item) => item["value"] == false)) {
+                              //   ScaffoldMessenger.of(context).showSnackBar(
+                              //     SnackBar(
+                              //       content: Text('Odaberite ocjenu...'),
+                              //       backgroundColor: Colors.red,
+                              //     ),
+                              //   );
+                              // }
+
+                              // Update FormField state
+                              state.didChange(value);
+                              //validacija forme
+                              //validateForm();
+                            },
+                          ),
+                          // if (checkListItems
+                          //     .every((item) => item["value"] == false))
+                          //   // ScaffoldMessenger.of(context).showSnackBar(
+                          //   //   SnackBar(
+                          //   //       content: Text('Odaberite ocjenu...'),
+                          //   //       backgroundColor: Colors.red),
+                          //   // );
+
+                          // if (state.hasError)
+                          //   Padding(
+                          //     padding: const EdgeInsets.only(left: 16.0),
+                          //     child: Text(
+                          //       state.errorText ?? '',
+                          //       style: TextStyle(
+                          //         color: Colors.red,
+                          //         fontSize: 12.0,
+                          //       ),
+                          //     ),
+                          //   ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 100.0),
-            Text(
-              selected,
-              style: const TextStyle(
-                fontSize: 22.0,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            ElevatedButton(
-                onPressed: () async {
-                  if (this.ocj != null) {
-                    this.ocj!.ocjena = this.oc;
-                  }
+              const SizedBox(height: 100.0),
+              // Text(
+              //   selected,
+              //   style: const TextStyle(
+              //     fontSize: 22.0,
+              //     color: Colors.black,
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              // ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Card(
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      //color: Color.fromRGBO(143, 148, 251, .6),
+                      color: Color.fromARGB(233, 120, 180, 229),
 
-                  await _ocjeneProvider.insert(this.ocj);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                        content: Text('Uspješno ste izvršili ocjenjivanje...'),
-                        backgroundColor: Color.fromARGB(255, 42, 25, 194)),
-                  );
-                  await Navigator.pushReplacementNamed(
-                      context, KupacPocetnaScreen.routeName,
-                      arguments: widget.args.argumentsKor);
-                },
-                child: Text("Potvrdi ocjenu")),
-            ElevatedButton(
-                onPressed: () async {
-                  Navigator.pushReplacementNamed(
-                      context, KupacPocetnaScreen.routeName,
-                      arguments: widget.args.argumentsKor);
-                },
-                child: Text("Otkaži")),
-          ],
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0), //prosiren inkWell
+                        child: InkWell(
+                            child: Center(
+                                child: Text("Potvrdi ocjenu",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold))),
+                            onTap: () async {
+                              if (_formKey.currentState!.validate()) {
+                                try {
+                                  var check = await _handleFormSubmission();
+                                  if (check == true) {
+                                    await _ocjeneProvider.insert(this.ocj);
+                                  } else {
+                                    throw Exception();
+                                  }
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(
+                                            'Uspješno ste izvršili ocjenjivanje...'),
+                                        backgroundColor:
+                                            Color.fromARGB(255, 42, 25, 194)),
+                                  );
+
+                                  await Navigator.pushReplacementNamed(
+                                      context, KupacPocetnaScreen.routeName,
+                                      arguments: widget.args.argumentsKor);
+                                } catch (e) {
+                                  await ScaffoldMessenger.of(context)
+                                      .showSnackBar(
+                                    SnackBar(
+                                        content: Text('Došlo je do greške...'),
+                                        backgroundColor: Colors.red),
+                                  );
+                                }
+                                ;
+                              }
+                              ;
+                            }),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+
+  Future<bool> _handleFormSubmission() async {
+    if (this.ocj != null) {
+      setState(() {
+        this.ocj!.ocjena = this.oc;
+      });
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
-
-  // void loadTR() async {
-  //   if (widget.dataRez.turistRutaID != null) {
-  //     ruta = await _turistRuteProvider?.getById(widget.dataRez.turistRutaID!);
-  //   }
-  // }
-
-  // void loadTV() async {
-  //   if (widget.dataRez.turistickiVodicID != null) {
-  //     vodic = await _turistickiVodiciProvider
-  //         ?.getById(widget.dataRez.turistickiVodicID!);
-  //   }
-  // }
-
-  // Future<void> loadBic() async {
-  //   var tmpBic = await _bicikliProvider?.getById(widget.dataRez.biciklID!);
-  //   setState(() {
-  //     bic = tmpBic!;
-  //     bic.slika = tmpBic.slika!;
-  //     slika = bic.slika!;
-  //     if (slika != null) {
-  //       _isLoading = true;
-  //     }
-  //   });
-  // }
-
-  // void loadKor() async {
-  //   kor = await _korisniciProfilProvider?.getById(widget.dataRez.korisnikID!);
-  // }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     //Visibility(visible: this._isLoading, child: CircularProgressIndicator());
-//     //if (slika == null) return loadSlika();
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text("Rezervacija"), // $widget.dataRez.rezervacijaId"),
-//       ),
-//       body: ListView(
-//         children: <Widget>[
-//           Container(
-//             padding: const EdgeInsets.all(32.0),
-//             child: Row(
-//               children: [
-//                 // First child in the Row for the name and the
-//                 // Release date information.
-//                 Expanded(
-//                   // Name and Release date are in the same column
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       // Code to create the view for name.
-//                       Container(
-//                         padding: const EdgeInsets.only(bottom: 8.0),
-//                         child: Text(
-//                           "Original Name: Datum izdavanja treba da bude ",
-//                           style: TextStyle(
-//                             fontWeight: FontWeight.bold,
-//                           ),
-//                         ),
-//                       ),
-
-//                       // Code to create the view for release date.
-//                       Container(
-//                         height: 200,
-//                         width: 100,
-//                         //child: _buildProductCardList(),
-
-//                         child: imageFromBase64String(
-//                             widget.args.argumentsBic!.slika!),
-//                       ),
-//                       //Center(
-//                       //     child: ElevatedButton(
-//                       //   child: Text("Rezervacija bicikla"),
-//                       //   onPressed: () {
-//                       //     Navigator.pushNamed(
-//                       //         context, "${KupacPocetnaScreen.routeName}",
-//                       //         arguments: kor);
-//                       //   },
-//                       // )),
-//                       ElevatedButton(
-//                         onPressed: () async {
-//                           await Navigator.pushNamed(context,
-//                               "${KupacMojeRezervacijeDetailsScreen.routeName}",
-//                               arguments: widget.args);
-//                         },
-//                         child: Text("Ocijeni biciklo"),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//                 // Icon to indicate the rating.
-//                 new Icon(
-//                   Icons.star,
-//                   color: Colors.red[500],
-//                 ),
-//                 //new Text('${bic.voteAverage}'),
-//               ],
-//             ),
-//           ),
-//           //ElevatedButton(
-//           //     padding: const EdgeInsets.all(32.0),
-//           //     child: new Text(movie.overview,
-//           //       softWrap: true,
-//           //     )
-//           //)
-//         ],
-//       ),
-//     );
-//   }
-
-//   // String loadSlika() {
-//   //   if (bic.slika != null) {
-//   //     return bic.slika!;
-//   //   } else {
-//   //     this._isLoading = true;
-//   //     return bic.slika!;
-//   //   }
-//   // }
-// }

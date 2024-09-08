@@ -2,10 +2,10 @@ import 'dart:ffi';
 
 import 'package:json_annotation/json_annotation.dart';
 
-part 'najavaOdmora.g.dart';
+part 'najaveOdmora.g.dart';
 
 @JsonSerializable()
-class NajavaOdmora {
+class NajaveOdmora {
   DateTime? datumOdmora = DateTime.now();
   DateTime? pocetakOdmora;
   DateTime? zavrsetakOdmora;
@@ -14,7 +14,7 @@ class NajavaOdmora {
   int? lokacijaOdmoraID;
   int? turistickiVodicID;
 
-  NajavaOdmora(
+  NajaveOdmora(
       {this.datumOdmora,
       this.pocetakOdmora,
       this.zavrsetakOdmora,
@@ -23,9 +23,9 @@ class NajavaOdmora {
       this.lokacijaOdmoraID,
       this.turistickiVodicID}) {}
 
-  factory NajavaOdmora.fromJson(Map<String, dynamic> json) =>
-      _$NajavaOdmoraFromJson(json);
+  factory NajaveOdmora.fromJson(Map<String, dynamic> json) =>
+      _$NajaveOdmoraFromJson(json);
 
-  /// Connect the generated [_$NajavaOdmoraToJson] function to the `toJson` method.
-  Map<String, dynamic> toJson() => _$NajavaOdmoraToJson(this);
+  /// Connect the generated [_$NajaveOdmoraToJson] function to the `toJson` method.
+  Map<String, dynamic> toJson() => _$NajaveOdmoraToJson(this);
 }

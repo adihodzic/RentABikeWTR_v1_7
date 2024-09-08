@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:rentabikewtr_desktop/providers/bicikliPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/bicikli_detalji_provider.dart';
@@ -49,6 +50,9 @@ import 'package:rentabikewtr_desktop/screens/radnikPortal_screen.dart';
 import 'package:rentabikewtr_desktop/utils/util.dart';
 
 void main() async {
+  HttpOverrides.global =
+      // ignore: unnecessary_new
+      new MyHttpOverrides();
   // await windowManager.setMinimumSize(const Size(309, 600));
   // await windowManager.setMaximumSize(const Size(618, 1200));
   // await windowManager.setMaximizable(false);
@@ -240,6 +244,7 @@ class LoginPage extends StatelessWidget {
                         height: 8,
                       ),
                       TextField(
+                        obscureText: true,
                         style: TextStyle(
                             color: Color.fromARGB(255, 255, 255, 255)),
                         decoration: InputDecoration(
@@ -327,5 +332,14 @@ class LoginPage extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

@@ -23,14 +23,14 @@ namespace RentABikeWTR_v1_7.API.Controllers
             _service = service;
         }
         [HttpPost]
-        public async Task<string> CreateCheckout(CheckoutOrderResponse cor, string nazivBicikla) //cor je ono sto trazi stripe server, a nazivBicikla je nas parametar
+        public async Task<string> CreateCheckout(CheckoutOrderResponse cor, string nazivBicikla, double cijenaBicikla) //cor je ono sto trazi stripe server, a nazivBicikla je nas parametar
         {
-            return await _service.CreateCheckout(nazivBicikla);
+            return await _service.CreateCheckout(nazivBicikla, cijenaBicikla);
         }
         [HttpPost("xSesija")]
-        public async Task<string> xCreateCheckout(CheckoutOrderResponse cor, string nazivBicikla, string nazivRute, string jezikVodica)
+        public async Task<string> xCreateCheckout(CheckoutOrderResponse cor, string nazivBicikla, string nazivRute, string jezikVodica, double cijenaUsluge)
         {
-            return await _service.xCreateCheckout(nazivBicikla, nazivRute, jezikVodica);
+            return await _service.xCreateCheckout(nazivBicikla, nazivRute, jezikVodica, cijenaUsluge);
         }
         //[HttpGet]
         //public List<Model.Bicikli> Get([FromQuery] BicikliSearchRequest search)

@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rentabikewtr_mobile/model/korisniciProfil.dart';
 import 'package:rentabikewtr_mobile/model/turistRute.dart';
 import 'package:rentabikewtr_mobile/model/turistickiVodici.dart';
 
@@ -11,10 +12,13 @@ import 'bicikli.dart';
 //@JsonSerializable()
 
 class ScreenArguments {
+  KorisniciProfil? argumentsKor;
   Bicikli? argumentsBic;
   TuristRute? argumentsTR;
   TuristickiVodici? argumentsTV;
-  ScreenArguments(this.argumentsTR, this.argumentsBic, this.argumentsTV);
+  DateTime? argumentsDate;
+  ScreenArguments(this.argumentsKor, this.argumentsTR, this.argumentsBic,
+      this.argumentsTV, this.argumentsDate);
 }
 
 //   ScreenArguments() {}
