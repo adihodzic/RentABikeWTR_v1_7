@@ -942,43 +942,7 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
     });
   }
 
-  // void _updateTuristickiVodicData() {
-  //   // setState(() {
-  //   //   if (currentUser != null) {
-  //   //     turistickiVodic!.turistickiVodicId = currentUser!.korisnikId;
-  //   //   }
-  //   //   turistickiVodic!.naziv = _nazivController.text;
-  //   //   turistickiVodic!.jezik = _jezikController.text;
-  //   //   // Print the value of _cijenaController.text for debugging
-  //   //   print('Cijena text: ${_cijenaController.text}');
-
-  //   //   // Ensure proper parsing and handle errors
-  //   //   double? parsedCijena = double.tryParse(_cijenaController.text);
-  //   //   if (parsedCijena != null) {
-  //   //     // Print the parsed value for debugging
-  //   //     print('Parsed Cijena: $parsedCijena');
-
-  //   //     // Assign the parsed double to cijena
-  //   //     turistickiVodic!.cijenaVodica = parsedCijena;
-  //   //   } else {
-  //   //     // Handle invalid input if needed
-  //   //     turistickiVodic!.cijenaVodica = 0.0;
-  //   //   }
-
-  //   //   // Print the final value of cijena for debugging
-  //   //   print('Final Cijena: ${turistickiVodic!.cijenaVodica}');
-  //   // });
-  // }
-
   Future<void> _handleSubmissionError(e) async {
-    // if (dupliEmail) {
-    //   _emailController.text = "";
-    //   await _showDialog(context, 'Error', 'Email već postoji!');
-    // }
-    // if (duploKorIme) {
-    //   _korisnickoImeController.text = "";
-    //   await _showDialog(context, 'Error', 'Korisničko ime već postoji!');
-    // }
     await _showDialog(context, 'Error', 'Došlo je do greške!');
     print('Greška:Poruka o kontekstu greške $e');
   }
@@ -1023,11 +987,6 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
   }
 
   Future<void> _defaultImage() async {
-    // FilePickerResult? result = await FilePicker.platform.pickFiles(
-    //   type: FileType.image,
-    //);
-
-    //if (result != null) {
     File file = File("assets/images/logo.jpg");
     // Check file size
     if (file.lengthSync() < _maxFileSize) {
@@ -1042,7 +1001,6 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
           context, 'Greška', 'Dozvoljen je upload slike, veličine do 250KB');
       return;
     }
-    //}
   }
 
   Future<void> _pickImage() async {
@@ -1068,11 +1026,6 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
     }
   }
 
-//Ovo je ako hoću DateTime.now da imam na TextEditingController-u
-  // onTapFunctionNow({required BuildContext context}) async {
-  //   DateTime? pickedDate = DateTime.now();
-  //   _datePickerController.text = DateFormat('dd-MM-yyyy').format(pickedDate);
-  // }
   _selectDate() async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -1086,17 +1039,6 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
       _dateController.text = DateFormat('dd-MM-yyyy').format(dateTime!);
     }
   }
-//Ovdje omogućavamo da se klikom na textformField unese datum
-  // onTapFunction({required BuildContext context}) async {
-  //   DateTime? pickedDate = await showDatePicker(
-  //     context: context,
-  //     lastDate: DateTime.now(),
-  //     firstDate: DateTime(2010),
-  //     initialDate: DateTime.now(),
-  //   );
-  //   if (pickedDate == null) return;
-  //   _datePickerController.text = DateFormat('dd-MM-yyyy').format(pickedDate);
-  // }
 
   Future<void> _showDialog(
       BuildContext context, String title, String message) async {

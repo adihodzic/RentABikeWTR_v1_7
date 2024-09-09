@@ -41,8 +41,7 @@ namespace RentABikeWTR_v1_7.Services
         {
             var entity = _context.Set<Database.Drzave>().Find(id);
             return _mapper.Map<Model.Drzave>(entity);
-            //return _mapper.Map<Model.BicikliSearchRequest>(entity);
-            //return entity;
+            
         }
     }
 }

@@ -22,17 +22,7 @@ namespace RentABikeWTR_v1_7.Services
 
         public List<Model.Kupci> Get(KupciSearchRequest search)
         {
-
-
-            //var query = _context.Set<Database.TipoviBicikla>().AsQueryable();
-            //if (!string.IsNullOrWhiteSpace(search.NazivTipa))
-            //{
-            //    var li = _context.Set<Database.Bicikli>()
-            //    .Where(a => a.TipBicikla.NazivTipa.StartsWith(search.NazivTipa))
-            //    .ToList();
-
-            //    return _mapper.Map<List<Model.Bicikli>>(li);
-            //}
+                        
             if (!string.IsNullOrWhiteSpace(search.Grad))
             {
                 var lis = _context.Set<Database.Bicikli>()
@@ -48,23 +38,12 @@ namespace RentABikeWTR_v1_7.Services
         }
         public Model.Kupci GetById(int? id)
         {
-            //var entity = _context.Set<Database.Kupci>().Find(id);
-            var entity = _context.Kupci.Where(x => x.KupacId == id).FirstOrDefault();// ovo sam iskopirao sa korisnika..da bi radilo na flutter-u
-
-            //var entity=_context.Set<Database.Bicikli>().Include(x=>x.ModelBicikla.NazivModela).Include(y=>y.VelicinaBicikla.NazivVelicine)
-            //    .Include(z=>z.Poslovnica.NazivPoslovnice).Include(st=>st.Status.NazivStatusa).Include(d=>d.Drzava.NazivDrzave).Where(b=>b.BiciklId==id).FirstOrDefault();
-            //var entity = _context.Set<Database.Bicikli>().Include(x => x.ModelBicikla)
-            //    .Include(y => y.VelicinaBicikla)
-            //    .Include(z => z.Poslovnica)
-            //    .Include(st => st.Status)
-            //    .Include(d => d.Drzava)
-            //    .Where(b => b.BiciklId == id)
-            //    .Select(a=>a.ModelBicikla.NazivModela)
-            //    .FirstOrDefault();
+            
+            var entity = _context.Kupci.Where(x => x.KupacId == id).FirstOrDefault();
+                       
 
             return _mapper.Map<Model.Kupci>(entity);
-            //return _mapper.Map<Model.BicikliSearchRequest>(entity);
-            //return entity;
+            
         }
         public Model.Kupci Update(int? id, KupciUpdateRequest? request)
         {

@@ -20,73 +20,13 @@ namespace RentABikeWTR_v1_7.Services
                 _context = context;
                 _mapper = mapper;
             }
-        //public List<Model.BicikliPregled> GetBicikliPregled(BicikliSearchRequest search)
-        //{
-
-
-        //    if (!string.IsNullOrWhiteSpace(search.NazivBicikla))
-        //    {
-        //        var lis = _context.Bicikli // 
-        //                                   //.Include(b => b.TipBicikla)
-        //                                   //.Include(c=>c.ModelBicikla)
-
-        //            .Where(a => a.NazivBicikla.StartsWith(search.NazivBicikla)).AsQueryable().ToList()
-        //            .Select(b => new
-        //            {
-        //                BiciklID = b.BiciklId,
-        //                NazivBicikla = b.NazivBicikla,
-        //                Slika = b.Slika,
-        //                NazivTipa = b.TipBicikla.NazivTipa,
-        //                NazivModela = b.ModelBicikla.NazivModela
-        //            });
-
-
-
-        //        return _mapper.Map<List<Model.BicikliPregled>>(lis);
-        //        //return lis;
-        //    }
-        //    else
-        //    {
-        //        //var lis = _context.Bicikli
-        //        //    .Include(t => t.ModelBicikla)
-        //        //    .Include(r => r.TipBicikla)
-        //        //    .AsQueryable()
-        //        //    .ToList();
-        //        var lis = _context.Bicikli
-        //.Select(b => new
-        //{
-        //    BiciklID = b.BiciklId,
-        //    NazivBicikla = b.NazivBicikla,
-        //    Slika = b.Slika,
-        //    NazivTipa = b.TipBicikla.NazivTipa,
-        //    NazivModela = b.ModelBicikla.NazivModela
-        //});
-
-
-        //        return _mapper.Map<List<Model.BicikliPregled>>(lis);
-        //    }
-        //}
+        
         public List<Model.Bicikli> Get(BicikliSearchRequest request)
         {
 
 
             var query = _context.Bicikli.AsQueryable();
-                //b=>new { 
-                //BiciklId=b.BiciklId,
-                //NazivBicikla=b.NazivBicikla,
-                //    Boja=b.Boja,
-                //    Slika=b.Slika,
-                //    VrstaRama =b.VrstaRama,
-                //    NazivDrzave=b.Drzava.NazivDrzave,
-                //    NazivProizvodjaca=b.ProizvodjacBicikla.NazivProizvodjaca,
-                //    CijenaBicikla=b.CijenaBicikla,
-                //    DatumOptisa=b.DatumOtpisa,
-                //    GodinaProizvodnje=b.GodinaProizvodnje,
-                //    NazivModela=b.ModelBicikla.NazivModela, 
-                //    NazivPoslovnice=b.Poslovnica.NazivPoslovnice,
-                //    NazivVelicine=b.VelicinaBicikla.NazivVelicine
                 
-                //}); // promijenio sam kod
             if (!string.IsNullOrWhiteSpace(request?.NazivBicikla))
             {
                 query = query.Where(x => x.NazivBicikla.StartsWith(request.NazivBicikla));
@@ -103,37 +43,17 @@ namespace RentABikeWTR_v1_7.Services
         {
             var entity = _context.Set<Bicikli>().Find(id);
             
-            //var entity = _context.Bicikli
-            //    .Where(a=>a.BiciklId==id)
-            //    .Select(
-            //    b => new {
-            //        BiciklId = b.BiciklId,
-            //        NazivBicikla = b.NazivBicikla,
-            //        Boja = b.Boja,
-            //        Slika = b.Slika,
-            //        VrstaRama = b.VrstaRama,
-            //        NazivDrzave = b.Drzava.NazivDrzave,
-            //        NazivProizvodjaca = b.ProizvodjacBicikla.NazivProizvodjaca,
-            //        CijenaBicikla = b.CijenaBicikla,
-            //       // DatumOptisa = b.DatumOtpisa,
-            //        GodinaProizvodnje = b.GodinaProizvodnje,
-            //        NazivModela = b.ModelBicikla.NazivModela,
-            //        NazivPoslovnice = b.Poslovnica.NazivPoslovnice,
-            //        NazivVelicine = b.VelicinaBicikla.NazivVelicine,
-            //        NabavnaCijena=b.NabavnaCijena
-
-            //    });
+            
             
             return _mapper.Map<Model.Bicikli>(entity);
-            //return _mapper.Map<Model.BicikliSearchRequest>(entity);
-            //return entity;
+            
         }
         public Model.Bicikli Insert(BicikliUpsertRequest request)
         {
             var entity = _mapper.Map<Database.Bicikli>(request);
             _context.Set<Database.Bicikli>().Add(entity);
             _context.SaveChanges();
-            //_context.SaveChanges();
+           
             return _mapper.Map<Model.Bicikli>(entity);
         }
         public Model.Bicikli Update(int id, BicikliUpsertRequest request)
@@ -149,8 +69,7 @@ namespace RentABikeWTR_v1_7.Services
         {
             var entity = _context.Bicikli.Where(x => x.BiciklId == id).FirstOrDefault();
             _context.Bicikli.Attach(entity);
-            //_context.Korisnici.Patch(entity);
-            //entity.TuristickiVodicId = id;
+            
             entity.NazivBicikla = request.NazivBicikla ?? entity.NazivBicikla;
             entity.VrstaRama = request.VrstaRama ?? entity.VrstaRama;
             entity.ModelBiciklaID = request.ModelBiciklaID;

@@ -552,9 +552,6 @@ class _ServisiranjaDetaljiScreenState extends State<ServisiranjaDetaljiScreen> {
     });
   }
 
-//ovdje u buttonSubmission se smanjuje naStanju, ali mora proci kroz petlju u API-ju.
-//mogla bi se obrisati e.naStanju - 1, pa dodati u petlji u API-ju
-//u API-ju se povecava naStanju
   bool _handleButtonSubmission(RDIsKoristenPregled e) {
     setState(() {
       if (statusListaSelected != null) {

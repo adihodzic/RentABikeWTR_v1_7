@@ -10,59 +10,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:rentabikewtr_desktop/main.dart';
-import 'package:rentabikewtr_desktop/model/bicikli.dart';
-import 'package:rentabikewtr_desktop/model/bicikliDetalji.dart';
-import 'package:rentabikewtr_desktop/model/bicikliPregled.dart';
+
 import 'package:rentabikewtr_desktop/model/dezurnaVozila.dart';
 import 'package:rentabikewtr_desktop/model/dezurnaVozilaPregled.dart';
-import 'package:rentabikewtr_desktop/model/drzave.dart';
-import 'package:rentabikewtr_desktop/model/korisniciDetalji.dart';
-import 'package:rentabikewtr_desktop/model/korisniciPregled.dart';
-import 'package:rentabikewtr_desktop/model/korisniciUpsert.dart';
-import 'package:rentabikewtr_desktop/model/modeliBiciklaPregled.dart';
-import 'package:rentabikewtr_desktop/model/poslovnicePregled.dart';
-import 'package:rentabikewtr_desktop/model/proizvodjaciBiciklaPregled.dart';
-import 'package:rentabikewtr_desktop/model/statusiPregled.dart';
-import 'package:rentabikewtr_desktop/model/tipoviBiciklaPregled.dart';
-import 'package:rentabikewtr_desktop/model/turistRute.dart';
-import 'package:rentabikewtr_desktop/model/turistRuteDetalji.dart';
-import 'package:rentabikewtr_desktop/model/turistRutePregled.dart';
-import 'package:rentabikewtr_desktop/model/turistickiVodici.dart';
-import 'package:rentabikewtr_desktop/model/turistickiVodiciUpsert.dart';
-import 'package:rentabikewtr_desktop/model/velicineBiciklaPregled.dart';
-import 'package:rentabikewtr_desktop/providers/bicikliPregled_provider.dart';
-import 'package:rentabikewtr_desktop/providers/bicikli_detalji_provider.dart';
-import 'package:rentabikewtr_desktop/providers/bicikli_provider.dart';
+
 import 'package:rentabikewtr_desktop/providers/dezurnaVozilaPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/dezurnaVozila_provider.dart';
-import 'package:rentabikewtr_desktop/providers/drzave_provider.dart';
-import 'package:rentabikewtr_desktop/providers/korisniciDetalji_provider.dart';
-import 'package:rentabikewtr_desktop/providers/korisniciPregled_provider.dart';
-import 'package:rentabikewtr_desktop/providers/korisnici_provider.dart';
-import 'package:rentabikewtr_desktop/providers/modeliBiciklaPregled_provider.dart';
-import 'package:rentabikewtr_desktop/providers/poslovnicePregled_provider.dart';
-import 'package:rentabikewtr_desktop/providers/proizvodjaciBiciklaPregled_provider.dart';
-import 'package:rentabikewtr_desktop/providers/tipoviBiciklaPregled_provider.dart';
-import 'package:rentabikewtr_desktop/providers/turistRutePregled_provider.dart';
-import 'package:rentabikewtr_desktop/providers/turistRute_provider.dart';
-import 'package:rentabikewtr_desktop/providers/turistickiVodiciDetalji_provider.dart';
-import 'package:rentabikewtr_desktop/providers/turistickiVodici_provider.dart';
-import 'package:rentabikewtr_desktop/providers/velicineBiciklaPregled_provider.dart';
-import 'package:rentabikewtr_desktop/screens/adminPortal_screen.dart';
-import 'package:rentabikewtr_desktop/screens/dodaj_korisnika_screen.dart';
-import 'package:rentabikewtr_desktop/screens/dodaj_vodica_screen.dart';
-import 'package:rentabikewtr_desktop/screens/lista_bicikli_screen.dart';
+
 import 'package:rentabikewtr_desktop/screens/lista_dezurnaVozila_screen.dart';
-import 'package:rentabikewtr_desktop/screens/lista_korisnici_screen.dart';
-import 'package:rentabikewtr_desktop/screens/lista_turistRute_screen.dart';
-import 'package:rentabikewtr_desktop/screens/lista_vodici_screen.dart';
-import 'package:rentabikewtr_desktop/screens/periodicniIzvjestajRezervacije_screen.dart';
+
 import 'package:rentabikewtr_desktop/screens/radnikPortal_screen.dart';
-import 'package:rentabikewtr_desktop/screens/rezervacija_korak1_screen.dart';
-import 'package:rentabikewtr_desktop/screens/rezervacija_listaRezervacija_screen.dart';
-import 'package:rentabikewtr_desktop/utils/util.dart';
-import 'package:rentabikewtr_desktop/widgets/menuAdmin.dart';
+
 import 'package:rentabikewtr_desktop/widgets/menuRadnik.dart';
 
 class DodajDezurnoVoziloScreen extends StatefulWidget {
@@ -284,10 +242,7 @@ class _DodajDezurnoVoziloScreenState extends State<DodajDezurnoVoziloScreen> {
                                                         .validate()) {
                                                       try {
                                                         await _handleFormSubmission();
-                                                        // await _showDialog(
-                                                        //     context,
-                                                        //     'Success',
-                                                        //     'Uspješno ste dodali novo vozilo');
+
                                                         await Navigator.of(
                                                                 context)
                                                             .push(MaterialPageRoute(
@@ -381,10 +336,6 @@ class _DodajDezurnoVoziloScreenState extends State<DodajDezurnoVoziloScreen> {
   }
 
   Future<void> _handleSubmissionError(e) async {
-    // if (dupliEmail) {
-    //   _emailController.text = "";
-    //   await _showDialog(context, 'Error', 'Email već postoji!');
-    // }
     if (dupliNaziv) {
       //   _nazivController.text = "";
       await _showDialog(context, 'Error', 'Naziv već postoji!');

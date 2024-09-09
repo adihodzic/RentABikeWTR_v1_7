@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:rentabikewtr_desktop/main.dart';
 import 'package:rentabikewtr_desktop/model/drzave.dart';
 import 'package:rentabikewtr_desktop/model/korisniciDetalji.dart';
 import 'package:rentabikewtr_desktop/model/korisniciPregled.dart';
-import 'package:rentabikewtr_desktop/model/korisniciUpsert.dart';
 import 'package:rentabikewtr_desktop/model/turistickiVodici.dart';
 import 'package:rentabikewtr_desktop/model/turistickiVodiciUpsert.dart';
 import 'package:rentabikewtr_desktop/providers/drzave_provider.dart';
@@ -19,13 +17,8 @@ import 'package:rentabikewtr_desktop/providers/korisnici_provider.dart';
 import 'package:rentabikewtr_desktop/providers/turistickiVodiciDetalji_provider.dart';
 import 'package:rentabikewtr_desktop/providers/turistickiVodici_provider.dart';
 import 'package:rentabikewtr_desktop/screens/adminPortal_screen.dart';
-import 'package:rentabikewtr_desktop/screens/dodaj_korisnika_screen.dart';
-import 'package:rentabikewtr_desktop/screens/dodaj_vodica_screen.dart';
-import 'package:rentabikewtr_desktop/screens/lista_korisnici_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_vodici_screen.dart';
-import 'package:rentabikewtr_desktop/screens/periodicniIzvjestajRezervacije_screen.dart';
-import 'package:rentabikewtr_desktop/screens/rezervacija_korak1_screen.dart';
-import 'package:rentabikewtr_desktop/screens/rezervacija_listaRezervacija_screen.dart';
+
 import 'package:rentabikewtr_desktop/widgets/menuAdmin.dart';
 
 class VodiciDetaljiScreen extends StatefulWidget {
@@ -132,12 +125,6 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
   }
 
   Future<void> loadTuristickiVodicDetalji() async {
-    //argumentsKor!.korisnickoIme = widget.argumentsK.korisnickoIme;
-    //var tmpturistickiVodiciDetalji = await _turistickiVodiciDetaljiProvider
-    //    ?.getProfilKorisnika(widget.argumentsK.korisnickoIme!);
-    // var tmpkorisnikDetalji = await _korisniciDetaljiProvider
-    //     ?.getById(tmpkorisniciDetalji![0].korisnikId!);
-
     //widget.argumentsKor.korisnikId!);
     var tmpData = await _drzaveProvider?.get();
     var tmpkorisnikDetalji = await _korisniciDetaljiProvider
@@ -145,11 +132,6 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
     var tmpSelectedDrzava =
         await _drzaveProvider?.getById(tmpkorisnikDetalji!.drzavaID!);
 
-    // var tmpKorisnik = await _korisniciDetaljiProvider
-    //     ?.getById(widget.argumentsK.turistickiVodicId ?? 1);
-    //as Kupci;
-    //nisam await-ao kupce i zato mi se javljala greska
-    //null check operator on null value!!!!!!!!!!!!!!!!!
     setState(() {
       korisnikid = widget.argumentsK.turistickiVodicId!;
       korisnikDetalji = tmpkorisnikDetalji;
@@ -159,17 +141,7 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
       _korisnickoImeController.text = korisnikDetalji!.korisnickoIme!;
       _imeController.text = korisnikDetalji!.ime!;
       _prezimeController.text = korisnikDetalji!.prezime!;
-      // _passwordController.text = "";
-      //_passwordPotvrdaController.text = "";
-      //turistickiVodicDetalji.turistickiVodicId = widget.argumentsK.turistickiVodicId;
-      // turistickiVodic!.cijenaVodica = widget.argumentsK.cijenaVodica;
-      // turistickiVodic!.naziv = widget.argumentsK.naziv;
-      // turistickiVodic!.turistickiVodicId = turistickiVodicid;
-//  turistickiVodicDetalji!.turistickiVodicId =
-//         widget.argumentsK.turistickiVodicId;
-//     turistickiVodicDetalji!.cijenaVodica = widget.argumentsK.cijenaVodica;
-//     turistickiVodicDetalji!.jezik = widget.argumentsK.jezik;
-//     turistickiVodicDetalji!.naziv = widget.argumentsK.naziv;
+
       turistickiVodicDetalji = widget.argumentsK;
       turistickiVodicid = widget.argumentsK.turistickiVodicId;
       _nazivController.text = widget.argumentsK.naziv!;

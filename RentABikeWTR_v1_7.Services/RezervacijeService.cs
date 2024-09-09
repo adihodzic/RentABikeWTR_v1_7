@@ -100,12 +100,11 @@ namespace RentABikeWTR_v1_7.Services
             }
         }
 
-        //var query = _context.Rezervacije.Where(x => x.BiciklID == request.BiciklID);
+       
         public List<Model.Rezervacije> GetRezervacijeKupac(int id)
         {
 
-            //var ide = int.Parse(id);
-            //var query = _context.Rezervacije.AsQueryable();
+            
             var query = _context.Rezervacije.Where(x => x.KupacID == id);
             var lista = query.ToList();
             return _mapper.Map<List<Model.Rezervacije>>(lista);

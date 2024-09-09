@@ -10,12 +10,7 @@ import 'package:rentabikewtr_desktop/providers/drzave_provider.dart';
 import 'package:rentabikewtr_desktop/providers/korisniciPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/korisnici_provider.dart';
 import 'package:rentabikewtr_desktop/screens/adminPortal_screen.dart';
-import 'package:rentabikewtr_desktop/screens/dodaj_vodica_screen.dart';
-import 'package:rentabikewtr_desktop/screens/lista_korisnici_screen.dart';
-import 'package:rentabikewtr_desktop/screens/lista_vodici_screen.dart';
-import 'package:rentabikewtr_desktop/screens/periodicniIzvjestajRezervacije_screen.dart';
-import 'package:rentabikewtr_desktop/screens/rezervacija_korak1_screen.dart';
-import 'package:rentabikewtr_desktop/screens/rezervacija_listaRezervacija_screen.dart';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:rentabikewtr_desktop/widgets/menuAdmin.dart';
 //import 'package:flutter_hooks/flutter_hooks.dart';
@@ -538,34 +533,6 @@ class _DodajKorisnikaScreenState extends State<DodajKorisnikaScreen> {
                                 ),
                               ],
                             ),
-                            // Text(
-                            //   "Korisničko ime",
-                            //   style: TextStyle(
-                            //       fontSize: 30,
-                            //       fontWeight: FontWeight.bold,
-                            //       fontStyle: FontStyle.italic,
-                            //       color: Color.fromARGB(255, 11, 7, 255)),
-                            // ),
-                            // TextField(
-                            //   decoration: InputDecoration(
-                            //     border: OutlineInputBorder(),
-                            //     hintText: 'Korisničko ime',
-                            //   ),
-                            // ),
-                            // TextField(
-                            //     //style: TextStyle(
-                            //     //color: Color.fromARGB(255, 255, 255, 255)),
-                            //     decoration: InputDecoration(
-                            //         border: OutlineInputBorder(),
-                            //         labelStyle: TextStyle(
-                            //             color: Color.fromARGB(120, 251, 251, 251)),
-                            //         floatingLabelStyle: TextStyle(
-                            //             color: Color.fromARGB(255, 249, 147, 104)),
-                            //         labelText: "Password",
-                            //         prefixIconColor:
-                            //             Color.fromARGB(250, 254, 254, 255),
-                            //         prefixIcon: Icon(Icons.password)),
-                            //     controller: _passwordController),
                           ]),
                         ),
                       ),

@@ -1,31 +1,16 @@
-//import 'dart:html';
-
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:email_validator/email_validator.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:rentabikewtr_desktop/main.dart';
-import 'package:rentabikewtr_desktop/model/drzave.dart';
-import 'package:rentabikewtr_desktop/model/korisniciDetalji.dart';
-import 'package:rentabikewtr_desktop/model/korisniciPregled.dart';
-import 'package:rentabikewtr_desktop/model/korisniciUpsert.dart';
 import 'package:rentabikewtr_desktop/model/turistRuteDetalji.dart';
 import 'package:rentabikewtr_desktop/model/turistRutePregled.dart';
-
 import 'package:rentabikewtr_desktop/providers/turistRute_detalji_provider.dart';
-
-import 'package:rentabikewtr_desktop/screens/adminPortal_screen.dart';
-
 import 'package:rentabikewtr_desktop/screens/lista_vodici_screen.dart';
 import 'package:rentabikewtr_desktop/screens/radnikPortal_screen.dart';
 import 'package:rentabikewtr_desktop/utils/util.dart';
-
-import 'package:rentabikewtr_desktop/widgets/menuAdmin.dart';
 import 'package:rentabikewtr_desktop/widgets/menuRadnik.dart';
 
 class TuristRuteDetaljiScreen extends StatefulWidget {
@@ -360,10 +345,6 @@ class _TuristRuteDetaljiScreenState extends State<TuristRuteDetaljiScreen> {
       ),
     );
   }
-
-  // MenuBar MenuAdmin(BuildContext context) => MenuAdmin(context);
-
-  // dynamic MenuMenu(BuildContext context) => MenuBar(context);
 
 /////////////////////////////////////////////////////////////////////////
   Future<void> _handleFormSubmission() async {

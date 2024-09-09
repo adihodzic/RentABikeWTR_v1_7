@@ -3,36 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:rentabikewtr_desktop/main.dart';
 import 'package:rentabikewtr_desktop/model/drzave.dart';
-import 'package:rentabikewtr_desktop/model/korisniciDetalji.dart';
 import 'package:rentabikewtr_desktop/model/korisniciPregled.dart';
-import 'package:rentabikewtr_desktop/model/korisniciUpsert.dart';
 import 'package:rentabikewtr_desktop/model/rezervacijeBiciklDostupni.dart';
-import 'package:rentabikewtr_desktop/model/screenArgumentsR.dart';
 import 'package:rentabikewtr_desktop/model/turistRutePregled.dart';
 import 'package:rentabikewtr_desktop/model/turistickiVodici.dart';
-import 'package:rentabikewtr_desktop/model/turistickiVodiciUpsert.dart';
 import 'package:rentabikewtr_desktop/providers/drzave_provider.dart';
-import 'package:rentabikewtr_desktop/providers/korisniciDetalji_provider.dart';
 import 'package:rentabikewtr_desktop/providers/korisniciPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/korisniciRezervacijePregled_provider.dart';
-import 'package:rentabikewtr_desktop/providers/korisnici_provider.dart';
+
 import 'package:rentabikewtr_desktop/providers/kupci_provider.dart';
 import 'package:rentabikewtr_desktop/providers/turistRutePregled_provider.dart';
-import 'package:rentabikewtr_desktop/providers/turistickiVodiciDetalji_provider.dart';
+
 import 'package:rentabikewtr_desktop/providers/turistickiVodiciPregled_provider.dart';
-import 'package:rentabikewtr_desktop/providers/turistickiVodici_provider.dart';
-import 'package:rentabikewtr_desktop/screens/adminPortal_screen.dart';
-import 'package:rentabikewtr_desktop/screens/dodaj_korisnika_screen.dart';
-import 'package:rentabikewtr_desktop/screens/dodaj_vodica_screen.dart';
-import 'package:rentabikewtr_desktop/screens/lista_korisnici_screen.dart';
-import 'package:rentabikewtr_desktop/screens/lista_vodici_screen.dart';
-import 'package:rentabikewtr_desktop/screens/periodicniIzvjestajRezervacije_screen.dart';
+
 import 'package:rentabikewtr_desktop/screens/rezervacija_final_korak5_screen.dart';
-import 'package:rentabikewtr_desktop/screens/rezervacija_korak1_screen.dart';
-import 'package:rentabikewtr_desktop/screens/rezervacija_listaRezervacija_screen.dart';
-import 'package:rentabikewtr_desktop/utils/util.dart';
+
 import 'package:rentabikewtr_desktop/widgets/menuRadnik.dart';
 
 class RezervacijaKupacKorak4Screen extends StatefulWidget {

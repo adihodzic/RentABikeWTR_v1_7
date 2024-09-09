@@ -245,23 +245,7 @@ namespace RentABikeWTR_v1_7.Services
                 entity.LozinkaHash = GenerateHash(entity.LozinkaSalt, request.Password);
             }
             _context.SaveChanges();
-            //var korisnickeUloge = _context.Uloge.Where(x => x.KorisnikId == id).ToList();
-            //foreach (var item in korisnickeUloge)
-            //{
-            //    _context.KorisniciUloge.Remove(item);
-            //}
-            //_context.SaveChanges();
-            //foreach (var uloga in request.Uloge)
-            //{
-            //    Database.Uloge uloge = new Database.Uloge
-            //    { 
-            //        DatumIzmjene=DateTime.Now,
-            //        UlogaId=uloga,
-            //        KorisnikId=entity.KorisnikId
-            //    };
-            //    _context.Uloge.Add(uloga);
-            //}
-            //_context.SaveChanges();
+            
             _mapper.Map(request, entity);
             _context.SaveChanges();
             return _mapper.Map<Model.Korisnici>(entity);

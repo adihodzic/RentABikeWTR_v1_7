@@ -80,12 +80,7 @@ namespace RentABikeWTR_v1_7.Services
                 query = query.Where(a => a.NazivBicikla.StartsWith(search.NazivBicikla));
             }
 
-            // Include related entities
-            //query = query
-            //    .Include(b => b.TipBicikla)
-            //    .Include(b => b.ModelBicikla);
-
-            // Perform the projection
+            
             var lis = query.Select(b => new
             {
                 BiciklID = b.BiciklId,
@@ -98,52 +93,11 @@ namespace RentABikeWTR_v1_7.Services
             // Map the projected data to the desired model
             return _mapper.Map<List<Model.BicikliPregled>>(lis);
         }
-        //public List<Model.BicikliPregled> GetBicikli(BicikliSearchRequest? search)
-        //{
-
-
-        //    if (!string.IsNullOrWhiteSpace(search?.NazivBicikla))
-        //    {
-        //        var lis = _context.Bicikli // 
-        //                                   //.Include(b => b.TipBicikla)
-        //                                   //.Include(c=>c.ModelBicikla)
-
-        //            .Where(a => a.NazivBicikla.StartsWith(search.NazivBicikla)).AsQueryable()
-        //            .Select(b => new
-        //            {
-        //                BiciklID = b.BiciklId,
-        //                NazivBicikla = b.NazivBicikla,
-        //                Slika = b.Slika,
-        //                NazivTipa = b.TipBicikla.NazivTipa,
-        //                NazivModela = b.ModelBicikla.NazivModela
-        //            });
+             
 
 
 
-        //        return _mapper.Map<List<Model.BicikliPregled>>(lis);
-        //        //return lis;
-        //    }
-        //    else
-        //    {
-        //        //var lis = _context.Bicikli
-        //        //    .Include(t => t.ModelBicikla)
-        //        //    .Include(r => r.TipBicikla)
-        //        //    .AsQueryable()
-        //        //    .ToList();
-        //        var lis = _context.Bicikli
-        //.Select(b => new
-        //{
-        //    BiciklID = b.BiciklId,
-        //    NazivBicikla = b.NazivBicikla,
-        //    Slika = b.Slika,
-        //    NazivTipa = b.TipBicikla.NazivTipa,
-        //    NazivModela = b.ModelBicikla.NazivModela
-        //});
-
-
-        //        return _mapper.Map<List<Model.BicikliPregled>>(lis);
-        //    }
-        //}
+        
         public Model.Bicikli GetById(int id)
         {
             var entity = _context.Set<Database.Bicikli>().Find(id);

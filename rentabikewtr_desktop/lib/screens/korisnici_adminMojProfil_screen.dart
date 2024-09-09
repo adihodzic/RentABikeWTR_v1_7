@@ -123,7 +123,7 @@ class _KorisniciAdminMojProfilScreenState
     var tmpkorisniciDetalji = await _korisniciDetaljiProvider
         ?.getProfilKorisnika(Authorization.username!);
     // var tmpkorisnikDetalji = await _korisniciDetaljiProvider
-    //     ?.getById(tmpkorisniciDetalji![0].korisnikId!);
+    //      ?.getById(tmpkorisniciDetalji![0].korisnikId!);
 
     //widget.argumentsKor.korisnikId!);
     var tmpData = await _drzaveProvider?.get();
@@ -150,8 +150,6 @@ class _KorisniciAdminMojProfilScreenState
       drzavaid = korisnikDetalji!.drzavaID!;
       _datePickerController.text =
           DateFormat('dd-MM-yyyy').format(korisnikDetalji!.datumRegistracije!);
-
-      // kuposProfil = tmpKupac as KupciProfil;
     });
   }
 
@@ -551,7 +549,7 @@ class _KorisniciAdminMojProfilScreenState
                                                               _telefonController
                                                                   .text;
                                                           korisnikDetalji!
-                                                              .ulogaID = 2;
+                                                              .ulogaID = 1;
 
                                                           // korisnikDetalji!
                                                           //         .password =

@@ -482,21 +482,6 @@ class _RezervacijaKorak2ScreenState extends State<RezervacijaKorak2Screen> {
                                                     "Vrijeme preuzimanja",
                                                 hintText: ''),
                                             maxLength: 20,
-                                            // validator: (value) {
-                                            //   if (value == null ||
-                                            //       value.isEmpty ||
-                                            //       !isPhone(value)) {
-                                            //     return 'Telefon je obavezan.';
-                                            //   } else if (value
-                                            //           .characters.length <
-                                            //       10) {
-                                            //     return 'Telefon mora imati minimalno 10 karaktera.';
-                                            //   } else {
-                                            //     return null;
-                                            //   }
-                                            // },
-                                            // autovalidateMode: AutovalidateMode
-                                            //     .onUserInteraction,
                                           ),
                                           TextFormField(
                                             readOnly: true,
@@ -525,29 +510,6 @@ class _RezervacijaKorak2ScreenState extends State<RezervacijaKorak2Screen> {
                                                 });
                                               }),
                                           SizedBox(height: 20),
-                                          // DropdownButtonFormField<Drzave>(
-                                          //   decoration: InputDecoration(
-                                          //     hintText: '$_nazivDrzave',
-                                          //     border: OutlineInputBorder(),
-                                          //   ),
-                                          //   value: _selectedValue,
-                                          //   //value: _selectedValue,
-                                          //   onChanged: (Drzave? newValue) {
-                                          //     setState(() {
-                                          //       _selectedValue = newValue ??
-                                          //           _selectedDrzava!;
-                                          //     });
-                                          //   },
-                                          //   items: drzave!.map((Drzave drzava) {
-                                          //     //bilo je Drzave drzava
-                                          //     return DropdownMenuItem<Drzave>(
-                                          //       value: drzava,
-                                          //       //value: drzava,
-                                          //       child:
-                                          //           Text(drzava.nazivDrzave!),
-                                          //     );
-                                          //   }).toList(),
-                                          // ),
                                           SizedBox(height: 20),
                                           Row(children: [
                                             Flexible(
@@ -685,9 +647,6 @@ class _RezervacijaKorak2ScreenState extends State<RezervacijaKorak2Screen> {
     //     ?.getProfilKorisnika(korisnikDetalji!.korisnickoIme!);
     await _showDialog(
         context, 'Success', 'Učitavaju se podaci za novog korisnika...');
-    // // _updateTuristickiVodicData();
-    // await _turistickiVodiciDetaljiProvider?.patch(
-    //     turistickiVodicid!, turistickiVodicDetalji);
   }
 
   void _updateRezervacijaData() {}
@@ -705,24 +664,6 @@ class _RezervacijaKorak2ScreenState extends State<RezervacijaKorak2Screen> {
       _showDialog(context, 'Success', 'Uspješno ste kreirali novog korisnika');
     }
     // action WHEN values are valid
-  }
-
-//Ovo je ako hoću DateTime.now da imam na TextEditingController-u
-  onTapFunctionNow({required BuildContext context}) async {
-    // DateTime? pickedDate = DateTime.now();
-    // _date2Controller.text = DateFormat('dd-MM-yyyy').format(pickedDate);
-  }
-
-//Ovdje omogućavamo da se klikom na textformField unese datum
-  onTapFunction({required BuildContext context}) async {
-    // DateTime? pickedDate = await showDatePicker(
-    //   context: context,
-    //   lastDate: DateTime.now(),
-    //   firstDate: DateTime(2015),
-    //   initialDate: DateTime.now(),
-    // );
-    // if (pickedDate == null) return;
-    // _date2Controller.text = DateFormat('dd-MM-yyyy').format(pickedDate);
   }
 
   Future<void> _showDialog(
@@ -753,166 +694,3 @@ class _RezervacijaKorak2ScreenState extends State<RezervacijaKorak2Screen> {
     );
   }
 }
-
-// // ignore: non_constant_identifier_names
-// MenuBar Menu(BuildContext context) {
-//   return MenuBar(
-//     children: <Widget>[
-//       SubmenuButton(
-//         menuChildren: <Widget>[
-//           MenuItemButton(
-//             onPressed: () async {
-//               showAboutDialog(
-//                 context: context,
-//                 applicationName: 'Potrebno napraviti profil korisnika',
-//                 applicationVersion: '1.7.',
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Profil korisnika'),
-//           ),
-//           MenuItemButton(
-//             onPressed: () {
-//               showAboutDialog(
-//                 context: context,
-//                 applicationName: 'RentABikeWTR',
-//                 applicationVersion: '1.7.',
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('&O aplikaciji'),
-//           ),
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => MyMaterialApp(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('&Odjava'),
-//           ),
-//         ],
-//         child: const MenuAcceleratorLabel('&Glavni meni'),
-//       ),
-//       SubmenuButton(
-//         menuChildren: <Widget>[],
-//         child: const MenuAcceleratorLabel('&Admin portal'),
-//       ),
-//       SubmenuButton(
-//         menuChildren: <Widget>[
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => ListaKorisniciScreen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Lista korisnika'),
-//           ),
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => DodajKorisnikaScreen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Dodaj korisnika'),
-//           ),
-//         ],
-//         child: const MenuAcceleratorLabel('&Korisnici'),
-//       ),
-//       SubmenuButton(
-//         menuChildren: <Widget>[
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => ListaVodiciScreen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Lista vodica'),
-//           ),
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => DodajVodicaScreen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Dodaj vodica'),
-//           ),
-//         ],
-//         child: const MenuAcceleratorLabel('&Vodici'),
-//       ),
-//       SubmenuButton(
-//         menuChildren: <Widget>[
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => RezervacijaListaRezervacijaScreen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Lista rezervacija'),
-//           ),
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => RezervacijaKorak1Screen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Dodaj rezervaciju'),
-//           ),
-//         ],
-//         child: const MenuAcceleratorLabel('&Rezervacije'),
-//       ),
-//       SubmenuButton(
-//         menuChildren: <Widget>[
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => PeriodicniIzvjestajRezervacijeScreen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Periodicni izvjestaj'),
-//           ),
-//         ],
-//         child: const MenuAcceleratorLabel('&Izvjestaji'),
-//       ),
-//     ],
-//   );
-// }
-
-// class MenuAcceleratorApp extends StatelessWidget {
-//   const MenuAcceleratorApp({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       theme: ThemeData(useMaterial3: true),
-//       home: Shortcuts(
-//         shortcuts: <ShortcutActivator, Intent>{
-//           const SingleActivator(LogicalKeyboardKey.keyT, control: true):
-//               VoidCallbackIntent(() {
-//             debugDumpApp();
-//           }),
-//         },
-//         child: Scaffold(
-//           body: SafeArea(
-//             child: RezervacijaKorak2Screen(
-//                 argumentsB: RezervacijeBiciklDostupni(),
-//                 datumPretrage: DateTime.now()),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

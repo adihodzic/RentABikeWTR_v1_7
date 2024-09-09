@@ -22,10 +22,7 @@ namespace RentABikeWTR_v1_7.Services
         public List<Model.Poslovnice> Get(PoslovniceSearchRequest? request)
         {
             var query = _context.Poslovnice.AsQueryable();
-            //if (!string.IsNullOrWhiteSpace(request?.Naziv))
-            //{
-            //    query = query.Where(x => x.Naziv.StartsWith(request.Naziv));
-            //}
+            
 
             if (!string.IsNullOrWhiteSpace(request?.NazivPoslovnice))
             {

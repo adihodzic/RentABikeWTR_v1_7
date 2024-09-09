@@ -25,10 +25,7 @@ namespace RentABikeWTR_v1_7.Services
         public  List<Model.TuristickiVodici> Get(TuristickiVodiciSearchRequest? request)
         {
             var query = _context.TuristickiVodici.AsQueryable();
-            //if (!string.IsNullOrWhiteSpace(request?.Naziv))
-            //{
-            //    query = query.Where(x => x.Naziv.StartsWith(request.Naziv));
-            //}
+            
 
             if (!string.IsNullOrWhiteSpace(request?.Naziv))
             {
@@ -40,10 +37,7 @@ namespace RentABikeWTR_v1_7.Services
         public List<Model.TuristickiVodici> GetVodici(TuristickiVodiciSearchRequest? request)
         {
             var query = _context.TuristickiVodici.AsQueryable();
-            //if (!string.IsNullOrWhiteSpace(request?.Naziv))
-            //{
-            //    query = query.Where(x => x.Naziv.StartsWith(request.Naziv));
-            //}
+            
 
             if (!string.IsNullOrWhiteSpace(request?.Naziv))
             {
