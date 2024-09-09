@@ -10,6 +10,7 @@ namespace RentABikeWTR_v1_7.Services
     public interface IKorisniciService
     {
         List<Model.Korisnici> Get(KorisniciSearchRequest request);
+        List<Model.Korisnici> GetKorisnici(KorisniciSearchRequest? request);
         //Model.Korisnici GetLogin(string usn);
         //Model.Korisnici GetLogin(xModel request);
         List<Model.Korisnici> Get();

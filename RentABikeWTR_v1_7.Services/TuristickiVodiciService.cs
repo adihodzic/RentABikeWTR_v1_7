@@ -37,6 +37,21 @@ namespace RentABikeWTR_v1_7.Services
             var list = query.ToList();
             return _mapper.Map<List<Model.TuristickiVodici>>(list);
         }
+        public List<Model.TuristickiVodici> GetVodici(TuristickiVodiciSearchRequest? request)
+        {
+            var query = _context.TuristickiVodici.AsQueryable();
+            //if (!string.IsNullOrWhiteSpace(request?.Naziv))
+            //{
+            //    query = query.Where(x => x.Naziv.StartsWith(request.Naziv));
+            //}
+
+            if (!string.IsNullOrWhiteSpace(request?.Naziv))
+            {
+                query = query.Where(x => x.Naziv.StartsWith(request.Naziv));
+            }
+            var list = query.ToList();
+            return _mapper.Map<List<Model.TuristickiVodici>>(list);
+        }
 
         public  Model.TuristickiVodici GetById(int id)
         {

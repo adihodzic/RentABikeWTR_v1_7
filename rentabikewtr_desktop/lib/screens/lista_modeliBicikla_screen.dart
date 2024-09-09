@@ -103,7 +103,10 @@ class _ListaModeliBiciklaScreenState extends State<ListaModeliBiciklaScreen> {
                               fontStyle: FontStyle.italic,
                               color: Color.fromARGB(255, 11, 7, 255)),
                         ),
-                        _buildSearch(),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        //_buildSearch(),
                         _buildDataListView()
                       ]),
                     ),
@@ -140,51 +143,6 @@ class _ListaModeliBiciklaScreenState extends State<ListaModeliBiciklaScreen> {
     );
   }
 
-  Widget _buildSearch() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration(labelText: "Naziv"),
-              controller: _searchController,
-            ),
-          ),
-          ElevatedButton(
-              onPressed: () async {
-                print("login proceed");
-                //Navigator.of(context).pop();
-
-                var tmpdata = await _modeliBiciklaPregledProvider?.get();
-
-                setState(() {
-                  data = tmpdata!;
-                });
-
-                print("data: ${data[0].nazivModela}");
-              },
-              child: Text("Pretraga")),
-          SizedBox(
-            width: 8,
-          ),
-//           ElevatedButton(
-//               onPressed: () async {
-//                 Navigator.of(context).push(
-//                   MaterialPageRoute(
-//                     builder: (context) => DodajKorisnikaScreen(//ovo su bili detalji u originalu
-//                       product: null,
-//                     ),
-//                   ),
-//                 );
-//                 print("data: ${data.result[0].naziv}");
-//               },
-//               child: Text("Dodaj"))
-        ],
-      ),
-    );
-  }
-
   Widget _buildDataListView() {
     //KorisniciProvider? _korProvider = null;
     //List<Korisnici> data1 = [];
@@ -209,38 +167,6 @@ class _ListaModeliBiciklaScreenState extends State<ListaModeliBiciklaScreen> {
                 ),
               ),
             ),
-            // const DataColumn(
-            //   label: Expanded(
-            //     child: Text(
-            //       'Datum izdavanja',
-            //       style: TextStyle(fontStyle: FontStyle.italic),
-            //     ),
-            //   ),
-            // ),
-            // const DataColumn(
-            //   label: Expanded(
-            //     child: Text(
-            //       'Model',
-            //       style: TextStyle(fontStyle: FontStyle.italic),
-            //     ),
-            //   ),
-            // ),
-            // const DataColumn(
-            //   label: Expanded(
-            //     child: Text(
-            //       'Tip bicikla',
-            //       style: TextStyle(fontStyle: FontStyle.italic),
-            //     ),
-            //   ),
-            // ),
-            // const DataColumn(
-            //   label: Expanded(
-            //     child: Text(
-            //       'Slika',
-            //       style: TextStyle(fontStyle: FontStyle.italic),
-            //     ),
-            //   ),
-            // ),
           ],
           rows: data
                   .map((ModeliBiciklaPregled e) => DataRow(
@@ -260,17 +186,6 @@ class _ListaModeliBiciklaScreenState extends State<ListaModeliBiciklaScreen> {
                           cells: [
                             DataCell(Text(e.modelBiciklaId?.toString() ?? "")),
                             DataCell(Text(e.nazivModela ?? "")),
-                            // DataCell(Text(e.nazivModela ?? "")),
-                            // DataCell(Text(e.nazivTipa ?? "")),
-                            //DataCell(Text())
-                            //DataCell(Text(formatNumber(e.cijena))),
-                            // DataCell(e.slika != ""
-                            //     ? Container(
-                            //         width: 100,
-                            //         height: 100,
-                            //         child: imageFromBase64String(e.slika ?? ""),
-                            //       )
-                            //     : Text(""))
                           ]))
                   .toList() ??
               []),

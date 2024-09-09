@@ -8,11 +8,12 @@ import 'package:rentabikewtr_desktop/screens/dodaj_korisnika_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_modelBicikla_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_poslovnicu_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_proizvodjacaBicikla_screen.dart';
-import 'package:rentabikewtr_desktop/screens/dodaj_rezervniDio_screen.dart';
+
 import 'package:rentabikewtr_desktop/screens/dodaj_servisiranje_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_tipBicikla_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_turistRutu_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_vodica_screen.dart';
+import 'package:rentabikewtr_desktop/screens/korisnici_adminMojProfil_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_bicikli_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_dezurnaVozila_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_korisnici_screen.dart';
@@ -27,6 +28,7 @@ import 'package:rentabikewtr_desktop/screens/lista_turistRute_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_vodici_screen.dart';
 import 'package:rentabikewtr_desktop/screens/periodicniIzvjestajRezervacije_screen.dart';
 import 'package:rentabikewtr_desktop/screens/radnikPortal_screen.dart';
+import 'package:rentabikewtr_desktop/screens/rezervacija_adminListaRezervacija_screen.dart';
 import 'package:rentabikewtr_desktop/screens/rezervacija_korak1_screen.dart';
 import 'package:rentabikewtr_desktop/screens/rezervacija_listaRezervacija_screen.dart';
 import 'package:rentabikewtr_desktop/screens/vodici_detalji_screen.dart';
@@ -45,13 +47,13 @@ class MenuAdmin extends StatelessWidget {
           menuChildren: <Widget>[
             MenuItemButton(
               onPressed: () async {
-                showAboutDialog(
-                  context: context,
-                  applicationName: 'Potrebno napraviti profil korisnika',
-                  applicationVersion: '1.7.',
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => KorisniciAdminMojProfilScreen(),
+                  ),
                 );
               },
-              child: const MenuAcceleratorLabel('Profil korisnika'),
+              child: const MenuAcceleratorLabel('&Profil korisnika'),
             ),
             MenuItemButton(
               onPressed: () {
@@ -136,21 +138,12 @@ class MenuAdmin extends StatelessWidget {
               onPressed: () async {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => RezervacijaListaRezervacijaScreen(),
+                    builder: (context) =>
+                        RezervacijaAdminListaRezervacijaScreen(),
                   ),
                 );
               },
               child: const MenuAcceleratorLabel('Lista rezervacija'),
-            ),
-            MenuItemButton(
-              onPressed: () async {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => RezervacijaKorak1Screen(),
-                  ),
-                );
-              },
-              child: const MenuAcceleratorLabel('Dodaj rezervaciju'),
             ),
           ],
           child: const MenuAcceleratorLabel('&Rezervacije'),

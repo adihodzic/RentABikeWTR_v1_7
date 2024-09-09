@@ -112,7 +112,10 @@ class _ListaRezervniDijeloviScreenState
                               fontStyle: FontStyle.italic,
                               color: Color.fromARGB(255, 11, 7, 255)),
                         ),
-                        _buildSearch(),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        //_buildSearch(),
                         _buildDataListView()
                       ]),
                     ),

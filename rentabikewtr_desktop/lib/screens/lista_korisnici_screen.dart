@@ -15,6 +15,7 @@ import 'package:rentabikewtr_desktop/screens/lista_vodici_screen.dart';
 import 'package:rentabikewtr_desktop/screens/periodicniIzvjestajRezervacije_screen.dart';
 import 'package:rentabikewtr_desktop/screens/rezervacija_korak1_screen.dart';
 import 'package:rentabikewtr_desktop/screens/rezervacija_listaRezervacija_screen.dart';
+import 'package:rentabikewtr_desktop/widgets/menuAdmin.dart';
 import '../utils/util.dart';
 import '../model/korisniciUpsert.dart';
 
@@ -60,143 +61,7 @@ class _ListaKorisniciScreenState extends State<ListaKorisniciScreen> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Expanded(
-              child: MenuBar(
-                children: <Widget>[
-                  SubmenuButton(
-                    menuChildren: <Widget>[
-                      MenuItemButton(
-                        onPressed: () async {
-                          showAboutDialog(
-                            context: context,
-                            applicationName:
-                                'Potrebno napraviti profil korisnika',
-                            applicationVersion: '1.7.',
-                          );
-                        },
-                        child: const MenuAcceleratorLabel('Profil korisnika'),
-                      ),
-                      MenuItemButton(
-                        onPressed: () {
-                          showAboutDialog(
-                            context: context,
-                            applicationName: 'RentABikeWTR',
-                            applicationVersion: '1.7.',
-                          );
-                        },
-                        child: const MenuAcceleratorLabel('&O aplikaciji'),
-                      ),
-                      MenuItemButton(
-                        onPressed: () async {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => MyMaterialApp(),
-                            ),
-                          );
-                        },
-                        child: const MenuAcceleratorLabel('&Odjava'),
-                      ),
-                    ],
-                    child: const MenuAcceleratorLabel('&Glavni meni'),
-                  ),
-                  SubmenuButton(
-                    menuChildren: <Widget>[],
-                    child: const MenuAcceleratorLabel('&Admin portal'),
-                  ),
-                  SubmenuButton(
-                    menuChildren: <Widget>[
-                      MenuItemButton(
-                        onPressed: () async {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => ListaKorisniciScreen(),
-                            ),
-                          );
-                        },
-                        child: const MenuAcceleratorLabel('Lista korisnika'),
-                      ),
-                      MenuItemButton(
-                        onPressed: () async {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => DodajKorisnikaScreen(),
-                            ),
-                          );
-                        },
-                        child: const MenuAcceleratorLabel('Dodaj korisnika'),
-                      ),
-                    ],
-                    child: const MenuAcceleratorLabel('&Korisnici'),
-                  ),
-                  SubmenuButton(
-                    menuChildren: <Widget>[
-                      MenuItemButton(
-                        onPressed: () async {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => ListaVodiciScreen(),
-                            ),
-                          );
-                        },
-                        child: const MenuAcceleratorLabel('Lista vodica'),
-                      ),
-                      MenuItemButton(
-                        onPressed: () async {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => DodajVodicaScreen(),
-                            ),
-                          );
-                        },
-                        child: const MenuAcceleratorLabel('Dodaj vodica'),
-                      ),
-                    ],
-                    child: const MenuAcceleratorLabel('&Vodici'),
-                  ),
-                  SubmenuButton(
-                    menuChildren: <Widget>[
-                      MenuItemButton(
-                        onPressed: () async {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  RezervacijaListaRezervacijaScreen(),
-                            ),
-                          );
-                        },
-                        child: const MenuAcceleratorLabel('Lista rezervacija'),
-                      ),
-                      MenuItemButton(
-                        onPressed: () async {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => RezervacijaKorak1Screen(),
-                            ),
-                          );
-                        },
-                        child: const MenuAcceleratorLabel('Dodaj rezervaciju'),
-                      ),
-                    ],
-                    child: const MenuAcceleratorLabel('&Rezervacije'),
-                  ),
-                  SubmenuButton(
-                    menuChildren: <Widget>[
-                      MenuItemButton(
-                        onPressed: () async {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  PeriodicniIzvjestajRezervacijeScreen(),
-                            ),
-                          );
-                        },
-                        child:
-                            const MenuAcceleratorLabel('Periodicni izvjestaj'),
-                      ),
-                    ],
-                    child: const MenuAcceleratorLabel('&Izvjestaji'),
-                  ),
-                ],
-              ),
+              child: MenuAdmin(),
             ),
           ],
         ),
@@ -273,7 +138,7 @@ class _ListaKorisniciScreenState extends State<ListaKorisniciScreen> {
       child: Row(
         children: [
           Expanded(
-            child: TextField(
+            child: TextFormField(
               decoration: InputDecoration(labelText: "Korisničko ime"),
               controller: _searchController,
             ),
@@ -284,8 +149,8 @@ class _ListaKorisniciScreenState extends State<ListaKorisniciScreen> {
                 //Navigator.of(context).pop();
                 //String? search = _searchController.text;
 
-                var tmpdata =
-                    await _korisniciProvider?.get(_searchController.text);
+                var tmpdata = await _korisniciProvider
+                    ?.getKorisnici(_searchController.text);
 
                 setState(() {
                   data = tmpdata!;
@@ -315,9 +180,6 @@ class _ListaKorisniciScreenState extends State<ListaKorisniciScreen> {
   }
 
   Widget _buildDataListView() {
-    //KorisniciProvider? _korProvider = null;
-    //List<Korisnici> data1 = [];
-
     return Expanded(
         child: SingleChildScrollView(
       child: DataTable(
@@ -367,37 +229,9 @@ class _ListaKorisniciScreenState extends State<ListaKorisniciScreen> {
                             DataCell(Text(e.korisnickoIme?.toString() ?? "")),
                             DataCell(Text(e.ime ?? "")),
                             DataCell(Text(e.prezime ?? "")),
-                            //DataCell(Text(formatNumber(e.cijena))),
-                            // DataCell(e.slika != ""
-                            //     ? Container(
-                            //         width: 100,
-                            //         height: 100,
-                            //         child: imageFromBase64String(e.slika!),
-                            //       )
-                            //     : Text(""))
                           ]))
                   .toList() ??
               []),
     ));
-  }
-}
-
-class MenuAcceleratorApp extends StatelessWidget {
-  const MenuAcceleratorApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(useMaterial3: true),
-      home: Shortcuts(
-        shortcuts: <ShortcutActivator, Intent>{
-          const SingleActivator(LogicalKeyboardKey.keyT, control: true):
-              VoidCallbackIntent(() {
-            debugDumpApp();
-          }),
-        },
-        child: Scaffold(body: SafeArea(child: ListaKorisniciScreen())),
-      ),
-    );
   }
 }

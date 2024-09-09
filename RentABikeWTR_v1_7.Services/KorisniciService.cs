@@ -83,6 +83,26 @@ namespace RentABikeWTR_v1_7.Services
             var list = query.ToList();
             return _mapper.Map<List<Model.Korisnici>>(list);
         }
+        public List<Model.Korisnici> GetKorisnici(KorisniciSearchRequest? request)
+        {
+            //var query = _context.Korisnici.Include("KorisniciUloge.Uloga").AsQueryable();
+            var query = _context.Korisnici.AsQueryable();
+            //if (!string.IsNullOrWhiteSpace(request?.Ime))
+            //{
+            //    query = query.Where(x => x.Ime.StartsWith(request.Ime));
+
+            //}
+            //if (!string.IsNullOrWhiteSpace(request?.Prezime))
+            //{
+            //    query = query.Where(x => x.Prezime.StartsWith(request.Prezime));
+            //}
+            if (!string.IsNullOrWhiteSpace(request?.KorisnickoIme))
+            {
+                query = query.Where(x => x.KorisnickoIme.StartsWith(request.KorisnickoIme));
+            }
+            var list = query.ToList();
+            return _mapper.Map<List<Model.Korisnici>>(list);
+        }
         public List<Model.Korisnici> GetDetaljiKorisnici(KorisniciDetailsRequest request)
         {
             //var query = _context.Korisnici.Include("KorisniciUloge.Uloga").AsQueryable();
@@ -282,9 +302,6 @@ namespace RentABikeWTR_v1_7.Services
             entity.Telefon = request.Telefon ?? entity.Telefon;
             entity.DatumRegistracije = request.DatumRegistracije ?? entity.DatumRegistracije;
             entity.UlogaID = request.UlogaID ?? entity.UlogaID;
-            
-
-
 
             //if (!string.IsNullOrWhiteSpace(request?.Password))
             //{

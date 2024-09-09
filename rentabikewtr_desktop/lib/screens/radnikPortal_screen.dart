@@ -7,7 +7,6 @@ import 'package:rentabikewtr_desktop/screens/dodaj_korisnika_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_modelBicikla_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_poslovnicu_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_proizvodjacaBicikla_screen.dart';
-import 'package:rentabikewtr_desktop/screens/dodaj_rezervniDio_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_servisiranje_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_tipBicikla_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_turistRutu_screen.dart';

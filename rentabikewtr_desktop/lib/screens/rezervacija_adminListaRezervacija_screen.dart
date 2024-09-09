@@ -14,18 +14,19 @@ import 'package:rentabikewtr_desktop/screens/lista_korisnici_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_vodici_screen.dart';
 import 'package:rentabikewtr_desktop/screens/periodicniIzvjestajRezervacije_screen.dart';
 import 'package:rentabikewtr_desktop/screens/rezervacija_korak1_screen.dart';
+import 'package:rentabikewtr_desktop/widgets/menuAdmin.dart';
 import 'package:rentabikewtr_desktop/widgets/menuRadnik.dart';
 
-class RezervacijaListaRezervacijaScreen extends StatefulWidget {
-  const RezervacijaListaRezervacijaScreen({super.key});
+class RezervacijaAdminListaRezervacijaScreen extends StatefulWidget {
+  const RezervacijaAdminListaRezervacijaScreen({super.key});
 
   @override
-  State<RezervacijaListaRezervacijaScreen> createState() =>
-      _RezervacijaListaRezervacijaScreenState();
+  State<RezervacijaAdminListaRezervacijaScreen> createState() =>
+      _RezervacijaAdminListaRezervacijaScreenState();
 }
 
-class _RezervacijaListaRezervacijaScreenState
-    extends State<RezervacijaListaRezervacijaScreen> {
+class _RezervacijaAdminListaRezervacijaScreenState
+    extends State<RezervacijaAdminListaRezervacijaScreen> {
   BicikliPregledProvider? _bicikliPregledProvider = null;
   RezervacijeBiciklProvider? _rezervacijeBiciklProvider = null;
   //CartProvider? _cartProvider = null;
@@ -73,7 +74,7 @@ class _RezervacijaListaRezervacijaScreenState
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Expanded(
-              child: MenuRadnik(),
+              child: MenuAdmin(),
             ),
           ],
         ),

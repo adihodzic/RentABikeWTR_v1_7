@@ -8,10 +8,10 @@ import 'package:rentabikewtr_desktop/screens/dodaj_poruku_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_poslovnicu_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_pozivDezurnomVozilu_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_proizvodjacaBicikla_screen.dart';
-import 'package:rentabikewtr_desktop/screens/dodaj_rezervniDio_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_servisiranje_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_tipBicikla_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_turistRutu_screen.dart';
+import 'package:rentabikewtr_desktop/screens/korisnici_mojProfil_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_bicikli_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_dezurnaVozila_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_modeliBicikla_screen.dart';
@@ -41,13 +41,13 @@ class MenuRadnik extends StatelessWidget {
           menuChildren: <Widget>[
             MenuItemButton(
               onPressed: () async {
-                showAboutDialog(
-                  context: context,
-                  applicationName: 'Potrebno napraviti profil korisnika',
-                  applicationVersion: '1.7.',
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => KorisniciMojProfilScreen(),
+                  ),
                 );
               },
-              child: const MenuAcceleratorLabel('Profil korisnika'),
+              child: const MenuAcceleratorLabel('&Profil korisnika'),
             ),
             MenuItemButton(
               onPressed: () {

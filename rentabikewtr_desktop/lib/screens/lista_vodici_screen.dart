@@ -14,6 +14,7 @@ import 'package:rentabikewtr_desktop/screens/rezervacija_korak1_screen.dart';
 import 'package:rentabikewtr_desktop/screens/rezervacija_listaRezervacija_screen.dart';
 import 'package:rentabikewtr_desktop/screens/vodici_detalji_screen.dart';
 import 'package:rentabikewtr_desktop/utils/util.dart';
+import 'package:rentabikewtr_desktop/widgets/menuAdmin.dart';
 
 class ListaVodiciScreen extends StatefulWidget {
   const ListaVodiciScreen({super.key});
@@ -55,7 +56,7 @@ class _ListaVodiciScreenState extends State<ListaVodiciScreen> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Expanded(
-              child: Menu(context),
+              child: MenuAdmin(),
             ),
           ],
         ),
@@ -142,7 +143,8 @@ class _ListaVodiciScreenState extends State<ListaVodiciScreen> {
                 print("login proceed");
                 //Navigator.of(context).pop();
 
-                var tmpdata = await _turistickiVodiciPregledProvider?.get();
+                var tmpdata = await _turistickiVodiciPregledProvider
+                    ?.getVodici(_searchController.text);
 
                 setState(() {
                   data = tmpdata!;
@@ -154,27 +156,12 @@ class _ListaVodiciScreenState extends State<ListaVodiciScreen> {
           SizedBox(
             width: 8,
           ),
-//           ElevatedButton(
-//               onPressed: () async {
-//                 Navigator.of(context).push(
-//                   MaterialPageRoute(
-//                     builder: (context) => DodajKorisnikaScreen(//ovo su bili detalji u originalu
-//                       product: null,
-//                     ),
-//                   ),
-//                 );
-//                 print("data: ${data.result[0].naziv}");
-//               },
-//               child: Text("Dodaj"))
         ],
       ),
     );
   }
 
   Widget _buildDataListView() {
-    //KorisniciProvider? _korProvider = null;
-    //List<Korisnici> data1 = [];
-
     return Expanded(
         child: SingleChildScrollView(
       child: DataTable(
@@ -223,173 +210,9 @@ class _ListaVodiciScreenState extends State<ListaVodiciScreen> {
                             DataCell(Text(e.naziv?.toString() ?? "")),
                             DataCell(Text(e.jezik ?? "")),
                             DataCell(Text(formatNumber(e.cijenaVodica) ?? "")),
-                            //DataCell(Text(formatNumber(e.cijena))),
-                            // DataCell(e.slika != ""
-                            //     ? Container(
-                            //         width: 100,
-                            //         height: 100,
-                            //         child: imageFromBase64String(e.slika!),
-                            //       )
-                            //     : Text(""))
                           ]))
                   .toList() ??
               []),
     ));
-  }
-}
-
-MenuBar Menu(BuildContext context) {
-  return MenuBar(
-    children: <Widget>[
-      SubmenuButton(
-        menuChildren: <Widget>[
-          MenuItemButton(
-            onPressed: () async {
-              showAboutDialog(
-                context: context,
-                applicationName: 'Potrebno napraviti profil korisnika',
-                applicationVersion: '1.7.',
-              );
-            },
-            child: const MenuAcceleratorLabel('Profil korisnika'),
-          ),
-          MenuItemButton(
-            onPressed: () {
-              showAboutDialog(
-                context: context,
-                applicationName: 'RentABikeWTR',
-                applicationVersion: '1.7.',
-              );
-            },
-            child: const MenuAcceleratorLabel('&O aplikaciji'),
-          ),
-          MenuItemButton(
-            onPressed: () async {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => MyMaterialApp(),
-                ),
-              );
-            },
-            child: const MenuAcceleratorLabel('&Odjava'),
-          ),
-        ],
-        child: const MenuAcceleratorLabel('&Glavni meni'),
-      ),
-      SubmenuButton(
-        menuChildren: <Widget>[],
-        child: const MenuAcceleratorLabel('&Admin portal'),
-      ),
-      SubmenuButton(
-        menuChildren: <Widget>[
-          MenuItemButton(
-            onPressed: () async {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => ListaKorisniciScreen(),
-                ),
-              );
-            },
-            child: const MenuAcceleratorLabel('Lista korisnika'),
-          ),
-          MenuItemButton(
-            onPressed: () async {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => DodajKorisnikaScreen(),
-                ),
-              );
-            },
-            child: const MenuAcceleratorLabel('Dodaj korisnika'),
-          ),
-        ],
-        child: const MenuAcceleratorLabel('&Korisnici'),
-      ),
-      SubmenuButton(
-        menuChildren: <Widget>[
-          MenuItemButton(
-            onPressed: () async {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => ListaVodiciScreen(),
-                ),
-              );
-            },
-            child: const MenuAcceleratorLabel('Lista vodica'),
-          ),
-          MenuItemButton(
-            onPressed: () async {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => DodajVodicaScreen(),
-                ),
-              );
-            },
-            child: const MenuAcceleratorLabel('Dodaj vodica'),
-          ),
-        ],
-        child: const MenuAcceleratorLabel('&Vodici'),
-      ),
-      SubmenuButton(
-        menuChildren: <Widget>[
-          MenuItemButton(
-            onPressed: () async {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => RezervacijaListaRezervacijaScreen(),
-                ),
-              );
-            },
-            child: const MenuAcceleratorLabel('Lista rezervacija'),
-          ),
-          MenuItemButton(
-            onPressed: () async {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => RezervacijaKorak1Screen(),
-                ),
-              );
-            },
-            child: const MenuAcceleratorLabel('Dodaj rezervaciju'),
-          ),
-        ],
-        child: const MenuAcceleratorLabel('&Rezervacije'),
-      ),
-      SubmenuButton(
-        menuChildren: <Widget>[
-          MenuItemButton(
-            onPressed: () async {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => PeriodicniIzvjestajRezervacijeScreen(),
-                ),
-              );
-            },
-            child: const MenuAcceleratorLabel('Periodicni izvjestaj'),
-          ),
-        ],
-        child: const MenuAcceleratorLabel('&Izvjestaji'),
-      ),
-    ],
-  );
-}
-
-class MenuAcceleratorApp extends StatelessWidget {
-  const MenuAcceleratorApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(useMaterial3: true),
-      home: Shortcuts(
-        shortcuts: <ShortcutActivator, Intent>{
-          const SingleActivator(LogicalKeyboardKey.keyT, control: true):
-              VoidCallbackIntent(() {
-            debugDumpApp();
-          }),
-        },
-        child: const Scaffold(body: SafeArea(child: AdminPortalScreen())),
-      ),
-    );
   }
 }

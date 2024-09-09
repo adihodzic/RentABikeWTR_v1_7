@@ -20,18 +20,19 @@ import 'package:rentabikewtr_desktop/screens/lista_vodici_screen.dart';
 import 'package:rentabikewtr_desktop/screens/periodicniIzvjestajRezervacije_screen.dart';
 import 'package:rentabikewtr_desktop/screens/rezervacija_korak1_screen.dart';
 import 'package:rentabikewtr_desktop/screens/rezervacija_listaRezervacija_screen.dart';
-import 'package:rentabikewtr_desktop/widgets/menuAdmin.dart';
+import 'package:rentabikewtr_desktop/utils/util.dart';
+import 'package:rentabikewtr_desktop/widgets/menuRadnik.dart';
 
-class KorisniciDetaljiScreen extends StatefulWidget {
-  final KorisniciPregled argumentsK;
-  const KorisniciDetaljiScreen({Key? key, required this.argumentsK})
-      : super(key: key);
+class KorisniciMojProfilScreen extends StatefulWidget {
+  // final KorisniciPregled argumentsK;
+  const KorisniciMojProfilScreen({super.key});
 
   @override
-  State<KorisniciDetaljiScreen> createState() => _KorisniciDetaljiScreenState();
+  State<KorisniciMojProfilScreen> createState() =>
+      _KorisniciMojProfilScreenState();
 }
 
-class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
+class _KorisniciMojProfilScreenState extends State<KorisniciMojProfilScreen> {
   TextEditingController _imeController = TextEditingController();
   TextEditingController _prezimeController = TextEditingController();
   TextEditingController _korisnickoImeController = TextEditingController();
@@ -118,7 +119,7 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
   Future<void> loadKorisnikDetalji() async {
     //argumentsKor!.korisnickoIme = widget.argumentsK.korisnickoIme;
     var tmpkorisniciDetalji = await _korisniciDetaljiProvider
-        ?.getProfilKorisnika(widget.argumentsK.korisnickoIme!);
+        ?.getProfilKorisnika(Authorization.username!);
     // var tmpkorisnikDetalji = await _korisniciDetaljiProvider
     //     ?.getById(tmpkorisniciDetalji![0].korisnikId!);
 
@@ -140,9 +141,9 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
       // _passwordController.text = "";
       //_passwordPotvrdaController.text = "";
       korisnikid = korisnikDetalji!.korisnikId;
-      _imeController.text = widget.argumentsK.ime!;
-      _prezimeController.text = widget.argumentsK.prezime!;
-      _emailController.text = widget.argumentsK.email!;
+      _imeController.text = korisnikDetalji!.ime!;
+      _prezimeController.text = korisnikDetalji!.prezime!;
+      _emailController.text = korisnikDetalji!.email!;
       _telefonController.text = korisnikDetalji!.telefon!;
       drzavaid = korisnikDetalji!.drzavaID!;
       _datePickerController.text =
@@ -174,7 +175,7 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Expanded(
-                  child: MenuAdmin(),
+                  child: MenuRadnik(),
                 ),
               ],
             ),
@@ -200,7 +201,7 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
                             ),
 
                             Text(
-                              "RentABikeWTR -Uredi korisnika!!!",
+                              "RentABikeWTR -Moj profil!!!",
                               style: TextStyle(
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold,
@@ -724,7 +725,7 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
       // value is false.. textFields are rebuilt in order to show errorLabels
       return;
     } else {
-      _showDialog(context, 'Success', 'Uspješno ste kreirali novog korisnika');
+      _showDialog(context, 'Success', 'Uspješno ste izmijenili podatke');
     }
     // action WHEN values are valid
   }
@@ -772,30 +773,6 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
           ],
         );
       },
-    );
-  }
-}
-
-class MenuAcceleratorApp extends StatelessWidget {
-  const MenuAcceleratorApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(useMaterial3: true),
-      home: Shortcuts(
-        shortcuts: <ShortcutActivator, Intent>{
-          const SingleActivator(LogicalKeyboardKey.keyT, control: true):
-              VoidCallbackIntent(() {
-            debugDumpApp();
-          }),
-        },
-        child: Scaffold(
-            body: SafeArea(
-                child: KorisniciDetaljiScreen(
-          argumentsK: KorisniciPregled(),
-        ))),
-      ),
     );
   }
 }

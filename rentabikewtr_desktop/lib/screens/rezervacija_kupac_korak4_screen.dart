@@ -68,8 +68,7 @@ class _RezervacijaKupacKorak4ScreenState
 
   TextEditingController _statusBiciklaController = TextEditingController();
   TextEditingController _telefonController = TextEditingController();
-//SLIKA
-  //TextEditingController _passwordController = TextEditingController();
+
   TextEditingController _datePickerController = TextEditingController();
   TextEditingController _vrijemePreuzimanjaPickerController =
       TextEditingController();
@@ -81,15 +80,10 @@ class _RezervacijaKupacKorak4ScreenState
   TimeOfDay? vrijeme2;
   bool isTRutaRez = false;
   String search = "";
-  // = TimeOfDay(hour: 18, minute: 0);
-  // String? stringVrijeme;
-  // String? stringVrijeme2;
+
   DateTime? pickedDate = DateTime.now();
   TextEditingController _datumPretrageController = TextEditingController();
-  //REZERVACIJE TuristRute - checkBox...
-//List<RezervacijeBiciklDostupni> data = [];
-  //List<RezervacijeBiciklDostupni> _dataList = [];
-  //RezervacijeUpsert? argumentsKor; //-- ako koristimo prosljeđivanje objekta
+
   RezervacijeBiciklDostupni? _biciklDostupni;
   List<TuristRutePregled> turistRute = [];
   TuristRutePregled? _selectedTuristRuta;
@@ -111,15 +105,7 @@ class _RezervacijaKupacKorak4ScreenState
   TuristickiVodici? _selectedTuristickiVodic;
   TuristickiVodiciPregledProvider? _turistickiVodiciPregledProvider = null;
   Image? slikaTuristRute;
-  // TuristickiVodiciDetaljiProvider? _turistickiVodiciDetaljiProvider = null;
-  // KorisniciProvider? _korisniciProvider = null;
-  // KorisniciDetaljiProvider? _korisniciDetaljiProvider = null;
-  // KorisniciPregledProvider? _korisniciPregledProvider = null;
-  // //KorisniciUpsert? korisnik;
-  // KorisniciDetalji? currentUser;
-  // KorisniciDetalji? korisnikDetalji;
-  // TuristickiVodici? turistickiVodicDetalji;
-  // TuristickiVodiciUpsert? turistickiVodic;
+
   GlobalKey<FormState>? _formKey;
   //bool isEmail(String input) => EmailValidator.validate(input);
   bool isEmail(String input) {
@@ -142,8 +128,6 @@ class _RezervacijaKupacKorak4ScreenState
   bool dupliEmail = true;
   bool duploKorIme = true;
 
-  //TextEditingController _date = TextEditingController();
-
   @override
   void initState() {
     _formKey = GlobalKey();
@@ -157,18 +141,9 @@ class _RezervacijaKupacKorak4ScreenState
         context.read<KorisniciRezervacijePregledProvider>();
     _kupciProvider = context.read<KupciProvider>();
 
-    // _turistickiVodiciDetaljiProvider =
-    //     context.read<TuristickiVodiciDetaljiProvider>();
-
-    // _turistickiVodiciDetaljiProvider =
-    //     Provider.of<TuristickiVodiciDetaljiProvider>(context,
-    //       listen: false); //ovo mi je vazan red za inic providera
     loadData();
     loadRezervacijeBiciklDostupniDetalji(); //moram ovdje postaviti prije nego sto budem koristio argumentsKor
-    setState(() {
-      //DateTime? pickedDate = DateTime.now();
-      //_datePickerController.text = DateFormat('dd-MM-yyyy').format(pickedDate);
-    });
+    setState(() {});
     super.initState();
   }
 
@@ -188,15 +163,10 @@ class _RezervacijaKupacKorak4ScreenState
 
   Future<void> loadRezervacijeBiciklDostupniDetalji() async {
     setState(() async {
-      // _cijenaVodicaController.text =
-      //     _selectedTuristickiVodic!.cijenaVodica.toString();
-      //_cijenaRuteController.text = _selectedTuristRuta!.cijenaRute.toString();
-
-      // stringVrijeme2 = vrijeme2!.format(context).toString();
       _biciklDostupni = widget.argumentsB!;
       var biciklid = widget.argumentsB!.biciklID;
       _nazivBiciklaController.text = widget.argumentsB!.nazivBicikla!;
-      //_velicinaBiciklaController=widget.argumentsB!.nazv
+
       _nazivTipaBiciklaController.text = widget.argumentsB!.nazivTipa!;
       _nazivProizvodjacaController.text = widget.argumentsB!.nazivProizvodjaca!;
       _nazivModelaController.text = widget.argumentsB!.nazivModela!;
@@ -209,16 +179,6 @@ class _RezervacijaKupacKorak4ScreenState
       _selectedTuristickiVodic = widget.argumentsV;
     });
   }
-
-  // Future loadData() async {
-  //   var tmpData = await _drzaveProvider?.get();
-  //   var tmpkorisniciPregled = await _korisniciPregledProvider?.get();
-  //   setState(() {
-  //     drzave = tmpData!;
-  //     korisniciPregled = tmpkorisniciPregled!;
-  //   });
-  // }
-  //var datumRegistracije= _DatePickerContreo
 
   @override
   Widget build(BuildContext context) {
@@ -431,22 +391,6 @@ class _RezervacijaKupacKorak4ScreenState
                 ),
               ),
             ),
-            // const DataColumn(
-            //   label: Expanded(
-            //     child: Text(
-            //       'Tip bicikla',
-            //       style: TextStyle(fontStyle: FontStyle.italic),
-            //     ),
-            //   ),
-            // ),
-            // const DataColumn(
-            //   label: Expanded(
-            //     child: Text(
-            //       'Naziv proizvođača',
-            //       style: TextStyle(fontStyle: FontStyle.italic),
-            //     ),
-            //   ),
-            // ),
           ],
           rows: _dataList
                   .map((KorisniciPregled e) => DataRow(
@@ -470,21 +414,7 @@ class _RezervacijaKupacKorak4ScreenState
                           cells: [
                             DataCell(Text(e.korisnickoIme?.toString() ?? "")),
                             DataCell(Text(e.ime?.toString() ?? "")),
-                            // DataCell(Text(DateFormat('dd-MM-yyyy')
-                            //     .format(e.datumIzdavanja as DateTime))),
-                            //DataCell(Text(formatNumber(e.cijenaBicikla))),
                             DataCell(Text(e.prezime.toString() ?? "")),
-                            // DataCell(
-                            //     Text(e.nazivProizvodjaca?.toString() ?? "")),
-
-                            //DataCell(Text(formatNumber(e.cijena))),
-                            // DataCell(e.slika != ""
-                            //     ? Container(
-                            //         width: 100,
-                            //         height: 100,
-                            //         child: imageFromBase64String(e.slika!),
-                            //       )
-                            //     : Text(""))
                           ]))
                   .toList() ??
               []),
@@ -494,117 +424,23 @@ class _RezervacijaKupacKorak4ScreenState
 /////////////////////////////////////////////////////////////////////////////////
   Future<void> _handleFormSubmission() async {
     try {
-      // var data = await _rezervacijeBiciklDostupniProvider!
-      //     .getRezervacijeDostupni(DateTime.parse(_dateController.text));
-      // var datum = dateTime.toIso8601String();
       var data = await _korisniciRezervacijePregledProvider!
           .getKupci(_korisnikController.text);
-      //     .getRezervacijeDostupni(datum);
-//var bicikli= await _bicikliDostupniProvider.getByIds
-      //print('Fetched data: $data'); // Debugging line
 
       setState(() {
         _dataList = data as List<KorisniciPregled>;
-
-        // _buildDataListView();
       });
-
-      //_buildDataListView();
     } catch (e) {
       // Handle the error here if needed
       print('Error fetching data: $e');
       _showDialog(context, "Error",
           "Došlo je do greške string is not subtype of num"); // Debugging line
     }
-    // setState(() async {
-    //   var data = await _rezervacijeBiciklDostupniProvider!
-    //       .getRezervacijeDostupni(_dateController.text as DateTime);
-    //   _buildDataListView();
-    //    print('Fetched data: $data'); // Debugging line
-    // });
-
-    //_updateKorisnikData();
-
-    // await _rezervacijePregledProvider?.getRezervacijeDostupni(RezervacijePregled());
-    // // currentUser = await _korisniciDetaljiProvider
-    // //     ?.getProfilKorisnika(korisnikDetalji!.korisnickoIme!);
-    // await _showDialog(
-    //     context, 'Success', 'Učitavaju se podaci za novog korisnika...');
-    // // _updateTuristickiVodicData();
-    // await _turistickiVodiciDetaljiProvider?.patch(
-    //     turistickiVodicid!, turistickiVodicDetalji);
   }
-
-  // void _updateKorisnikData() {
-  //   setState(() {
-  //     korisnikDetalji!.korisnikId = korisnikid;
-  //     korisnikDetalji!.aktivan = true;
-  //     if (_selectedValue != null) {
-  //       korisnikDetalji!.drzavaID = _selectedValue!.drzavaID;
-  //     } else {
-  //       korisnikDetalji!.drzavaID = _selectedDrzava!.drzavaID;
-  //     }
-
-  //     korisnikDetalji!.ime = _imeController.text;
-  //     korisnikDetalji!.prezime = _prezimeController.text;
-  //     korisnikDetalji!.telefon = _telefonController.text;
-  //     korisnikDetalji!.ulogaID = 3;
-  //     korisnikDetalji!.aktivan = true;
-  //     // dupliEmail = isPostojeciEmail(_emailController.text);
-  //     // if (!dupliEmail) {
-  //     korisnikDetalji!.email = _emailController.text;
-  //     // }
-
-  //     korisnikDetalji!.korisnickoIme = _korisnickoImeController.text;
-
-  //     korisnikDetalji!.ime = _imeController.text;
-  //     korisnikDetalji!.prezime = _prezimeController.text;
-  //     korisnikDetalji!.telefon = _telefonController.text;
-  //     korisnikDetalji!.ulogaID = 3;
-
-  //     turistickiVodicDetalji!.naziv = _nazivController.text;
-  //     turistickiVodicDetalji!.jezik = _jezikController.text;
-
-  //     // Print the value of _cijenaController.text for debugging
-  //     print('Cijena text: ${_cijenaController.text}');
-
-  //     // Ensure proper parsing and handle errors
-  //     double? parsedCijena = double.tryParse(_cijenaController.text);
-  //     if (parsedCijena != null) {
-  //       // Print the parsed value for debugging
-  //       print('Parsed Cijena: $parsedCijena');
-
-  //       // Assign the parsed double to cijena
-  //       turistickiVodicDetalji!.cijenaVodica = parsedCijena;
-  //     } else {
-  //       // Handle invalid input if needed
-  //       turistickiVodicDetalji!.cijenaVodica = 0.0;
-  //     }
-
-  //     // Print the final value of cijena for debugging
-  //     print('Final Cijena: ${turistickiVodicDetalji!.cijenaVodica}');
-  //     print('Final naziv:${turistickiVodicDetalji!.naziv} ');
-  //     print('Final jezik:${turistickiVodicDetalji!.jezik} ');
-  //   });
-  // }
 
   Future<void> _handleSubmissionError(e) async {
     await _showDialog(context, 'Error', 'Došlo je do greške!');
   }
-
-  // _selectDate() async {
-  //   final DateTime? picked = await showDatePicker(
-  //       context: context,
-  //       initialDate: dateTime,
-  //       initialDatePickerMode: DatePickerMode.day,
-  //       firstDate: DateTime.now(),
-  //       lastDate: DateTime(2101));
-  //   if (picked != null) {
-  //     dateTime = picked;
-  //     //assign the chosen date to the controller
-  //     _dateController.text = DateFormat('dd-MM-yyyy').format(dateTime);
-  //   }
-  // }
 
   Future<void> _showDialog(
       BuildContext context, String title, String message) async {
@@ -634,168 +470,3 @@ class _RezervacijaKupacKorak4ScreenState
     );
   }
 }
-
-
-// ignore: non_constant_identifier_names
-// MenuBar Menu(BuildContext context) {
-//   return MenuBar(
-//     children: <Widget>[
-//       SubmenuButton(
-//         menuChildren: <Widget>[
-//           MenuItemButton(
-//             onPressed: () async {
-//               showAboutDialog(
-//                 context: context,
-//                 applicationName: 'Potrebno napraviti profil korisnika',
-//                 applicationVersion: '1.7.',
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Profil korisnika'),
-//           ),
-//           MenuItemButton(
-//             onPressed: () {
-//               showAboutDialog(
-//                 context: context,
-//                 applicationName: 'RentABikeWTR',
-//                 applicationVersion: '1.7.',
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('&O aplikaciji'),
-//           ),
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => MyMaterialApp(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('&Odjava'),
-//           ),
-//         ],
-//         child: const MenuAcceleratorLabel('&Glavni meni'),
-//       ),
-//       SubmenuButton(
-//         menuChildren: <Widget>[],
-//         child: const MenuAcceleratorLabel('&Admin portal'),
-//       ),
-//       SubmenuButton(
-//         menuChildren: <Widget>[
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => ListaKorisniciScreen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Lista korisnika'),
-//           ),
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => DodajKorisnikaScreen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Dodaj korisnika'),
-//           ),
-//         ],
-//         child: const MenuAcceleratorLabel('&Korisnici'),
-//       ),
-//       SubmenuButton(
-//         menuChildren: <Widget>[
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => ListaVodiciScreen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Lista vodica'),
-//           ),
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => DodajVodicaScreen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Dodaj vodica'),
-//           ),
-//         ],
-//         child: const MenuAcceleratorLabel('&Vodici'),
-//       ),
-//       SubmenuButton(
-//         menuChildren: <Widget>[
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => RezervacijaListaRezervacijaScreen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Lista rezervacija'),
-//           ),
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => RezervacijaKorak1Screen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Dodaj rezervaciju'),
-//           ),
-//         ],
-//         child: const MenuAcceleratorLabel('&Rezervacije'),
-//       ),
-//       SubmenuButton(
-//         menuChildren: <Widget>[
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => PeriodicniIzvjestajRezervacijeScreen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Periodicni izvjestaj'),
-//           ),
-//         ],
-//         child: const MenuAcceleratorLabel('&Izvjestaji'),
-//       ),
-//     ],
-//   );
-// }
-
-// class MenuAcceleratorApp extends StatelessWidget {
-//   const MenuAcceleratorApp({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       theme: ThemeData(useMaterial3: true),
-//       home: Shortcuts(
-//         shortcuts: <ShortcutActivator, Intent>{
-//           const SingleActivator(LogicalKeyboardKey.keyT, control: true):
-//               VoidCallbackIntent(() {
-//             debugDumpApp();
-//           }),
-//         },
-//         child: Scaffold(
-//           body: SafeArea(
-//             child: RezervacijaKupacKorak4Screen(
-//                 argumentsB: RezervacijeBiciklDostupni(),
-//                 argumentsT: TuristRutePregled(),
-//                 datumPretrage: DateTime.now()),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

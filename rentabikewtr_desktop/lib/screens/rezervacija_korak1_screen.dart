@@ -17,6 +17,7 @@ import 'package:rentabikewtr_desktop/screens/periodicniIzvjestajRezervacije_scre
 import 'package:rentabikewtr_desktop/screens/rezervacija_korak2_screen.dart';
 import 'package:rentabikewtr_desktop/screens/rezervacija_listaRezervacija_screen.dart';
 import 'package:rentabikewtr_desktop/utils/util.dart';
+import 'package:rentabikewtr_desktop/widgets/menuAdmin.dart';
 
 class RezervacijaKorak1Screen extends StatefulWidget {
   RezervacijaKorak1Screen({super.key});
@@ -65,7 +66,7 @@ class _RezervacijaKorak1ScreenState extends State<RezervacijaKorak1Screen> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Expanded(
-                  child: Menu(context),
+                  child: MenuAdmin(),
                 ),
               ],
             ),

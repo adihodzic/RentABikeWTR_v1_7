@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:rentabikewtr_desktop/main.dart';
+import 'package:rentabikewtr_desktop/model/bicikliDesktopPregled.dart';
 import 'package:rentabikewtr_desktop/model/bicikliDetalji.dart';
 import 'package:rentabikewtr_desktop/model/bicikliPregled.dart';
 import 'package:rentabikewtr_desktop/model/drzave.dart';
@@ -48,7 +49,7 @@ import 'package:rentabikewtr_desktop/widgets/menuAdmin.dart';
 import 'package:rentabikewtr_desktop/widgets/menuRadnik.dart';
 
 class BicikliDetaljiScreen extends StatefulWidget {
-  final BicikliPregled argumentsB;
+  final BicikliDesktopPregled argumentsB;
   const BicikliDetaljiScreen({Key? key, required this.argumentsB})
       : super(key: key);
 
@@ -180,13 +181,13 @@ class _BicikliDetaljiScreenState extends State<BicikliDetaljiScreen> {
 
     _korisniciDetaljiProvider = context.read<KorisniciDetaljiProvider>();
 
-    loadTuristickiVodicDetalji(); //moram ovdje postaviti prije nego sto budem koristio argumentsKor
+    loadBicikliDetalji(); //moram ovdje postaviti prije nego sto budem koristio argumentsKor
     setState(() {});
     super.initState();
   }
 
-  Future<void> loadTuristickiVodicDetalji() async {
-    var biciklid = widget.argumentsB.biciklId;
+  Future<void> loadBicikliDetalji() async {
+    var biciklid = widget.argumentsB.biciklID;
     var tmpBiciklDetalji = await _bicikliDetaljiProvider?.getById(biciklid!);
 
     var tmpData = await _drzaveProvider?.get();

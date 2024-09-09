@@ -20,7 +20,53 @@ namespace RentABikeWTR_v1_7.Services
                 _context = context;
                 _mapper = mapper;
             }
-            public List<Model.Bicikli> Get(BicikliSearchRequest request)
+        //public List<Model.BicikliPregled> GetBicikliPregled(BicikliSearchRequest search)
+        //{
+
+
+        //    if (!string.IsNullOrWhiteSpace(search.NazivBicikla))
+        //    {
+        //        var lis = _context.Bicikli // 
+        //                                   //.Include(b => b.TipBicikla)
+        //                                   //.Include(c=>c.ModelBicikla)
+
+        //            .Where(a => a.NazivBicikla.StartsWith(search.NazivBicikla)).AsQueryable().ToList()
+        //            .Select(b => new
+        //            {
+        //                BiciklID = b.BiciklId,
+        //                NazivBicikla = b.NazivBicikla,
+        //                Slika = b.Slika,
+        //                NazivTipa = b.TipBicikla.NazivTipa,
+        //                NazivModela = b.ModelBicikla.NazivModela
+        //            });
+
+
+
+        //        return _mapper.Map<List<Model.BicikliPregled>>(lis);
+        //        //return lis;
+        //    }
+        //    else
+        //    {
+        //        //var lis = _context.Bicikli
+        //        //    .Include(t => t.ModelBicikla)
+        //        //    .Include(r => r.TipBicikla)
+        //        //    .AsQueryable()
+        //        //    .ToList();
+        //        var lis = _context.Bicikli
+        //.Select(b => new
+        //{
+        //    BiciklID = b.BiciklId,
+        //    NazivBicikla = b.NazivBicikla,
+        //    Slika = b.Slika,
+        //    NazivTipa = b.TipBicikla.NazivTipa,
+        //    NazivModela = b.ModelBicikla.NazivModela
+        //});
+
+
+        //        return _mapper.Map<List<Model.BicikliPregled>>(lis);
+        //    }
+        //}
+        public List<Model.Bicikli> Get(BicikliSearchRequest request)
         {
 
 

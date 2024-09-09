@@ -386,36 +386,6 @@ class _BicikliDetailsScreenState extends State<BicikliDetailsScreen> {
       ),
     );
   }
-
-  // Widget _buildHeader() {
-  //   return Container(
-  //     // alignment: Alignment.center,
-  //     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-  //     child: Text(
-  //       widget.argumentsB.nazivBicikla!,
-  //       style: TextStyle(
-  //           color: Color.fromARGB(233, 120, 180, 229),
-  //           fontSize: 30,
-  //           fontWeight: FontWeight.w600),
-  //     ),
-  //   );
-  // }
-
-  // void _onItemTapped(int index) {
-  //   setState(() {
-  //     currentIndex = index;
-  //   });
-  //   if (currentIndex == 0) {
-  //     Navigator.pushNamed(context, KupacPocetnaScreen.routeName,
-  //         arguments: widget.argumentsK);
-  //   } else if (currentIndex == 1) {
-  //     Navigator.pushNamed(context, KupacMojeRezervacijeScreen.routeName,
-  //         arguments: widget.argumentsK);
-  //     // } else if (currentIndex == 2) {
-  //     //   Navigator.pushNamed(context, KupacMojeRezervacijeDetailsScreen.routeName);
-  //     // }
-  //   }
-  // }
 }
 
 //////////////////////////////////////////////////////////////////////

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:rentabikewtr_desktop/providers/bicikliDesktopPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/bicikliPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/bicikli_detalji_provider.dart';
 import 'package:rentabikewtr_desktop/providers/bicikli_provider.dart';
@@ -24,6 +25,7 @@ import 'package:rentabikewtr_desktop/providers/poslovnice_provider.dart';
 import 'package:rentabikewtr_desktop/providers/poziviDezurnomVoziluPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/poziviDezurnomVozilu_provider.dart';
 import 'package:rentabikewtr_desktop/providers/proizvodjaciBiciklaPregled_provider.dart';
+import 'package:rentabikewtr_desktop/providers/proizvodjaciBicikla_provider.dart';
 import 'package:rentabikewtr_desktop/providers/rezervacijeBiciklDostupni_provider.dart';
 import 'package:rentabikewtr_desktop/providers/rezervacijeBicikl_provider.dart';
 import 'package:rentabikewtr_desktop/providers/rezervacije_provider.dart';
@@ -45,7 +47,6 @@ import 'package:rentabikewtr_desktop/providers/velicineBiciklaPregled_provider.d
 import 'package:rentabikewtr_desktop/providers/xRezervacijeResult_provider.dart';
 import 'package:rentabikewtr_desktop/screens/adminPortal_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_bicikli_screen.dart';
-import 'package:rentabikewtr_desktop/screens/login_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:rentabikewtr_desktop/screens/radnikPortal_screen.dart';
 import 'package:rentabikewtr_desktop/utils/util.dart';
@@ -54,10 +55,7 @@ void main() async {
   HttpOverrides.global =
       // ignore: unnecessary_new
       new MyHttpOverrides();
-  // await windowManager.setMinimumSize(const Size(309, 600));
-  // await windowManager.setMaximumSize(const Size(618, 1200));
-  // await windowManager.setMaximizable(false);
-  // await windowManager.setSize(const Size(309, 600));
+
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => BicikliDetaljiProvider()),
@@ -68,6 +66,7 @@ void main() async {
       ChangeNotifierProvider(create: (_) => DrzaveProvider()),
       ChangeNotifierProvider(create: (_) => BicikliProvider()),
       ChangeNotifierProvider(create: (_) => BicikliPregledProvider()),
+      ChangeNotifierProvider(create: (_) => BicikliDesktopPregledProvider()),
       ChangeNotifierProvider(create: (_) => ModeliBiciklaPregledProvider()),
       ChangeNotifierProvider(create: (_) => ModeliBiciklaDetaljiProvider()),
       ChangeNotifierProvider(create: (_) => ModeliBiciklaProvider()),
@@ -109,6 +108,9 @@ void main() async {
       ChangeNotifierProvider(create: (_) => ServisiranjaProvider()),
       ChangeNotifierProvider(create: (_) => NajaveOdmoraPregledProvider()),
       ChangeNotifierProvider(create: (_) => PorukeProvider()),
+      ChangeNotifierProvider(
+          create: (_) => ProizvodjaciBiciklaPregledProvider()),
+      ChangeNotifierProvider(create: (_) => ProizvodjaciBiciklaProvider()),
     ],
     child: const MyMaterialApp(),
   ));

@@ -29,6 +29,11 @@ namespace RentABikeWTR_v1_7.API.Controllers
         {
             return _service.Get(request);
         }
+        [HttpGet("PretragaKorisnici")]
+        public List<Model.Korisnici> GetKorisnici([FromQuery] KorisniciSearchRequest? request)
+        {
+            return _service.GetKorisnici(request);
+        }
         [HttpGet("Detalji")]
         public List<Model.Korisnici> GetDetaljiKorisnici(KorisniciDetailsRequest? request)
         {

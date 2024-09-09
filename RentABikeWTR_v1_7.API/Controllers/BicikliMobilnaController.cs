@@ -21,6 +21,11 @@ namespace RentABikeWTR_v1_7.API.Controllers
         {
             return _service.Get(search);
         }
+        [HttpGet("PretragaBicikli")]
+        public List<Model.BicikliPregled> GetBicikli([FromQuery] BicikliSearchRequest? search)
+        {
+            return _service.GetBicikli(search);
+        }
         [HttpGet("{id}")]
         public Model.Bicikli GetById(int id)
         {

@@ -108,7 +108,10 @@ class _ListaDezurnaVozilaScreenState extends State<ListaDezurnaVozilaScreen> {
                               fontStyle: FontStyle.italic,
                               color: Color.fromARGB(255, 11, 7, 255)),
                         ),
-                        _buildSearch(),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        //_buildSearch(),
                         _buildDataListView()
                       ]),
                     ),
@@ -145,50 +148,39 @@ class _ListaDezurnaVozilaScreenState extends State<ListaDezurnaVozilaScreen> {
     );
   }
 
-  Widget _buildSearch() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration(labelText: "Naziv"),
-              controller: _searchController,
-            ),
-          ),
-          ElevatedButton(
-              onPressed: () async {
-                print("login proceed");
-                //Navigator.of(context).pop();
+  // Widget _buildSearch() {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(8.0),
+  //     child: Row(
+  //       children: [
+  //         Expanded(
+  //           child: TextField(
+  //             decoration: InputDecoration(labelText: "Naziv"),
+  //             controller: _searchController,
+  //           ),
+  //         ),
+  //         ElevatedButton(
+  //             onPressed: () async {
+  //               print("login proceed");
+  //               //Navigator.of(context).pop();
 
-                var tmpdata = await _dezurnaVozilaPregledProvider?.get();
+  //               var tmpdata = await _dezurnaVozilaPregledProvider?.get();
 
-                setState(() {
-                  data = tmpdata!;
-                });
+  //               setState(() {
+  //                 data = tmpdata!;
+  //               });
 
-                print("data: ${data[0].nazivDezurnogVozila}");
-              },
-              child: Text("Pretraga")),
-          SizedBox(
-            width: 8,
-          ),
-//           ElevatedButton(
-//               onPressed: () async {
-//                 Navigator.of(context).push(
-//                   MaterialPageRoute(
-//                     builder: (context) => DodajKorisnikaScreen(//ovo su bili detalji u originalu
-//                       product: null,
-//                     ),
-//                   ),
-//                 );
-//                 print("data: ${data.result[0].naziv}");
-//               },
-//               child: Text("Dodaj"))
-        ],
-      ),
-    );
-  }
+  //               print("data: ${data[0].nazivDezurnogVozila}");
+  //             },
+  //             child: Text("Pretraga")),
+  //         SizedBox(
+  //           width: 8,
+  //         ),
+
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget _buildDataListView() {
     //KorisniciProvider? _korProvider = null;

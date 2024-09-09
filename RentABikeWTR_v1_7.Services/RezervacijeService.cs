@@ -202,59 +202,7 @@ namespace RentABikeWTR_v1_7.Services
             return _mapper.Map<Model.Rezervacije>(entity);
         }
 
-        //public override List<Model.Rezervacije> Get(string pocetnidatum, string krajnjidatum, string nazivbicikla)
-        //{
-        //    var query = _context.Rezervacije.AsQueryable();
-        //    //var query2 = _context.Rezervacije.ToList();
-        //    if (!string.IsNullOrWhiteSpace(request?.KorisnickoImeKorisnik))
-        //    {
-        //        query = query.Where(x => x.Korisnik.KorisnickoIme.StartsWith(request.KorisnickoImeKorisnik));
-
-        //    }
-        //    if (!string.IsNullOrWhiteSpace(request?.NazivBicikla)) 
-        //    {
-        //        query=query.Where(x=>x.Bicikl.NazivBicikla.StartsWith(request.NazivBicikla));
-        //    }
-        //    if (!string.IsNullOrWhiteSpace(request?.KorisnickoImeKupac))
-        //    {
-        //        query = query.Where(x => x.Kupac.Korisnik.KorisnickoIme.StartsWith(request.KorisnickoImeKupac));
-        //    }
-        //    if (request.ModelBiciklaID != 0 && request.ModelBiciklaID.HasValue)
-        //    {
-        //        query = query.Where(x => x.Bicikl.ModelBiciklaID==request.ModelBiciklaID);
-        //    }
-        //    if (request.PoslovnicaID !=0 && request.PoslovnicaID.HasValue)
-        //    {
-        //        query = query.Where(x => x.Bicikl.PoslovnicaID == request.PoslovnicaID);
-        //    }
-        //    if (request.TuristRutaID != 0 && request.TuristRutaID.HasValue)
-        //    {
-        //        query = query.Where(x => x.TuristRutaID == request.TuristRutaID);
-        //    }
-        //    if (request.PocetniDatumPretrage != null && request.KrajnjiDatumPretrage != null)
-        //    {
-        //        var datumPretraga = DateTime.ParseExact(pocetnidatum, "ddMMyyyy", new CultureInfo("de-DE"));
-        //        var datumKraj = DateTime.ParseExact(request.KrajnjiDatumPretrage, "ddMMyyyy", new CultureInfo("de-DE"));
-        //        //var rep=request.PocetniDatumPretrage.ToString("dd.MM.yyyy");
-        //        //request.KrajnjiDatumPretrage = FormattableString("##.##.####");
-        //        //DateTime datumPretraga = DateTime.ParseExact(request.PocetniDatumPretrage,"d");
-        //        //DateTime datumKraj = DateTime.Parse(request.KrajnjiDatumPretrage);
-        //        query = query.Where(x => x.DatumIzdavanja >= (datumPretraga)  && (x.DatumIzdavanja <= datumKraj));
-        //    }
-
-
-        //    var list = query.ToList();
-        //    if (list != null)
-        //    {
-        //        return _mapper.Map<List<Model.Rezervacije>>(list);
-
-        //    }
-        //    else 
-        //    {
-        //        var list2 = _context.Rezervacije.ToList();
-        //        return _mapper.Map<List<Model.Rezervacije>>(list2);
-        //    }
-        //}
+        
 
     }
 }

@@ -31,6 +31,12 @@ namespace RentABikeWTR_v1_7.API.Controllers
         {
             return _service.Get(request);
         }
+        //}
+        [HttpGet("PretragaVodici")]
+        public List<Model.TuristickiVodici> GetVodici([FromQuery] TuristickiVodiciSearchRequest? request)
+        {
+            return _service.GetVodici(request);
+        }
         [HttpGet("{id}")]
         public Model.TuristickiVodici GetById(int id)
         {

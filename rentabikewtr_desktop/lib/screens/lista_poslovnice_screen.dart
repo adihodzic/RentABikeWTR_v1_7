@@ -80,7 +80,10 @@ class _ListaPoslovniceScreenState extends State<ListaPoslovniceScreen> {
                               fontStyle: FontStyle.italic,
                               color: Color.fromARGB(255, 11, 7, 255)),
                         ),
-                        _buildSearch(),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        //_buildSearch(),
                         _buildDataListView()
                       ]),
                     ),
@@ -114,51 +117,6 @@ class _ListaPoslovniceScreenState extends State<ListaPoslovniceScreen> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildSearch() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration(labelText: "Naziv"),
-              controller: _searchController,
-            ),
-          ),
-          ElevatedButton(
-              onPressed: () async {
-                print("login proceed");
-                //Navigator.of(context).pop();
-
-                var tmpdata = await _poslovnicePregledProvider?.get();
-
-                setState(() {
-                  data = tmpdata!;
-                });
-
-                print("data: ${data[0].nazivPoslovnice}");
-              },
-              child: Text("Pretraga")),
-          SizedBox(
-            width: 8,
-          ),
-//           ElevatedButton(
-//               onPressed: () async {
-//                 Navigator.of(context).push(
-//                   MaterialPageRoute(
-//                     builder: (context) => DodajKorisnikaScreen(//ovo su bili detalji u originalu
-//                       product: null,
-//                     ),
-//                   ),
-//                 );
-//                 print("data: ${data.result[0].naziv}");
-//               },
-//               child: Text("Dodaj"))
-        ],
-      ),
     );
   }
 

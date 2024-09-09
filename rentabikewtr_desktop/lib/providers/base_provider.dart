@@ -330,6 +330,144 @@ abstract class BaseProvider<T> with ChangeNotifier {
     return results;
   }
 
+  Future<List<T>> getKorisnici([String? search]) async {
+    var baseUrl = "$_baseUrl$_endpoint";
+    List<String> fields = ['KorisnickoIme'];
+    List<T> results = [];
+
+    if (search != null && search.isNotEmpty) {
+      for (var field in fields) {
+        var queryParams = {field: search};
+        var queryString = queryParams.entries
+            .map((entry) => "${entry.key}=${entry.value}")
+            .join("&");
+        var url = "$baseUrl?$queryString";
+
+        var uri = Uri.parse(url);
+        Map<String, String> headers = createHeaders();
+
+        print("Fetching data from URL: $url");
+        var response = await http?.get(uri, headers: headers);
+        print("Response received: $response");
+
+        if (isValidResponseCode(response!)) {
+          var data = jsonDecode(response.body) as List;
+          results.addAll(data.map((x) => fromJson(x)).cast<T>().toList());
+        }
+      }
+
+      // Removing duplicates from the results, if necessary
+      results = results.toSet().toList();
+    } else {
+      // Fetch all users without any filter
+      var uri = Uri.parse(baseUrl);
+      Map<String, String> headers = createHeaders();
+
+      print("Fetching all data from URL: $baseUrl");
+      var response = await http?.get(uri, headers: headers);
+      print("Response received: $response");
+
+      if (isValidResponseCode(response!)) {
+        var data = jsonDecode(response.body) as List;
+        results = data.map((x) => fromJson(x)).cast<T>().toList();
+      }
+    }
+
+    return results;
+  }
+
+  Future<List<T>> getVodici([String? search]) async {
+    var baseUrl = "$_baseUrl$_endpoint";
+    List<String> fields = ['Naziv'];
+    List<T> results = [];
+
+    if (search != null && search.isNotEmpty) {
+      for (var field in fields) {
+        var queryParams = {field: search};
+        var queryString = queryParams.entries
+            .map((entry) => "${entry.key}=${entry.value}")
+            .join("&");
+        var url = "$baseUrl?$queryString";
+
+        var uri = Uri.parse(url);
+        Map<String, String> headers = createHeaders();
+
+        print("Fetching data from URL: $url");
+        var response = await http?.get(uri, headers: headers);
+        print("Response received: $response");
+
+        if (isValidResponseCode(response!)) {
+          var data = jsonDecode(response.body) as List;
+          results.addAll(data.map((x) => fromJson(x)).cast<T>().toList());
+        }
+      }
+
+      // Removing duplicates from the results, if necessary
+      results = results.toSet().toList();
+    } else {
+      // Fetch all users without any filter
+      var uri = Uri.parse(baseUrl);
+      Map<String, String> headers = createHeaders();
+
+      print("Fetching all data from URL: $baseUrl");
+      var response = await http?.get(uri, headers: headers);
+      print("Response received: $response");
+
+      if (isValidResponseCode(response!)) {
+        var data = jsonDecode(response.body) as List;
+        results = data.map((x) => fromJson(x)).cast<T>().toList();
+      }
+    }
+
+    return results;
+  }
+
+  Future<List<T>> getBicikli([String? search]) async {
+    var baseUrl = "$_baseUrl$_endpoint";
+    List<String> fields = ['NazivBicikla'];
+    List<T> results = [];
+
+    if (search != null && search.isNotEmpty) {
+      for (var field in fields) {
+        var queryParams = {field: search};
+        var queryString = queryParams.entries
+            .map((entry) => "${entry.key}=${entry.value}")
+            .join("&");
+        var url = "$baseUrl?$queryString";
+
+        var uri = Uri.parse(url);
+        Map<String, String> headers = createHeaders();
+
+        print("Fetching data from URL: $url");
+        var response = await http?.get(uri, headers: headers);
+        print("Response received: $response");
+
+        if (isValidResponseCode(response!)) {
+          var data = jsonDecode(response.body) as List;
+          results.addAll(data.map((x) => fromJson(x)).cast<T>().toList());
+        }
+      }
+
+      // Removing duplicates from the results, if necessary
+      results = results.toSet().toList();
+    } else {
+      // Fetch all users without any filter
+      var uri = Uri.parse(baseUrl);
+      Map<String, String> headers = createHeaders();
+
+      print("Fetching all data from URL: $baseUrl");
+      var response = await http?.get(uri, headers: headers);
+      print("Response received: $response");
+
+      if (isValidResponseCode(response!)) {
+        var data = jsonDecode(response.body) as List;
+        results = data.map((x) => fromJson(x)).cast<T>().toList();
+      }
+    }
+
+    return results;
+  }
+
   Future<List<T>> getKupac([dynamic search]) async {
     var url = "$_baseUrl$_endpoint";
 

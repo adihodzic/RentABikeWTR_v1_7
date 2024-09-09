@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rentabikewtr_desktop/main.dart';
+import 'package:rentabikewtr_desktop/model/bicikliDesktopPregled.dart';
 import 'package:rentabikewtr_desktop/model/bicikliPregled.dart';
 import 'package:rentabikewtr_desktop/model/turistickiVodici.dart';
+import 'package:rentabikewtr_desktop/providers/bicikliDesktopPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/bicikliPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/turistickiVodiciPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/turistickiVodici_provider.dart';
@@ -28,10 +30,10 @@ class ListaBicikliScreen extends StatefulWidget {
 }
 
 class _ListaBicikliScreenState extends State<ListaBicikliScreen> {
-  BicikliPregledProvider? _bicikliPregledProvider = null;
+  BicikliDesktopPregledProvider? _bicikliDesktopPregledProvider = null;
   TuristickiVodiciPregledProvider? _turistickiVodiciPregledProvider = null;
   //CartProvider? _cartProvider = null;
-  List<BicikliPregled> data = [];
+  List<BicikliDesktopPregled> data = [];
   TuristickiVodici? bic;
   TextEditingController _searchController = TextEditingController();
 
@@ -39,14 +41,15 @@ class _ListaBicikliScreenState extends State<ListaBicikliScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _bicikliPregledProvider = context.read<BicikliPregledProvider>();
+    _bicikliDesktopPregledProvider =
+        context.read<BicikliDesktopPregledProvider>();
     // _cartProvider = context.read<CartProvider>();
     print("called initState");
     loadData();
   }
 
   Future loadData() async {
-    var tmpData = await _bicikliPregledProvider?.get(null);
+    var tmpData = await _bicikliDesktopPregledProvider?.get(null);
     setState(() {
       data = tmpData!;
     });
@@ -147,7 +150,8 @@ class _ListaBicikliScreenState extends State<ListaBicikliScreen> {
                 print("login proceed");
                 //Navigator.of(context).pop();
 
-                var tmpdata = await _bicikliPregledProvider?.get();
+                var tmpdata = await _bicikliDesktopPregledProvider
+                    ?.getBicikli(_searchController.text);
 
                 setState(() {
                   data = tmpdata!;
@@ -234,7 +238,7 @@ class _ListaBicikliScreenState extends State<ListaBicikliScreen> {
             ),
           ],
           rows: data
-                  .map((BicikliPregled e) => DataRow(
+                  .map((BicikliDesktopPregled e) => DataRow(
                           onSelectChanged: (selected) => {
                                 if (selected == true)
                                   {
@@ -249,7 +253,7 @@ class _ListaBicikliScreenState extends State<ListaBicikliScreen> {
                                   }
                               },
                           cells: [
-                            DataCell(Text(e.biciklId?.toString() ?? "")),
+                            DataCell(Text(e.biciklID?.toString() ?? "")),
                             DataCell(Text(e.nazivBicikla ?? "")),
                             DataCell(Text(e.nazivModela ?? "")),
                             DataCell(Text(e.nazivTipa ?? "")),
