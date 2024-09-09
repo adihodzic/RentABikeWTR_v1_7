@@ -29,8 +29,28 @@ services:
     networks:
       - rentabikewtrnet
 
-  subscriber-service:
-    restart: unless-stopped  
+  # subscriber-service:
+  #   restart: unless-stopped  
+  #   build:
+  #     context: ./
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     - RABBITMQ_HOST=rentabikewtr-rabbitmq
+  #     - RABBITMQ_PORT=5672
+  #     - RABBITMQ_USERNAME=admin
+  #     - RABBITMQ_PASSWORD=guest
+  #     - SMTP_SERVER=smtp.gmail.com
+  #     - SMTP_PORT=587
+  #     - SMTP_USERNAME=appadi172@gmail.com
+  #     - SMTP_PASSWORD=tijx gzdz dzek rtie  # Make sure to secure this in production!
+  #     - ConnectionStrings:konekcija=Server=rentabikewtr-sql,1433;TrustServerCertificate=true;Database=IB210282;User=sa;Password=Renta101!;Encrypt=true;ConnectRetryCount=0
+  #   depends_on:
+  #     - rentabikewtr-sql
+  #     - rentabikewtr-rabbitmq
+  #   networks:
+  #     - rentabikewtrnet
+  
+  worker-service:
     build:
       context: ./
       dockerfile: Dockerfile
@@ -40,10 +60,11 @@ services:
       - RABBITMQ_USERNAME=admin
       - RABBITMQ_PASSWORD=guest
       - SMTP_SERVER=smtp.gmail.com
-      - SMTP_PORT=465
+      - SMTP_PORT=587
       - SMTP_USERNAME=appadi172@gmail.com
-      - SMTP_PASSWORD=tijx gzdz dzek rtie  # Make sure to secure this in production!
-      - ConnectionStrings:konekcija=Server=rentabikewtr-sql,1433;TrustServerCertificate=true;Database=IB210282;User=sa;Password=Renta101!;Encrypt=true;ConnectRetryCount=0
+      - SMTP_PASSWORD=tijxgzdzdzekrtie
+      - ENABLE_SSL=true
+      - ConnectionStrings=konekcija=Server=rentabikewtr-sql,1433;TrustServerCertificate=true;Database=IB210282;User=sa;Password=Renta101!;Encrypt=true;ConnectRetryCount=0
     depends_on:
       - rentabikewtr-sql
       - rentabikewtr-rabbitmq
