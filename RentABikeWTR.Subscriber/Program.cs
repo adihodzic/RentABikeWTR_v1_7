@@ -10,24 +10,42 @@ using Newtonsoft.Json;
 using Microsoft.Extensions.Options;
 using System.Net.Mail;
 using RentABikeWTR.Subscriber;
+using RentABikeWTR_v1_7.Services.Database;
+using Microsoft.EntityFrameworkCore;
 
-var emailSettings = new EmailSettings
+class Program
 {
-    SmtpServer = Environment.GetEnvironmentVariable("SMTP_SERVER") ?? "smtp.gmail.com",
-    SmtpPort = int.Parse(Environment.GetEnvironmentVariable("SMTP_PORT") ?? "587"),
-    SenderEmail = Environment.GetEnvironmentVariable("SENDER_EMAIL") ?? "appadi172@gmail.com",
-    SenderName = Environment.GetEnvironmentVariable("SENDER_NAME") ?? "help-desk",
-    UserName = Environment.GetEnvironmentVariable("USERNAME") ?? "appadi172@gmail.com",
-    Password = Environment.GetEnvironmentVariable("EMAIL_PASSWORD") ?? "tijxgzdzdzekrtie",
-    EnableSsl = bool.Parse(Environment.GetEnvironmentVariable("ENABLE_SSL") ?? "true")
-};
+    static void Main(string[] args)
+    {
+        
+        var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings:konekcija")
+            ?? "Server=localhost,1439;TrustServerCertificate=true;Database=IB210282;User=sa;Password=Renta101!;Encrypt=true;ConnectRetryCount=0";
 
-var emailConsumer = new EmailConsumer(emailSettings);
-emailConsumer.Start();
+        // Define options for DbContext using the connection string
+        var optionsBuilder = new DbContextOptionsBuilder<RentABikeWTR_v1_7Context>();
+        optionsBuilder.UseSqlServer(connectionString);
 
-Console.WriteLine("Press [enter] to exit.");
-Console.ReadLine();
+        // Initialize the DbContext
+        var context = new RentABikeWTR_v1_7Context(optionsBuilder.Options);
 
+        var emailSettings = new EmailSettings
+        {
+            SmtpServer = Environment.GetEnvironmentVariable("SMTP_SERVER") ?? "smtp.gmail.com",
+            SmtpPort = int.Parse(Environment.GetEnvironmentVariable("SMTP_PORT") ?? "587"),
+            SenderEmail = Environment.GetEnvironmentVariable("SENDER_EMAIL") ?? "appadi172@gmail.com",
+            SenderName = Environment.GetEnvironmentVariable("SENDER_NAME") ?? "help-desk",
+            UserName = Environment.GetEnvironmentVariable("SMTP_USERNAME") ?? "appadi172@gmail.com",
+            Password = Environment.GetEnvironmentVariable("SMTP_PASSWORD") ?? "tijxgzdzdzekrtie",
+            EnableSsl = bool.Parse(Environment.GetEnvironmentVariable("ENABLE_SSL") ?? "true")
+        };
+
+        var emailConsumer = new EmailConsumer(emailSettings,context);
+        emailConsumer.Start();
+
+        Console.WriteLine("Press [enter] to exit.");
+        Console.ReadLine();
+    }
+}
 
 
 
@@ -73,7 +91,7 @@ Console.ReadLine();
 
 //                    Console.WriteLine($"Message received: {message}");
 //                    // Deserialize and process the email
-                   
+
 //                    Console.WriteLine($"Email sent: {message}");
 //                    EmailModel emailModel = JsonConvert.DeserializeObject<EmailModel>(message);
 //                    if (emailModel != null)

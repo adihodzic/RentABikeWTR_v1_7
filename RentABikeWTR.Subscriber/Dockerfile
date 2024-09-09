@@ -5,8 +5,7 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+
 
 # Use the official .NET SDK (for building the app)
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
@@ -27,4 +26,4 @@ WORKDIR /app
 COPY --from=build /app/publish .
 
 # Set the entry point for the console app
-ENTRYPOINT ["dotnet", "RentABikeWTR.Subscriber.dll"]
+ENTRYPOINT ["dotnet","RentABikeWTR.Subscriber.dll"]

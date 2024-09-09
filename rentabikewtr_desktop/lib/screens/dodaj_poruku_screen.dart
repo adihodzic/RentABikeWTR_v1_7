@@ -38,7 +38,7 @@ import 'package:rentabikewtr_desktop/providers/korisniciDetalji_provider.dart';
 import 'package:rentabikewtr_desktop/providers/korisniciPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/korisnici_provider.dart';
 import 'package:rentabikewtr_desktop/providers/modeliBiciklaPregled_provider.dart';
-import 'package:rentabikewtr_desktop/providers/notifikacijeProvider.dart';
+import 'package:rentabikewtr_desktop/providers/poruke_provider.dart';
 import 'package:rentabikewtr_desktop/providers/poslovnicePregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/proizvodjaciBiciklaPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/tipoviBiciklaPregled_provider.dart';
@@ -93,6 +93,7 @@ class _DodajPorukuScreenState extends State<DodajPorukuScreen> {
     //slika = widget.argumentsB.slika;
     _korisniciDetaljiProvider = context.read<KorisniciDetaljiProvider>();
     _korisniciPregledProvider = context.read<KorisniciPregledProvider>();
+    _porukeProvider = context.read<PorukeProvider>();
 
     poruka = Poruke(
       tekst: null,

@@ -26,7 +26,7 @@ builder.Services.AddAuthentication("BasicAuthentication")
       var  connectionString = builder.Configuration.GetConnectionString("konekcija");
       builder.Services.AddDbContext<RentABikeWTR_v1_7Context>(o => o.UseSqlServer(connectionString));
 
-builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+//builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
 
 

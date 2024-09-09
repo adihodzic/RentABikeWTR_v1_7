@@ -61,6 +61,8 @@ services:
       - SMTP_PORT=587
       - SMTP_USERNAME=appadi172@gmail.com
       - SMTP_PASSWORD=tijxgzdzdzekrtie
+      - SENDER_NAME=help-desk
+      - SENDER_EMAIL=appadi172@gmail.com
       - ENABLE_SSL=true
     ports:
       - 44335:44335

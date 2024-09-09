@@ -17,6 +17,7 @@ import 'package:rentabikewtr_desktop/providers/modeliBiciklaDetalji_provider.dar
 import 'package:rentabikewtr_desktop/providers/modeliBiciklaPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/modeliBicikla_provider.dart';
 import 'package:rentabikewtr_desktop/providers/najaveOdmoraPregled_provider.dart';
+import 'package:rentabikewtr_desktop/providers/poruke_provider.dart';
 import 'package:rentabikewtr_desktop/providers/poslovniceDetalji_provider.dart';
 import 'package:rentabikewtr_desktop/providers/poslovnicePregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/poslovnice_provider.dart';
@@ -107,6 +108,7 @@ void main() async {
       ChangeNotifierProvider(create: (_) => ServisiranjaDetaljiProvider()),
       ChangeNotifierProvider(create: (_) => ServisiranjaProvider()),
       ChangeNotifierProvider(create: (_) => NajaveOdmoraPregledProvider()),
+      ChangeNotifierProvider(create: (_) => PorukeProvider()),
     ],
     child: const MyMaterialApp(),
   ));
