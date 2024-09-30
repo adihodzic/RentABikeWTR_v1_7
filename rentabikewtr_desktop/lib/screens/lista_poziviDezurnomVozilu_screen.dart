@@ -22,6 +22,7 @@ import 'package:rentabikewtr_desktop/providers/turistickiVodici_provider.dart';
 import 'package:rentabikewtr_desktop/screens/adminPortal_screen.dart';
 import 'package:rentabikewtr_desktop/screens/bicikli_detalji_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_korisnika_screen.dart';
+import 'package:rentabikewtr_desktop/screens/dodaj_pozivDezurnomVozilu_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_vodica_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_korisnici_screen.dart';
 import 'package:rentabikewtr_desktop/screens/periodicniIzvjestajRezervacije_screen.dart';
@@ -173,7 +174,7 @@ class _ListaPoziviDezurnomVoziluScreenState
                                           ),
                                         ),
                                         SizedBox(
-                                          width: 100,
+                                          width: 50,
                                         ),
                                         Container(
                                           height: 150,
@@ -199,10 +200,10 @@ class _ListaPoziviDezurnomVoziluScreenState
                                           ),
                                         ),
                                         SizedBox(
-                                          width: 100,
+                                          width: 50,
                                         ),
                                         Container(
-                                          width: 200,
+                                          width: 150,
                                           height: 50,
                                           child: ElevatedButton(
                                             child: Text("Izlistaj pozive"),
@@ -230,6 +231,27 @@ class _ListaPoziviDezurnomVoziluScreenState
                                             },
                                           ),
                                         ),
+                                        SizedBox(
+                                          width: 10,
+                                        ), //provjeriti da li fino izgleda
+                                        Container(
+                                            width: 100,
+                                            height: 50,
+                                            child: ElevatedButton(
+                                                onPressed: () async {
+                                                  Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          DodajPozivDezurnomVoziluScreen(
+                                                              //ovo su bili detalji u originalu
+
+                                                              ),
+                                                    ),
+                                                  );
+                                                  print(
+                                                      "data: ${data[0].nazivDezurnogVozila}");
+                                                },
+                                                child: Text("Dodaj"))),
                                       ],
                                     ),
                                   ),
@@ -288,62 +310,6 @@ class _ListaPoziviDezurnomVoziluScreenState
             const DataColumn(
               label: Expanded(
                 child: Text(
-                  'PozivID',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-            ),
-            // const DataColumn(
-            //   label: Expanded(
-            //     child: Text(
-            //       'Vise detalja',
-            //       style: TextStyle(fontStyle: FontStyle.italic),
-            //     ),
-            //   ),
-            // ),
-            // const DataColumn(
-            //   label: Expanded(
-            //     child: Text(
-            //       'Nesreća',
-            //       style: TextStyle(fontStyle: FontStyle.italic),
-            //     ),
-            //   ),
-            // ),
-            // const DataColumn(
-            //   label: Expanded(
-            //     child: Text(
-            //       'Zahtjev klijenta',
-            //       style: TextStyle(fontStyle: FontStyle.italic),
-            //     ),
-            //   ),
-            // ),
-            // // const DataColumn(
-            // //   label: Expanded(
-            // //     child: Text(
-            // //       'Tip bicikla',
-            // //       style: TextStyle(fontStyle: FontStyle.italic),
-            // //     ),
-            // //   ),
-            // // ),
-            // const DataColumn(
-            //   label: Expanded(
-            //     child: Text(
-            //       'Kvar',
-            //       style: TextStyle(fontStyle: FontStyle.italic),
-            //     ),
-            //   ),
-            // ),
-            // const DataColumn(
-            //   label: Expanded(
-            //     child: Text(
-            //       'Loše vrijeme',
-            //       style: TextStyle(fontStyle: FontStyle.italic),
-            //     ),
-            //   ),
-            // ),
-            const DataColumn(
-              label: Expanded(
-                child: Text(
                   'Datum poziva',
                   style: TextStyle(fontStyle: FontStyle.italic),
                 ),
@@ -398,8 +364,6 @@ class _ListaPoziviDezurnomVoziluScreenState
                                   }
                               },
                           cells: [
-                            DataCell(Text(
-                                e.pozivDezurnomVoziluId?.toString() ?? "")),
                             // DataCell(Text(e.viseDetalja ?? "")),
                             // DataCell(Text(e.nesreca! ? "Da" : "Ne")),
                             // DataCell(Text(e.zahtjevKlijenta! ? "Da" : "Ne")),

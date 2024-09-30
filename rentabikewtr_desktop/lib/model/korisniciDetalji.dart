@@ -9,8 +9,8 @@ part 'korisniciDetalji.g.dart';
 class KorisniciDetalji {
   int? korisnikId;
   String? korisnickoIme;
-  // String? password;
-  // String? passwordPotvrda;
+  String? password;
+  String? passwordPotvrda;
   String? ime;
   String? prezime;
   bool aktivan = true;
@@ -19,13 +19,13 @@ class KorisniciDetalji {
   int? drzavaID;
   //String? nazivDrzave;
   DateTime? datumRegistracije;
-  int? ulogaID = 2;
+  int? ulogaID;
 
   KorisniciDetalji(
       {this.korisnikId,
       this.korisnickoIme,
-      // this.password,
-      // this.passwordPotvrda,
+      this.password,
+      this.passwordPotvrda,
       this.ime,
       this.prezime,
       this.aktivan = true,

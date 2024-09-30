@@ -31,6 +31,7 @@ import 'package:rentabikewtr_desktop/providers/modeliBiciklaPregled_provider.dar
 import 'package:rentabikewtr_desktop/providers/poslovnicePregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/proizvodjaciBiciklaPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/tipoviBiciklaPregled_provider.dart';
+import 'package:rentabikewtr_desktop/screens/lista_bicikli_screen.dart';
 
 import 'package:rentabikewtr_desktop/screens/radnikPortal_screen.dart';
 
@@ -312,7 +313,6 @@ class _BicikliDetaljiScreenState extends State<BicikliDetaljiScreen> {
                                                 border: OutlineInputBorder(),
                                                 labelText: "Naziv bicikla",
                                                 hintText: 'Unesite naziv'),
-                                            maxLength: 20,
                                             validator: (value) {
                                               if (value == null ||
                                                   value.isEmpty) {
@@ -320,13 +320,16 @@ class _BicikliDetaljiScreenState extends State<BicikliDetaljiScreen> {
                                               } else if (value
                                                       .characters.length <
                                                   3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                                                return 'Minimalno 3(tri) karaktera.';
                                               } else {
                                                 return null;
                                               }
                                             },
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
+                                          ),
+                                          SizedBox(
+                                            height: 20,
                                           ),
                                           Container(
                                             alignment: Alignment.bottomLeft,
@@ -426,7 +429,7 @@ class _BicikliDetaljiScreenState extends State<BicikliDetaljiScreen> {
                                               } else if (value
                                                       .characters.length <
                                                   3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                                                return 'Minimalno 3(tri) karaktera.';
                                               } else {
                                                 return null;
                                               }
@@ -468,8 +471,7 @@ class _BicikliDetaljiScreenState extends State<BicikliDetaljiScreen> {
                                             decoration: const InputDecoration(
                                                 border: OutlineInputBorder(),
                                                 labelText: "Boja",
-                                                hintText:
-                                                    'npr. Vodic-engleski'),
+                                                hintText: 'Unesite boju'),
                                             maxLength: 20,
                                             validator: (value) {
                                               if (value == null ||
@@ -478,7 +480,7 @@ class _BicikliDetaljiScreenState extends State<BicikliDetaljiScreen> {
                                               } else if (value
                                                       .characters.length <
                                                   3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                                                return 'Minimalno 3(tri) karaktera.';
                                               } else {
                                                 return null;
                                               }
@@ -554,7 +556,7 @@ class _BicikliDetaljiScreenState extends State<BicikliDetaljiScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
-                                          SizedBox(height: 2),
+                                          SizedBox(height: 5),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.end,
@@ -748,7 +750,7 @@ class _BicikliDetaljiScreenState extends State<BicikliDetaljiScreen> {
                                                             .push(MaterialPageRoute(
                                                                 builder:
                                                                     (context) =>
-                                                                        RadnikPortalScreen()));
+                                                                        ListaBicikliScreen()));
                                                       } catch (e) {
                                                         await _handleSubmissionError(
                                                             e);

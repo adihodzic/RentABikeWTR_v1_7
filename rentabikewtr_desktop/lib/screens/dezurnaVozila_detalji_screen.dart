@@ -163,6 +163,9 @@ class _TuristRuteDetaljiScreenState extends State<DezurnaVozilaDetaljiScreen> {
                                             controller:
                                                 _nazivDezurnogVozilaController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Naziv",
                                                 hintText: 'Unesite naziv'),
@@ -182,6 +185,9 @@ class _TuristRuteDetaljiScreenState extends State<DezurnaVozilaDetaljiScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _tipVozilaController,
                                             minLines: 1,
@@ -189,6 +195,9 @@ class _TuristRuteDetaljiScreenState extends State<DezurnaVozilaDetaljiScreen> {
                                             keyboardType:
                                                 TextInputType.multiline,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Tip Vozila",
                                                 hintText:

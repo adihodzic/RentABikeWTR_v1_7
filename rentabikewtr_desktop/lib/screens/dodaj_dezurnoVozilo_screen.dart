@@ -155,6 +155,9 @@ class _DodajDezurnoVoziloScreenState extends State<DodajDezurnoVoziloScreen> {
                                             controller:
                                                 _nazivDezurnogVozilaController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Naziv",
                                                 hintText: 'Unesite naziv'),
@@ -174,6 +177,9 @@ class _DodajDezurnoVoziloScreenState extends State<DodajDezurnoVoziloScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _tipVozilaController,
                                             keyboardType:
@@ -181,6 +187,9 @@ class _DodajDezurnoVoziloScreenState extends State<DodajDezurnoVoziloScreen> {
                                             minLines: 1,
                                             maxLines: 4,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Tip vozila",
                                                 hintText:
@@ -218,7 +227,7 @@ class _DodajDezurnoVoziloScreenState extends State<DodajDezurnoVoziloScreen> {
                                                     Navigator.of(context).push(
                                                       MaterialPageRoute(
                                                         builder: (context) =>
-                                                            RadnikPortalScreen(),
+                                                            ListaDezurnaVozilaScreen(),
                                                       ),
                                                     );
                                                   },

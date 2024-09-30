@@ -24,15 +24,17 @@ namespace RentABikeWTR_v1_7.Services
         }
         public XRezervacijeResult GetXRezervacije(DateTime DatumOd, DateTime DatumDo)
         {
-            
+
             decimal Ukupnasuma = 0;
-            var query = _context.Rezervacije
+            var query = _context.Rezervacije.AsQueryable()
                 .Include(a => a.Kupac)
+                .Include(b => b.Bicikl)
+                .Include(c => c.TuristRuta)
                 .Where(x => (x.DatumIzdavanja.Date >= DatumOd.Date)
                 && (x.DatumIzdavanja <= DatumDo.Date));
-            
+
             List<Model.XRezervacije> xrez = new List<Model.XRezervacije>();
-            
+
             var lista = query.ToList();
             foreach (var item in lista)
             {
@@ -41,10 +43,23 @@ namespace RentABikeWTR_v1_7.Services
                 xitem.KupacID = (int)item.KupacID;
                 xitem.KorisnickoIme = _context.Korisnici
                     .Where(k => k.KorisnikId == item.KupacID).Select(c => c.KorisnickoIme).FirstOrDefault();
-                
+
                 xitem.CijenaUsluge = item.CijenaUsluge;
                 Ukupnasuma += item.CijenaUsluge;
                 xitem.Datum = item.DatumIzdavanja.Date;
+                xitem.BiciklID = item.BiciklID;
+                xitem.NazivBicikla = item.Bicikl.NazivBicikla;
+                if (item.TuristRutaID != null)
+                {
+                    xitem.TuristRutaID = item.TuristRutaID;
+                    xitem.Naziv = item.TuristRuta.Naziv;
+                }
+                else 
+                { 
+                    xitem.TuristRutaID = 0; 
+                    xitem.Naziv = "Nema podataka"; 
+                }
+
 
                 xrez.Add(xitem);
 
@@ -56,7 +71,7 @@ namespace RentABikeWTR_v1_7.Services
 
             };
         }
-      
+
 
     }
 }

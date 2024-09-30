@@ -162,18 +162,19 @@ class _ListaKorisniciScreenState extends State<ListaKorisniciScreen> {
           SizedBox(
             width: 8,
           ),
-//           ElevatedButton(
-//               onPressed: () async {
-//                 Navigator.of(context).push(
-//                   MaterialPageRoute(
-//                     builder: (context) => DodajKorisnikaScreen(//ovo su bili detalji u originalu
-//                       product: null,
-//                     ),
-//                   ),
-//                 );
-//                 print("data: ${data.result[0].naziv}");
-//               },
-//               child: Text("Dodaj"))
+          ElevatedButton(
+              onPressed: () async {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        DodajKorisnikaScreen(//ovo su bili detalji u originalu
+
+                            ),
+                  ),
+                );
+                print("data: ${data[0].korisnickoIme}");
+              },
+              child: Text("Dodaj"))
         ],
       ),
     );

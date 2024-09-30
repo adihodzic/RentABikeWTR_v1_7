@@ -41,7 +41,7 @@ namespace RentABikeWTR_v1_7.Services.Database
         public virtual DbSet<TuristRute> TuristRute { get; set; }
         public virtual DbSet<Uloge> Uloge { get; set; }
         public virtual DbSet<VelicineBicikla> VelicineBicikla { get; set; }
-        public virtual DbSet<Genderi> Genderi { get; set; }
+        //public virtual DbSet<Genderi> Genderi { get; set; }
         public virtual DbSet<GodineKupci> GodineKupci { get; set; }
         public virtual DbSet<Poruke> Poruke { get; set; }
 
@@ -107,12 +107,12 @@ namespace RentABikeWTR_v1_7.Services.Database
 
 
             });
-            modelBuilder.Entity<Genderi>(entity =>
-            {
-                entity.HasKey(e => e.GenderId);
-                entity.Property(e => e.NazivSpola)
-                    .IsRequired();
-            });
+            //modelBuilder.Entity<Genderi>(entity =>
+            //{
+            //    entity.HasKey(e => e.GenderId);
+            //    entity.Property(e => e.NazivSpola)
+            //        .IsRequired();
+            //});
 
             modelBuilder.Entity<GodineKupci>(entity =>
             {
@@ -219,12 +219,12 @@ namespace RentABikeWTR_v1_7.Services.Database
                .HasForeignKey<Kupci>(d => d.KupacId)
                .HasConstraintName("FK_Kupci_Korisnici");
 
-                entity.HasOne(d => d.Gender)
-                  .WithMany(p => p.Kupci)
-                  .IsRequired(false) //ovo je veoma bitno
-                  .HasForeignKey(d => d.GenderID)
-                  .OnDelete(DeleteBehavior.ClientSetNull)
-                  .HasConstraintName("FK_Kupci_Genderi");
+                //entity.HasOne(d => d.Gender)
+                //  .WithMany(p => p.Kupci)
+                //  .IsRequired(false) //ovo je veoma bitno
+                //  .HasForeignKey(d => d.GenderID)
+                //  .OnDelete(DeleteBehavior.ClientSetNull)
+                //  .HasConstraintName("FK_Kupci_Genderi");
 
                 entity.HasOne(d => d.GodineKupac)
                   .WithMany(p => p.Kupci)

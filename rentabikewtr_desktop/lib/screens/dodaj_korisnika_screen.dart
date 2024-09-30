@@ -12,6 +12,7 @@ import 'package:rentabikewtr_desktop/providers/korisnici_provider.dart';
 import 'package:rentabikewtr_desktop/screens/adminPortal_screen.dart';
 
 import 'package:email_validator/email_validator.dart';
+import 'package:rentabikewtr_desktop/screens/lista_korisnici_screen.dart';
 import 'package:rentabikewtr_desktop/widgets/menuAdmin.dart';
 //import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -169,6 +170,9 @@ class _DodajKorisnikaScreenState extends State<DodajKorisnikaScreen> {
                                           TextFormField(
                                             controller: _imeController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Ime",
                                                 hintText: 'Unesite ime'),
@@ -188,9 +192,13 @@ class _DodajKorisnikaScreenState extends State<DodajKorisnikaScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(height: 10),
                                           TextFormField(
                                             controller: _prezimeController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Prezime",
                                                 hintText: 'Unesite prezime'),
@@ -210,10 +218,16 @@ class _DodajKorisnikaScreenState extends State<DodajKorisnikaScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller:
                                                 _korisnickoImeController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Korisničko ime",
                                                 hintText:
@@ -226,7 +240,7 @@ class _DodajKorisnikaScreenState extends State<DodajKorisnikaScreen> {
                                               } else if (value
                                                       .characters.length <
                                                   3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                                                return 'Minimalno 3(tri) karaktera.';
                                               } else {
                                                 return null;
                                               }
@@ -234,12 +248,19 @@ class _DodajKorisnikaScreenState extends State<DodajKorisnikaScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _passwordController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Lozinka",
                                                 hintText: 'Unesite lozinku'),
+                                            obscureText: true,
                                             maxLength: 20,
                                             validator: (value) {
                                               if (value == null ||
@@ -256,25 +277,32 @@ class _DodajKorisnikaScreenState extends State<DodajKorisnikaScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller:
                                                 _passwordPotvrdaController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Potrda lozinke",
                                                 hintText: 'Potvrdite lozinku'),
+                                            obscureText: true,
                                             maxLength: 20,
                                             validator: (value) {
                                               if (value == null ||
-                                                  value.isEmpty ||
-                                                  value !=
-                                                      _passwordController
-                                                          .text) {
-                                                return 'Potvrda lozinke mora da bude jednaka kao i lozinka.';
+                                                  value.isEmpty) {
+                                                return 'Ovo je obavezno polje.';
                                               } else if (value
                                                       .characters.length <
                                                   3) {
-                                                return 'Password should be at least 3 characters.';
+                                                return 'Minimalno 3(tri) karaktera.';
+                                              } else if (value !=
+                                                  _passwordController.text) {
+                                                return 'Potvrda mora biti jednaka';
                                               } else {
                                                 return null;
                                               }
@@ -307,6 +335,9 @@ class _DodajKorisnikaScreenState extends State<DodajKorisnikaScreen> {
                                           TextFormField(
                                             controller: _emailController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "E-mail",
                                                 hintText:
@@ -318,9 +349,6 @@ class _DodajKorisnikaScreenState extends State<DodajKorisnikaScreen> {
                                                 return 'E-mail je obavezno polje';
                                               } else if (!isEmail(value)) {
                                                 return 'Pravilno unesite e-mail.';
-                                                //   } else if (isPostojeciEmail(
-                                                //       value)) {
-                                                //     return 'Email već postoji!';
                                               } else {
                                                 return null;
                                               }
@@ -328,9 +356,15 @@ class _DodajKorisnikaScreenState extends State<DodajKorisnikaScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _telefonController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Telefon",
                                                 hintText:
@@ -355,10 +389,16 @@ class _DodajKorisnikaScreenState extends State<DodajKorisnikaScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _datePickerController,
                                             readOnly: true,
                                             decoration: const InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.fromLTRB(
+                                                      16, 0, 16, 0),
                                               border: OutlineInputBorder(),
                                               labelText:
                                                   "Kliknite za unos datuma",
@@ -368,9 +408,12 @@ class _DodajKorisnikaScreenState extends State<DodajKorisnikaScreen> {
                                               //     "Click here to select date"
                                             ),
                                           ),
-                                          SizedBox(height: 20),
+                                          SizedBox(height: 30),
                                           DropdownButtonFormField<Drzave>(
                                             decoration: InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.fromLTRB(
+                                                      16, 0, 16, 0),
                                               labelText: 'Odaberite državu',
                                               border: OutlineInputBorder(),
                                             ),
@@ -406,7 +449,7 @@ class _DodajKorisnikaScreenState extends State<DodajKorisnikaScreen> {
                                                   Navigator.of(context).push(
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          DodajKorisnikaScreen(),
+                                                          ListaKorisniciScreen(),
                                                     ),
                                                   );
                                                 },
@@ -501,7 +544,7 @@ class _DodajKorisnikaScreenState extends State<DodajKorisnikaScreen> {
                                                             .push(
                                                           MaterialPageRoute(
                                                             builder: (context) =>
-                                                                AdminPortalScreen(),
+                                                                ListaKorisniciScreen(),
                                                           ),
                                                         );
                                                       } catch (e) {

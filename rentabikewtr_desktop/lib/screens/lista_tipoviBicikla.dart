@@ -13,6 +13,7 @@ import 'package:rentabikewtr_desktop/providers/turistickiVodici_provider.dart';
 import 'package:rentabikewtr_desktop/screens/adminPortal_screen.dart';
 import 'package:rentabikewtr_desktop/screens/bicikli_detalji_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_korisnika_screen.dart';
+import 'package:rentabikewtr_desktop/screens/dodaj_tipBicikla_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_vodica_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_korisnici_screen.dart';
 import 'package:rentabikewtr_desktop/screens/periodicniIzvjestajRezervacije_screen.dart';
@@ -102,6 +103,25 @@ class _ListaTipoviBiciklaScreenState extends State<ListaTipoviBiciklaScreen> {
                         SizedBox(
                           height: 30,
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () async {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => DodajTipBiciklaScreen(
+                                        //ovo su bili detalji u originalu
+
+                                        ),
+                                  ),
+                                );
+                                print("data: ${data[0].nazivTipa}");
+                              },
+                              child: Text("Dodaj"),
+                            ),
+                          ],
+                        ),
                         // _buildSearch(),
                         _buildDataListView()
                       ]),
@@ -150,14 +170,6 @@ class _ListaTipoviBiciklaScreenState extends State<ListaTipoviBiciklaScreen> {
             const DataColumn(
               label: Expanded(
                 child: Text(
-                  'TipBiciklaID',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-            ),
-            const DataColumn(
-              label: Expanded(
-                child: Text(
                   'Naziv tipa bicikla',
                   style: TextStyle(fontStyle: FontStyle.italic),
                 ),
@@ -180,7 +192,6 @@ class _ListaTipoviBiciklaScreenState extends State<ListaTipoviBiciklaScreen> {
                                   }
                               },
                           cells: [
-                            DataCell(Text(e.tipBiciklaId?.toString() ?? "")),
                             DataCell(Text(e.nazivTipa ?? "")),
                           ]))
                   .toList() ??

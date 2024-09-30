@@ -93,13 +93,7 @@ namespace RentABikeWTR_v1_7.API.Controllers
         {
             return _service.UpdateProfilKorisnika(id, request);
         }
-        //[HttpPost(nameof(AuthentikacijaKorisnika))]  // ovo je rješenje greške na swagger-u mora biti httpPost drugačiji od inserta
-        //                                             // Tačnije, morao sam dodati (nameof(AuthentikacijaKupca))
-        //[AllowAnonymous]
-        //public async Task<Model.Korisnici> AuthentikacijaKorisnika(string usern, string pass)
-        //{
-        //    return await _service.AuthentikacijaKorisnika(usern, pass);
-        //}
+        
 
     }
 }

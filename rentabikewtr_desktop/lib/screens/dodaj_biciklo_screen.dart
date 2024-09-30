@@ -233,16 +233,6 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
     //var tmpStatusi=await _statusiPregledProvider?.get();
     var tmpvelicineBicikla = await _velicineBiciklaPregledProvider?.get();
 
-    // var tmpSelectedDrzava =
-    //     await _drzaveProvider?.getById(tmpBiciklDetalji!.drzavaID!);
-    // var tmpSelectedTip = await _tipoviBiciklaPregledProvider
-    //     ?.getById(tmpBiciklDetalji!.tipBiciklaID!);
-    // var tmpSelectedModel = await _modeliBiciklaPregledProvider
-    //     ?.getById(tmpBiciklDetalji!.modelBiciklaID!);
-    // var tmpSelectedProizvodjac = await _proizvodjaciBiciklaPregledProvider
-    //     ?.getById(tmpBiciklDetalji!.proizvodjacBiciklaID!);
-    // var tmpSelectedPoslovnica = await _poslovnicePregledProvider
-    //     ?.getById(tmpBiciklDetalji!.poslovnicaID!);
     setState(() {
       //DateTime? pickedDate = DateTime.now();
       //_dateController.text = DateFormat('dd-MM-yyyy').format(pickedDate);
@@ -254,7 +244,6 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
       velicine = tmpvelicineBicikla!;
     });
   }
-  //var datumRegistracije= _DatePickerContreo
 
   @override
   Widget build(BuildContext context) {
@@ -330,6 +319,9 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                             readOnly: true,
                                             controller: _nazivBiciklaController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Naziv bicikla",
                                                 hintText:
@@ -350,6 +342,9 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
                                           Container(
                                             alignment: Alignment.bottomLeft,
                                             child: Text(
@@ -364,6 +359,9 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                           DropdownButtonFormField<
                                               ModeliBiciklaPregled>(
                                             decoration: InputDecoration(
+                                              contentPadding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      16, 0, 16, 0),
                                               hintText: 'Odaberite model',
                                               border: OutlineInputBorder(),
                                             ),
@@ -398,9 +396,9 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
-                                          // SizedBox(
-                                          //   height: 5,
-                                          // ),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
                                           Container(
                                             alignment: Alignment.bottomLeft,
                                             child: Text(
@@ -415,6 +413,9 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                           DropdownButtonFormField<
                                               TipoviBiciklaPregled>(
                                             decoration: InputDecoration(
+                                              contentPadding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      16, 0, 16, 0),
                                               hintText: 'Odaberite tip',
                                               border: OutlineInputBorder(),
                                             ),
@@ -445,6 +446,9 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
                                           Container(
                                             alignment: Alignment.bottomLeft,
                                             child: Text(
@@ -459,6 +463,9 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                           DropdownButtonFormField<
                                               ProizvodjaciBiciklaPregled>(
                                             decoration: InputDecoration(
+                                              contentPadding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      16, 0, 16, 0),
                                               hintText: 'Odaberite proizvođača',
                                               border: OutlineInputBorder(),
                                             ),
@@ -529,6 +536,15 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                           TextFormField(
                                             controller: _bojaController,
                                             decoration: const InputDecoration(
+                                                // errorStyle: TextStyle(
+                                                //   fontSize:
+                                                //       12.0, // Adjust font size
+                                                //   height:
+                                                //       0, // Reduces space between field and error text
+                                                // ),
+                                                contentPadding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Boja",
                                                 hintText:
@@ -537,7 +553,10 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                             validator: (value) {
                                               if (value == null ||
                                                   value.isEmpty) {
-                                                return 'Boja je obavezno polje.';
+                                                const EdgeInsets.all(0.0);
+                                                String errorString =
+                                                    "Boja je obavezno polje";
+                                                return errorString;
                                               } else if (value
                                                       .characters.length <
                                                   3) {
@@ -549,9 +568,15 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _vrstaRamaController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Vrsta rama",
                                                 hintText: 'Unesite vrstu rama'),
@@ -571,10 +596,16 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller:
                                                 _cijenaBiciklaController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Cijena",
                                                 hintText: '10.0'),
@@ -592,6 +623,9 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           Container(
                                             alignment: Alignment.bottomLeft,
                                             child: Text(
@@ -606,6 +640,9 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                           DropdownButtonFormField<
                                               VelicineBiciklaPregled>(
                                             decoration: InputDecoration(
+                                              contentPadding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      16, 0, 16, 0),
                                               hintText: 'Odaberite veličinu',
                                               border: OutlineInputBorder(),
                                             ),
@@ -685,6 +722,9 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                             onTap: _selectDate,
                                             maxLength: 20,
                                             decoration: const InputDecoration(
+                                              contentPadding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      16, 0, 16, 0),
                                               border: OutlineInputBorder(),
                                               labelText: "Godina proizvodnje",
                                               hintText: 'Godina proizvodnje',
@@ -702,10 +742,16 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller:
                                                 _nabavnaCijenaController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Nabavna cijena",
                                                 hintText: '10.0'),
@@ -723,6 +769,9 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           Container(
                                             alignment: Alignment.bottomLeft,
                                             child: Text(
@@ -737,6 +786,9 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                           DropdownButtonFormField<
                                               PoslovnicePregled>(
                                             decoration: InputDecoration(
+                                              contentPadding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      16, 0, 16, 0),
                                               hintText: 'Odaberite poslovnicu',
                                               border: OutlineInputBorder(),
                                             ),
@@ -768,6 +820,9 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           Container(
                                             alignment: Alignment.bottomLeft,
                                             child: Text(
@@ -781,6 +836,9 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                           ),
                                           DropdownButtonFormField<Drzave>(
                                             decoration: InputDecoration(
+                                              contentPadding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      16, 0, 16, 0),
                                               hintText: 'Odaberite državu',
                                               border: OutlineInputBorder(),
                                             ),
@@ -826,7 +884,7 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                                     Navigator.of(context).push(
                                                       MaterialPageRoute(
                                                         builder: (context) =>
-                                                            RadnikPortalScreen(),
+                                                            ListaBicikliScreen(),
                                                       ),
                                                     );
                                                   },

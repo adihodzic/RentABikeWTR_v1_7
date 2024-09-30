@@ -212,6 +212,9 @@ class _DodajTuristRutuScreenState extends State<DodajTuristRutuScreen> {
                                           TextFormField(
                                             controller: _nazivController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Naziv rute",
                                                 hintText: 'Unesite naziv rute'),
@@ -223,13 +226,16 @@ class _DodajTuristRutuScreenState extends State<DodajTuristRutuScreen> {
                                               } else if (value
                                                       .characters.length <
                                                   3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                                                return 'Minimalno 3(tri) karaktera.';
                                               } else {
                                                 return null;
                                               }
                                             },
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
                                           ),
                                           TextFormField(
                                             controller: _opisRuteController,
@@ -257,9 +263,15 @@ class _DodajTuristRutuScreenState extends State<DodajTuristRutuScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _cijenaRuteController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Cijena rute",
                                                 hintText: '10.0'),
@@ -310,7 +322,7 @@ class _DodajTuristRutuScreenState extends State<DodajTuristRutuScreen> {
                                                     Navigator.of(context).push(
                                                       MaterialPageRoute(
                                                         builder: (context) =>
-                                                            RadnikPortalScreen(),
+                                                            ListaTuristRuteScreen(),
                                                       ),
                                                     );
                                                   },

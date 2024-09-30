@@ -262,48 +262,26 @@ class _RezervacijaKorak2ScreenState extends State<RezervacijaKorak2Screen> {
                                         children: [
                                           TextFormField(
                                             controller: _nazivBiciklaController,
+                                            readOnly: true,
                                             decoration: const InputDecoration(
                                                 border: OutlineInputBorder(),
-                                                labelText: "Ime",
-                                                hintText: 'Unesite ime'),
-                                            maxLength: 20,
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Ime je obavezno polje.';
-                                              } else if (value
-                                                      .characters.length <
-                                                  3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera.';
-                                              } else {
-                                                return null;
-                                              }
-                                            },
-                                            autovalidateMode: AutovalidateMode
-                                                .onUserInteraction,
+                                                labelText: "Naziv",
+                                                hintText: ''),
+                                          ),
+                                          SizedBox(
+                                            height: 30,
                                           ),
                                           TextFormField(
                                             controller:
                                                 _nazivTipaBiciklaController,
+                                            readOnly: true,
                                             decoration: const InputDecoration(
                                                 border: OutlineInputBorder(),
-                                                labelText: "Prezime",
-                                                hintText: 'Unesite prezime'),
-                                            maxLength: 20,
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Prezime je obavezno polje.';
-                                              } else if (value
-                                                      .characters.length <
-                                                  3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera.';
-                                              } else {
-                                                return null;
-                                              }
-                                            },
-                                            autovalidateMode: AutovalidateMode
-                                                .onUserInteraction,
+                                                labelText: "Tip",
+                                                hintText: ''),
+                                          ),
+                                          SizedBox(
+                                            height: 30,
                                           ),
                                           TextFormField(
                                             readOnly: true,
@@ -311,43 +289,19 @@ class _RezervacijaKorak2ScreenState extends State<RezervacijaKorak2Screen> {
                                                 _nazivProizvodjacaController,
                                             decoration: const InputDecoration(
                                                 border: OutlineInputBorder(),
-                                                labelText: "Korisničko ime",
-                                                hintText: 'npr. vodicengleski'),
-                                            maxLength: 20,
-                                            // validator: (value) {
-                                            //   if (value == null || value.isEmpty) {
-                                            //     return 'Korisničko ime je obavezno polje.';
-                                            //   } else if (value.characters.length < 3) {
-                                            //     return 'Mora da sadrži minimalno 3(tri) karaktera.';
-                                            //   } else {
-                                            //     return null;
-                                            //   }
-                                            // },
-                                            // autovalidateMode:
-                                            //     AutovalidateMode.onUserInteraction,
+                                                labelText: "Proizvođač",
+                                                hintText: ''),
+                                          ),
+                                          SizedBox(
+                                            height: 30,
                                           ),
                                           TextFormField(
                                             controller: _nazivModelaController,
+                                            readOnly: true,
                                             decoration: const InputDecoration(
                                                 border: OutlineInputBorder(),
-                                                labelText: "Naziv",
-                                                hintText:
-                                                    'npr. Vodic-engleski'),
-                                            maxLength: 20,
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Naziv je obavezno polje.';
-                                              } else if (value
-                                                      .characters.length <
-                                                  3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera.';
-                                              } else {
-                                                return null;
-                                              }
-                                            },
-                                            autovalidateMode: AutovalidateMode
-                                                .onUserInteraction,
+                                                labelText: "Model",
+                                                hintText: ''),
                                           ),
                                         ],
                                       ),
@@ -380,45 +334,25 @@ class _RezervacijaKorak2ScreenState extends State<RezervacijaKorak2Screen> {
                                         children: [
                                           TextFormField(
                                             controller: _bojaController,
+                                            readOnly: true,
                                             decoration: const InputDecoration(
                                                 border: OutlineInputBorder(),
-                                                labelText: "Jezik",
-                                                hintText: 'npr. Engleski'),
-                                            maxLength: 20,
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Jezik je obavezno polje.';
-                                              } else if (value
-                                                      .characters.length <
-                                                  3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera..';
-                                              } else {
-                                                return null;
-                                              }
-                                            },
-                                            autovalidateMode: AutovalidateMode
-                                                .onUserInteraction,
+                                                labelText: "Boja",
+                                                hintText: ''),
+                                          ),
+                                          SizedBox(
+                                            height: 30,
                                           ),
                                           TextFormField(
                                             controller: _cijenaController,
+                                            readOnly: true,
                                             decoration: const InputDecoration(
                                                 border: OutlineInputBorder(),
                                                 labelText: "Cijena",
-                                                hintText: '10.0'),
-                                            maxLength: 20,
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Cijena je obavezno polje.';
-                                              } else if (!isCijena(value)) {
-                                                return 'Cijena mora biti u formatu broja ##.#.';
-                                              } else {
-                                                return null;
-                                              }
-                                            },
-                                            autovalidateMode: AutovalidateMode
-                                                .onUserInteraction,
+                                                hintText: ''),
+                                          ),
+                                          SizedBox(
+                                            height: 30,
                                           ),
                                           TextFormField(
                                             readOnly: true,
@@ -428,21 +362,6 @@ class _RezervacijaKorak2ScreenState extends State<RezervacijaKorak2Screen> {
                                                 border: OutlineInputBorder(),
                                                 labelText: "Datum pretrage",
                                                 hintText: ''),
-                                            maxLength: 20,
-                                            // validator: (value) {
-                                            //   if (value == null || value.isEmpty) {
-                                            //     return 'E-mail je obavezno polje';
-                                            //   } else if (!isEmail(value)) {
-                                            //     return 'Pravilno unesite e-mail.';
-                                            //     //   } else if (isPostojeciEmail(
-                                            //     //       value)) {
-                                            //     //     return 'Email već postoji!';
-                                            //   } else {
-                                            //     return null;
-                                            //   }
-                                            // },
-                                            // autovalidateMode:
-                                            //     AutovalidateMode.onUserInteraction,
                                           ),
                                         ],
                                       ),
@@ -481,7 +400,9 @@ class _RezervacijaKorak2ScreenState extends State<RezervacijaKorak2Screen> {
                                                 labelText:
                                                     "Vrijeme preuzimanja",
                                                 hintText: ''),
-                                            maxLength: 20,
+                                          ),
+                                          SizedBox(
+                                            height: 30,
                                           ),
                                           TextFormField(
                                             readOnly: true,
@@ -489,12 +410,8 @@ class _RezervacijaKorak2ScreenState extends State<RezervacijaKorak2Screen> {
                                                 _vrijemeVracanjaPickerController,
                                             decoration: const InputDecoration(
                                               border: OutlineInputBorder(),
-                                              labelText:
-                                                  "Kliknite za unos datuma",
-                                              hintText:
-                                                  'Kliknite za unos datuma',
-                                              // hintText:
-                                              //     "Click here to select date"
+                                              labelText: "Vrijeme vraćanja",
+                                              hintText: '',
                                             ),
                                           ),
                                           SizedBox(
@@ -645,8 +562,7 @@ class _RezervacijaKorak2ScreenState extends State<RezervacijaKorak2Screen> {
     // await _korisniciDetaljiProvider?.patch(korisnikid, korisnikDetalji);
     // currentUser = await _korisniciDetaljiProvider
     //     ?.getProfilKorisnika(korisnikDetalji!.korisnickoIme!);
-    await _showDialog(
-        context, 'Success', 'Učitavaju se podaci za novog korisnika...');
+    await _showDialog(context, 'Success', 'Učitavaju se podaci...');
   }
 
   void _updateRezervacijaData() {}
@@ -661,7 +577,8 @@ class _RezervacijaKorak2ScreenState extends State<RezervacijaKorak2Screen> {
       // value is false.. textFields are rebuilt in order to show errorLabels
       return;
     } else {
-      _showDialog(context, 'Success', 'Uspješno ste kreirali novog korisnika');
+      _showDialog(
+          context, 'Success', 'Uspješno ste kreirali novu rezervaciju!');
     }
     // action WHEN values are valid
   }

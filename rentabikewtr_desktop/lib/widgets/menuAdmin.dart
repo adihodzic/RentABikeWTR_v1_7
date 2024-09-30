@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rentabikewtr_desktop/main.dart';
 import 'package:rentabikewtr_desktop/model/turistickiVodici.dart';
+import 'package:rentabikewtr_desktop/screens/adminPortal_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_biciklo_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_dezurnoVozilo_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_korisnika_screen.dart';
@@ -79,7 +80,18 @@ class MenuAdmin extends StatelessWidget {
           child: const MenuAcceleratorLabel('&Glavni meni'),
         ),
         SubmenuButton(
-          menuChildren: <Widget>[],
+          menuChildren: <Widget>[
+            MenuItemButton(
+              onPressed: () async {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => AdminPortalScreen(),
+                  ),
+                );
+              },
+              child: const MenuAcceleratorLabel('Povratak na portal'),
+            ),
+          ],
           child: const MenuAcceleratorLabel('&Admin portal'),
         ),
         SubmenuButton(

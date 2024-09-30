@@ -237,14 +237,6 @@ class _RezervacijaKorak1ScreenState extends State<RezervacijaKorak1Screen> {
             const DataColumn(
               label: Expanded(
                 child: Text(
-                  'BiciklID',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-            ),
-            const DataColumn(
-              label: Expanded(
-                child: Text(
                   'Naziv bicikla',
                   style: TextStyle(fontStyle: FontStyle.italic),
                 ),
@@ -300,7 +292,6 @@ class _RezervacijaKorak1ScreenState extends State<RezervacijaKorak1Screen> {
                                   }
                               },
                           cells: [
-                            DataCell(Text(e.biciklID?.toString() ?? "")),
                             DataCell(Text(e.nazivBicikla?.toString() ?? "")),
                             // DataCell(Text(DateFormat('dd-MM-yyyy')
                             //     .format(e.datumIzdavanja as DateTime))),

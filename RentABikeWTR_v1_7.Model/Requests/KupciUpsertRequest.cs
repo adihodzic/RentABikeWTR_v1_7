@@ -31,6 +31,8 @@ namespace RentABikeWTR_v1_7.Model.Requests
         public string Grad { get; set; }
         [Required]
         public string Adresa { get; set; }
+        public string Spol {  get; set; }
+        public int? GodineKupacID {  get; set; }
 
 
 

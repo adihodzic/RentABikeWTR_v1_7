@@ -19,6 +19,7 @@ import 'package:rentabikewtr_desktop/providers/turistickiVodici_provider.dart';
 import 'package:rentabikewtr_desktop/screens/adminPortal_screen.dart';
 import 'package:rentabikewtr_desktop/screens/bicikli_detalji_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_korisnika_screen.dart';
+import 'package:rentabikewtr_desktop/screens/dodaj_turistRutu_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_vodica_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_korisnici_screen.dart';
 import 'package:rentabikewtr_desktop/screens/periodicniIzvjestajRezervacije_screen.dart';
@@ -168,18 +169,19 @@ class _ListaTuristRuteScreenState extends State<ListaTuristRuteScreen> {
           SizedBox(
             width: 8,
           ),
-//           ElevatedButton(
-//               onPressed: () async {
-//                 Navigator.of(context).push(
-//                   MaterialPageRoute(
-//                     builder: (context) => DodajKorisnikaScreen(//ovo su bili detalji u originalu
-//                       product: null,
-//                     ),
-//                   ),
-//                 );
-//                 print("data: ${data.result[0].naziv}");
-//               },
-//               child: Text("Dodaj"))
+          ElevatedButton(
+              onPressed: () async {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        DodajTuristRutuScreen(//ovo su bili detalji u originalu
+
+                            ),
+                  ),
+                );
+                print("data: ${data[0].naziv}");
+              },
+              child: Text("Dodaj"))
         ],
       ),
     );
@@ -193,14 +195,6 @@ class _ListaTuristRuteScreenState extends State<ListaTuristRuteScreen> {
         child: SingleChildScrollView(
       child: DataTable(
           columns: [
-            const DataColumn(
-              label: Expanded(
-                child: Text(
-                  'TuristRutaID',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-            ),
             const DataColumn(
               label: Expanded(
                 child: Text(
@@ -258,7 +252,6 @@ class _ListaTuristRuteScreenState extends State<ListaTuristRuteScreen> {
                                   }
                               },
                           cells: [
-                            DataCell(Text(e.turistRutaId?.toString() ?? "")),
                             DataCell(Text(e.naziv ?? "")),
                             DataCell(Text(e.opisRute ?? "")),
                             DataCell(Text(e.cijenaRute.toString())),

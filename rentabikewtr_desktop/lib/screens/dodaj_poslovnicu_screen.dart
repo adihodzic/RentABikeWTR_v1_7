@@ -151,6 +151,9 @@ class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
                                             controller:
                                                 _nazivPoslovniceController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Naziv poslovnice",
                                                 hintText: 'Unesite naziv'),
@@ -170,10 +173,16 @@ class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             //readOnly: true,
                                             controller: _emailKontaktController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "e-mail",
                                                 hintText: 'Unesite e-mail'),
@@ -184,9 +193,6 @@ class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
                                                 return 'E-mail je obavezno polje';
                                               } else if (!isEmail(value)) {
                                                 return 'Pravilno unesite e-mail.';
-                                                //   } else if (isPostojeciEmail(
-                                                //       value)) {
-                                                //     return 'Email već postoji!';
                                               } else {
                                                 return null;
                                               }
@@ -194,10 +200,16 @@ class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             //readOnly: true,
                                             controller: _adresaController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Adresa",
                                                 hintText: 'Unesite adresu'),
@@ -217,24 +229,30 @@ class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             //readOnly: true,
                                             controller: _brojTelefonaController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Broj telefona",
-                                                hintText:
-                                                    'Unesite broj telefona'),
+                                                hintText: 'npr. +38711223344'),
                                             maxLength: 20,
                                             validator: (value) {
                                               if (value == null ||
-                                                  value.isEmpty ||
-                                                  !isPhone(value)) {
-                                                return 'Telefon je obavezan.';
+                                                  value.isEmpty) {
+                                                return 'Telefon je obavezan';
                                               } else if (value
                                                       .characters.length <
                                                   10) {
-                                                return 'Telefon mora imati minimalno 10 karaktera.';
+                                                return 'Minimalno 10 karaktera.';
+                                              } else if (!isPhone(value)) {
+                                                return 'Nepravilan format';
                                               } else {
                                                 return null;
                                               }
@@ -292,7 +310,7 @@ class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
                                                             .push(MaterialPageRoute(
                                                                 builder:
                                                                     (context) =>
-                                                                        RadnikPortalScreen()));
+                                                                        ListaPoslovniceScreen()));
                                                       } catch (e) {
                                                         await _handleSubmissionError(
                                                             e);

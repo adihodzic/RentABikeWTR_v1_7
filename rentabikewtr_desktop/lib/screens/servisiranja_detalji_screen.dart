@@ -192,10 +192,12 @@ class _ServisiranjaDetaljiScreenState extends State<ServisiranjaDetaljiScreen> {
                                               controller:
                                                   _nazivBiciklaController,
                                               decoration: const InputDecoration(
+                                                  contentPadding:
+                                                      EdgeInsets.fromLTRB(
+                                                          16, 0, 16, 0),
                                                   border: OutlineInputBorder(),
                                                   labelText: "Naziv bicikla",
                                                   hintText: 'Unesite ime'),
-                                              maxLength: 20,
                                               validator: (value) {
                                                 if (value == null ||
                                                     value.isEmpty) {
@@ -211,16 +213,25 @@ class _ServisiranjaDetaljiScreenState extends State<ServisiranjaDetaljiScreen> {
                                               autovalidateMode: AutovalidateMode
                                                   .onUserInteraction,
                                             ),
+                                            SizedBox(
+                                              height: 30,
+                                            ),
                                             TextFormField(
                                               readOnly: true,
                                               controller:
                                                   _datumServisiranjaController,
                                               decoration: const InputDecoration(
+                                                  contentPadding:
+                                                      EdgeInsets.fromLTRB(
+                                                          16, 0, 16, 0),
                                                   border: OutlineInputBorder(),
                                                   labelText:
                                                       "Datum servisiranja",
                                                   hintText: ''),
                                               maxLength: 20,
+                                            ),
+                                            SizedBox(
+                                              height: 10,
                                             ),
                                             TextFormField(
                                               controller: _opisKvaraController,
@@ -304,6 +315,9 @@ class _ServisiranjaDetaljiScreenState extends State<ServisiranjaDetaljiScreen> {
                                               autovalidateMode: AutovalidateMode
                                                   .onUserInteraction,
                                             ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
                                             TextFormField(
                                               controller:
                                                   _komentarServiseraController,
@@ -384,7 +398,7 @@ class _ServisiranjaDetaljiScreenState extends State<ServisiranjaDetaljiScreen> {
                                                               .push(MaterialPageRoute(
                                                                   builder:
                                                                       (context) =>
-                                                                          RadnikPortalScreen()));
+                                                                          ListaServisiranjaScreen()));
                                                         } catch (e) {
                                                           await _handleSubmissionError(
                                                               e);

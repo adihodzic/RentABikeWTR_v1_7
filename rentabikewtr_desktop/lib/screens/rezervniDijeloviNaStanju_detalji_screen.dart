@@ -113,7 +113,7 @@ class _RezervniDijeloviNaStanjuDetaljiScreenState
                             height: 20,
                           ),
                           Text(
-                            "RentABikeWTR -Poziv dežurnom vozilu - detalji",
+                            "RentABikeWTR -Rezervni dijelovi - detalji",
                             style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
@@ -152,19 +152,29 @@ class _RezervniDijeloviNaStanjuDetaljiScreenState
                                             controller:
                                                 _nazivRezervnogDijelaController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Rezervni dio",
                                                 hintText: 'Unesite naziv'),
-                                            maxLength: 20,
+                                          ),
+                                          SizedBox(
+                                            height: 30,
                                           ),
                                           TextFormField(
                                             readOnly: true,
                                             controller: _sifraArtiklaController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Šifra artikla",
                                                 hintText: ''),
-                                            maxLength: 20,
+                                          ),
+                                          SizedBox(
+                                            height: 30,
                                           ),
                                           TextFormField(
                                             readOnly: true,
@@ -174,7 +184,6 @@ class _RezervniDijeloviNaStanjuDetaljiScreenState
                                                 labelText:
                                                     "Trenutno(na stanju)",
                                                 hintText: ''),
-                                            maxLength: 20,
                                           ),
                                         ],
                                       ),
@@ -277,7 +286,7 @@ class _RezervniDijeloviNaStanjuDetaljiScreenState
                                                             .push(MaterialPageRoute(
                                                                 builder:
                                                                     (context) =>
-                                                                        RadnikPortalScreen()));
+                                                                        ListaRezervniDijeloviScreen()));
                                                       } catch (e) {
                                                         await _handleSubmissionError(
                                                             e);

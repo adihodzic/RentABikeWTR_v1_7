@@ -18,7 +18,8 @@ namespace RentABikeWTR_v1_7.Model
         public string BrojLKPasosa { get; set; }
         public string Grad { get; set; }
         public string Adresa { get; set; }
-        public int? GenderID { get; set; }
+        public string? Spol {  get; set; }
+        //public int? GenderID { get; set; }
         public int? GodineKupacID { get; set; }
 
 

@@ -17,7 +17,8 @@ namespace RentABikeWTR_v1_7.Model.Requests
         [EmailAddress]
 
         public string? Email { get; set; }
-
+        public string? Password { get; set; }
+        public string? PasswordPotvrda { get; set; }
         public string? Telefon { get; set; }
 
 

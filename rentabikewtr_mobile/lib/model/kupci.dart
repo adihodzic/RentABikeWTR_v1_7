@@ -11,8 +11,16 @@ class Kupci {
   String? adresa;
   String? grad;
   String? brojLKPasosa;
+  String? spol;
+  int? godineKupacID;
 
-  Kupci({this.kupacId, this.adresa, this.grad, this.brojLKPasosa}) {}
+  Kupci(
+      {this.kupacId,
+      this.adresa,
+      this.grad,
+      this.brojLKPasosa,
+      this.spol,
+      this.godineKupacID}) {}
 
   factory Kupci.fromJson(Map<String, dynamic> json) => _$KupciFromJson(json);
 

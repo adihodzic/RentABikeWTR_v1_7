@@ -287,15 +287,15 @@ namespace RentABikeWTR_v1_7.Services
             entity.DatumRegistracije = request.DatumRegistracije ?? entity.DatumRegistracije;
             entity.UlogaID = request.UlogaID ?? entity.UlogaID;
 
-            //if (!string.IsNullOrWhiteSpace(request?.Password))
-            //{
-            //    if (request.Password != request.PasswordPotvrda)
-            //    {
-            //        throw new Exception("Ne slazu se passwordi");
-            //    }
-            //    entity.LozinkaSalt = GenerateSalt();
-            //    entity.LozinkaHash = GenerateHash(entity.LozinkaSalt, request.Password);
-            //}
+            if (!string.IsNullOrWhiteSpace(request?.Password))
+            {
+                if (request.Password != request.PasswordPotvrda)
+                {
+                    throw new Exception("Ne slazu se passwordi");
+                }
+                entity.LozinkaSalt = GenerateSalt();
+                entity.LozinkaHash = GenerateHash(entity.LozinkaSalt, request.Password);
+            }
             _context.SaveChanges();
 
             _mapper.Map(request, entity);

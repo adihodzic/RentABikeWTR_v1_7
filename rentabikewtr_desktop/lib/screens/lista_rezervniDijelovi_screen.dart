@@ -208,14 +208,6 @@ class _ListaRezervniDijeloviScreenState
             const DataColumn(
               label: Expanded(
                 child: Text(
-                  'ID',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-            ),
-            const DataColumn(
-              label: Expanded(
-                child: Text(
                   'Naziv rezervnog dijela',
                   style: TextStyle(fontStyle: FontStyle.italic),
                 ),
@@ -270,8 +262,6 @@ class _ListaRezervniDijeloviScreenState
                                   }
                               },
                           cells: [
-                            DataCell(
-                                Text(e.rezervniDijeloviId?.toString() ?? "")),
                             DataCell(Text(e.nazivRezervnogDijela ?? "")),
                             DataCell(Text(e.sifraArtikla ?? "")),
                             DataCell(Text(e.naStanju.toString() ?? "")),

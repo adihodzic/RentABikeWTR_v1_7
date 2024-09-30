@@ -156,6 +156,19 @@ class _ListaVodiciScreenState extends State<ListaVodiciScreen> {
           SizedBox(
             width: 8,
           ),
+          ElevatedButton(
+              onPressed: () async {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        DodajVodicaScreen(//ovo su bili detalji u originalu
+
+                            ),
+                  ),
+                );
+                print("data: ${data[0].naziv}");
+              },
+              child: Text("Dodaj"))
         ],
       ),
     );

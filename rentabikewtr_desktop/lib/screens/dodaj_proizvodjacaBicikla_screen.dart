@@ -200,10 +200,13 @@ class _DodajProizvodjacaBiciklaScreenState
                                             controller:
                                                 _nazivProizvodjacaController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Naziv proizvodjaca",
                                                 hintText:
-                                                    'Unesite naziv modela'),
+                                                    'Unesite naziv proizvođača'),
                                             maxLength: 20,
                                             validator: (value) {
                                               if (value == null ||
@@ -219,6 +222,9 @@ class _DodajProizvodjacaBiciklaScreenState
                                             },
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
                                           ),
                                           Row(children: [
                                             Flexible(
@@ -236,7 +242,7 @@ class _DodajProizvodjacaBiciklaScreenState
                                                     Navigator.of(context).push(
                                                       MaterialPageRoute(
                                                         builder: (context) =>
-                                                            RadnikPortalScreen(),
+                                                            ListaProizvodjaciBiciklaScreen(),
                                                       ),
                                                     );
                                                   },

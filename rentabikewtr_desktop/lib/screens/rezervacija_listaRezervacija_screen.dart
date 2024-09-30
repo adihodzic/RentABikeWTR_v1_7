@@ -6,6 +6,7 @@ import 'package:rentabikewtr_desktop/model/bicikliPregled.dart';
 import 'package:rentabikewtr_desktop/model/rezervacijePregled.dart';
 import 'package:rentabikewtr_desktop/providers/bicikliPregled_provider.dart';
 import 'package:rentabikewtr_desktop/providers/rezervacijeBicikl_provider.dart';
+import 'package:rentabikewtr_desktop/screens/rezervacija_korak1_screen.dart';
 import 'package:rentabikewtr_desktop/widgets/menuRadnik.dart';
 
 class RezervacijaListaRezervacijaScreen extends StatefulWidget {
@@ -102,6 +103,22 @@ class _RezervacijaListaRezervacijaScreenState
                         SizedBox(
                           height: 30,
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            ElevatedButton(
+                                onPressed: () async {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          RezervacijaKorak1Screen(),
+                                    ),
+                                  );
+                                  print("data: ${data[0].nazivBicikla}");
+                                },
+                                child: Text("Dodaj"))
+                          ],
+                        ),
                         //_buildSearch(),
                         _buildDataListView()
                       ]),
@@ -147,14 +164,6 @@ class _RezervacijaListaRezervacijaScreenState
         child: SingleChildScrollView(
       child: DataTable(
           columns: [
-            const DataColumn(
-              label: Expanded(
-                child: Text(
-                  'RezervacijaID',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-            ),
             const DataColumn(
               label: Expanded(
                 child: Text(
@@ -206,7 +215,6 @@ class _RezervacijaListaRezervacijaScreenState
           ],
           rows: dataRezervacije
                   .map((RezervacijePregled e) => DataRow(cells: [
-                        DataCell(Text(e.rezervacijaId?.toString() ?? "")),
                         DataCell(Text(DateFormat('dd.MM.yyyy')
                             .format(e.datumIzdavanja!))),
                         //DataCell(Text(e.biciklID?.toString() ?? "")),

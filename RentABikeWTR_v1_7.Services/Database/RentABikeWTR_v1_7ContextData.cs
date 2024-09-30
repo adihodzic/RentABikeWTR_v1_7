@@ -57,10 +57,10 @@ namespace RentABikeWTR_v1_7.Services.Database
                 new GodineKupci() { GodineKupacId = 4, GodinePoGrupama = "50-60" }
                 );
 
-            modelBuilder.Entity<Genderi>().HasData(
-                new Genderi() { GenderId = 1, NazivSpola = "Muski" },
-                new Genderi() { GenderId = 2, NazivSpola = "Zenski" }
-                );
+            //modelBuilder.Entity<Genderi>().HasData(
+            //    new Genderi() { GenderId = 1, NazivSpola = "Muski" },
+            //    new Genderi() { GenderId = 2, NazivSpola = "Zenski" }
+            //    );
 
             modelBuilder.Entity<VelicineBicikla>().HasData(
                new VelicineBicikla() { VelicinaBiciklaId = 1, NazivVelicine = "24_inca" },
@@ -277,9 +277,9 @@ namespace RentABikeWTR_v1_7.Services.Database
 
 
             modelBuilder.Entity<Kupci>().HasData(
-                new Kupci() { KupacId = 7, BrojLKPasosa = "345AD987", Adresa = "Adresa7", Grad = "Sarajevo", GenderID = 1, GodineKupacID = 3 },
-                new Kupci() { KupacId = 8, BrojLKPasosa = "345AD988", Adresa = "Adresa8", Grad = "Sarajevo", GenderID = 1, GodineKupacID = 2 },
-                new Kupci() { KupacId = 9, BrojLKPasosa = "345AD989", Adresa = "Adresa9", Grad = "Mostar", GenderID = 2, GodineKupacID = 3 }
+                new Kupci() { KupacId = 7, BrojLKPasosa = "345AD987", Adresa = "Adresa7", Grad = "Sarajevo", Spol="Muski", GodineKupacID = 3 },
+                new Kupci() { KupacId = 8, BrojLKPasosa = "345AD988", Adresa = "Adresa8", Grad = "Sarajevo", Spol = "Muski", GodineKupacID = 2 },
+                new Kupci() { KupacId = 9, BrojLKPasosa = "345AD989", Adresa = "Adresa9", Grad = "Mostar", Spol = "Zenski", GodineKupacID = 3 }
                 );
 
             modelBuilder.Entity<PoziviDezurnomVozilu>().HasData(
@@ -414,7 +414,9 @@ namespace RentABikeWTR_v1_7.Services.Database
             new Rezervacije() { RezervacijaId = 1, DatumIzdavanja = DateTime.ParseExact("16.07.2020","dd.MM.yyyy", CultureInfo.InvariantCulture), VrijemePreuzimanja = Convert.ToDateTime("09:00:00.000"), VrijemeVracanja = Convert.ToDateTime("18:00:00.000"), BiciklID = 1, KupacID = 7, TuristickiVodicID = 4, TuristRutaID = 1, CijenaUsluge = 30 },
             new Rezervacije() { RezervacijaId = 2, DatumIzdavanja = DateTime.ParseExact("17.07.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture), VrijemePreuzimanja = Convert.ToDateTime("09:00:00.000"), VrijemeVracanja = Convert.ToDateTime("18:00:00.000"), BiciklID = 1, KupacID = 8, TuristickiVodicID = 4, TuristRutaID = 1, CijenaUsluge = 30 },
             new Rezervacije() { RezervacijaId = 3, DatumIzdavanja = DateTime.ParseExact("18.07.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture), VrijemePreuzimanja = Convert.ToDateTime("09:00:00.000"), VrijemeVracanja = Convert.ToDateTime("18:00:00.000"), BiciklID = 1, KupacID = 7, TuristickiVodicID = 4, TuristRutaID = 1, CijenaUsluge = 30 },
-            new Rezervacije() { RezervacijaId = 4, DatumIzdavanja = DateTime.ParseExact("19.07.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture), VrijemePreuzimanja = Convert.ToDateTime("09:00:00.000"), VrijemeVracanja = Convert.ToDateTime("18:00:00.000"), BiciklID = 1, KupacID = 7, TuristickiVodicID = 4, TuristRutaID = 1, CijenaUsluge = 30 }
+            new Rezervacije() { RezervacijaId = 4, DatumIzdavanja = DateTime.ParseExact("19.07.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture), VrijemePreuzimanja = Convert.ToDateTime("09:00:00.000"), VrijemeVracanja = Convert.ToDateTime("18:00:00.000"), BiciklID = 1, KupacID = 7, TuristickiVodicID = 4, TuristRutaID = 1, CijenaUsluge = 30 },
+            new Rezervacije() { RezervacijaId = 5, DatumIzdavanja = DateTime.ParseExact("30.09.2024", "dd.MM.yyyy", CultureInfo.InvariantCulture), VrijemePreuzimanja = Convert.ToDateTime("09:00:00.000"), VrijemeVracanja = Convert.ToDateTime("18:00:00.000"), BiciklID = 1, KorisnikID=3, KupacID = 8, CijenaUsluge = 10 },
+            new Rezervacije() { RezervacijaId = 6, DatumIzdavanja = DateTime.ParseExact("30.09.2024", "dd.MM.yyyy", CultureInfo.InvariantCulture), VrijemePreuzimanja = Convert.ToDateTime("09:00:00.000"), VrijemeVracanja = Convert.ToDateTime("18:00:00.000"), BiciklID = 1, KupacID = 8, TuristickiVodicID = 4, TuristRutaID = 1, CijenaUsluge = 30 }
 
             );
 

@@ -52,7 +52,7 @@ builder.Services.AddTransient<IService<RentABikeWTR_v1_7.Model.Uloge, object>, B
 
 builder.Services.AddTransient<IService<RentABikeWTR_v1_7.Model.VelicineBicikla, object>, BaseService<RentABikeWTR_v1_7.Model.VelicineBicikla, object, RentABikeWTR_v1_7.Services.Database.VelicineBicikla>>();
 builder.Services.AddTransient<IService<RentABikeWTR_v1_7.Model.GodineKupci, object>, BaseService<RentABikeWTR_v1_7.Model.GodineKupci, object, RentABikeWTR_v1_7.Services.Database.GodineKupci>>();
-builder.Services.AddTransient<IService<RentABikeWTR_v1_7.Model.Genderi, object>, BaseService<RentABikeWTR_v1_7.Model.Genderi, object, RentABikeWTR_v1_7.Services.Database.Genderi>>();
+//builder.Services.AddTransient<IService<RentABikeWTR_v1_7.Model.Genderi, object>, BaseService<RentABikeWTR_v1_7.Model.Genderi, object, RentABikeWTR_v1_7.Services.Database.Genderi>>();
 builder.Services.AddTransient<IService<RentABikeWTR_v1_7.Model.Statusi, object>, BaseService<RentABikeWTR_v1_7.Model.Statusi, object, RentABikeWTR_v1_7.Services.Database.Statusi>>();
 ////greska services.AddScoped<IService<Model.PoziviDezurnomVozilu, object>, BaseService<Model.KategorijeVozila, object, Database.KategorijeVozila>>();
 

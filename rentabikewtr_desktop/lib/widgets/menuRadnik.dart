@@ -73,7 +73,18 @@ class MenuRadnik extends StatelessWidget {
           child: const MenuAcceleratorLabel('&Glavni meni'),
         ),
         SubmenuButton(
-          menuChildren: <Widget>[],
+          menuChildren: <Widget>[
+            MenuItemButton(
+              onPressed: () async {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => RadnikPortalScreen(),
+                  ),
+                );
+              },
+              child: const MenuAcceleratorLabel('Povratak na portal'),
+            ),
+          ],
           child: const MenuAcceleratorLabel('&Radnik portal'),
         ),
         SubmenuButton(

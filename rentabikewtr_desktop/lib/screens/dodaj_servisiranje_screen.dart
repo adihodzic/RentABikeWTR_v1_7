@@ -182,7 +182,7 @@ class _DodajServisiranjeScreenState extends State<DodajServisiranjeScreen> {
                                   constraints: BoxConstraints(
                                       minWidth: 100,
                                       maxWidth: 250,
-                                      minHeight: 100,
+                                      minHeight: 150,
                                       maxHeight: 450),
                                   // width: 300,
                                   // height: 450,
@@ -212,6 +212,9 @@ class _DodajServisiranjeScreenState extends State<DodajServisiranjeScreen> {
                                             DropdownButtonFormField<
                                                 BicikliPregled>(
                                               decoration: InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 hintText: 'Odaberite biciklo',
                                                 border: OutlineInputBorder(),
                                               ),
@@ -236,7 +239,7 @@ class _DodajServisiranjeScreenState extends State<DodajServisiranjeScreen> {
                                               }).toList(),
                                               validator: (value) {
                                                 if (value == null) {
-                                                  return 'Odaberite biciklo';
+                                                  return 'Odaberite biciklo.';
                                                 }
                                                 return null;
                                               },
@@ -256,6 +259,9 @@ class _DodajServisiranjeScreenState extends State<DodajServisiranjeScreen> {
                                                       "Datum servisiranja",
                                                   hintText: ''),
                                               maxLength: 20,
+                                            ),
+                                            SizedBox(
+                                              height: 10,
                                             ),
                                             TextFormField(
                                               controller: _opisKvaraController,
@@ -295,7 +301,7 @@ class _DodajServisiranjeScreenState extends State<DodajServisiranjeScreen> {
                                   constraints: BoxConstraints(
                                       minWidth: 100,
                                       maxWidth: 250,
-                                      minHeight: 100,
+                                      minHeight: 150,
                                       maxHeight: 450),
                                   // width: 300,
                                   // height: 450,
@@ -338,6 +344,9 @@ class _DodajServisiranjeScreenState extends State<DodajServisiranjeScreen> {
                                               },
                                               autovalidateMode: AutovalidateMode
                                                   .onUserInteraction,
+                                            ),
+                                            SizedBox(
+                                              height: 10,
                                             ),
                                             TextFormField(
                                               controller:
@@ -419,7 +428,7 @@ class _DodajServisiranjeScreenState extends State<DodajServisiranjeScreen> {
                                                               .push(MaterialPageRoute(
                                                                   builder:
                                                                       (context) =>
-                                                                          RadnikPortalScreen()));
+                                                                          ListaServisiranjaScreen()));
                                                         } catch (e) {
                                                           await _handleSubmissionError(
                                                               e);

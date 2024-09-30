@@ -68,9 +68,12 @@ class _KupacMojProfilScreenState extends State<KupacMojProfilScreen> {
   Kupci? kupos;
   //
   //Kupci? kupciData = Kupci();
-  Drzave? _selectedValue;
+
   int drzavaid = 0;
   var dateReg = DateTime.now();
+  String? _selectedValue;
+  String? _selectedSpol;
+  List<String> listaSpol = [];
 
   //Drzave _selectedValue = Drzave(); - ovako izbacuje gresku should be exactly one item, or two or zero..na dropdown-u
   List<Drzave> data = [];
@@ -89,6 +92,7 @@ class _KupacMojProfilScreenState extends State<KupacMojProfilScreen> {
   TextEditingController _brojLKPasosaController = TextEditingController();
   TextEditingController _gradController = TextEditingController();
   TextEditingController _adresaController = TextEditingController();
+  //TextEditingController _spolController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -161,6 +165,16 @@ class _KupacMojProfilScreenState extends State<KupacMojProfilScreen> {
     setState(() {
       korisniciPregled = tmpKorisniciPregled;
       kuposProfil = tmpKupac;
+      _brojLKPasosaController.text = kuposProfil!.brojLKPasosa!;
+      _gradController.text = kuposProfil!.grad!;
+      _adresaController.text = kuposProfil!.adresa!;
+
+      listaSpol = ["Muski", "Zenski"];
+      _selectedSpol = kuposProfil!.spol!;
+      _selectedValue =
+          _selectedSpol!.isNotEmpty && listaSpol.contains(_selectedSpol)
+              ? _selectedSpol
+              : null;
       // kuposProfil = tmpKupac as KupciProfil;
     });
   }
@@ -168,11 +182,19 @@ class _KupacMojProfilScreenState extends State<KupacMojProfilScreen> {
   @override
   Widget build(BuildContext context) {
     //GETBYID definitivno ne moze ici na initial state...
-    if (kuposProfil != null) {
-      _brojLKPasosaController.text = kuposProfil!.brojLKPasosa!;
-      _gradController.text = kuposProfil!.grad!;
-      _adresaController.text = kuposProfil!.adresa!;
-    }
+    // if (kuposProfil != null) {
+    //   _brojLKPasosaController.text = kuposProfil!.brojLKPasosa!;
+    //   _gradController.text = kuposProfil!.grad!;
+    //   _adresaController.text = kuposProfil!.adresa!;
+    //   // _selectedSpol = kuposProfil!.spol!;
+    //   // _selectedValue =
+    //   //     _selectedSpol!.isNotEmpty && listaSpol.contains(_selectedSpol)
+    //   //         ? _selectedSpol
+    //   //         : null;
+    //   // listaSpol.add("Muski");
+    //   // listaSpol.add("Zenski");
+    //   listaSpol = ["Muski", "Zenski"];
+    // }
 
     return MasterScreenWidget(
       argumentsKor: widget.argumentsKor,
@@ -333,6 +355,105 @@ class _KupacMojProfilScreenState extends State<KupacMojProfilScreen> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 2,
+              ),
+              Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                color: Color.fromARGB(255, 246, 249, 252),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    readOnly: false,
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Lozinka",
+                      labelStyle: TextStyle(color: Colors.blue),
+                      hintText: 'Unesite lozinku',
+                      counterText: "", //sakriven counter od maxLength
+                      suffixIcon: Icon(Icons.password),
+                      suffixIconColor: Color.fromRGBO(239, 247, 5, 0.98),
+                    ),
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                    maxLength: 20,
+                    validator: (value) {
+                      if (value!.isNotEmpty && value!.characters.length < 3) {
+                        return 'Minimalno 3(tri) karaktera.';
+                      } else {
+                        return null;
+                      }
+                    },
+
+                    //   if (value == null || value.isEmpty) {
+                    //     return 'Lozinka je obavezno polje.';
+                    //   } else if (value.characters.length < 3) {
+                    //     return 'Minimalno 3(tri) karaktera.';
+                    //   } else {
+                    //     return null;
+                    //   }
+                    // },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                  ),
+                ),
+              ),
+
+              SizedBox(height: 2),
+              Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                color: Color.fromARGB(255, 246, 249, 252),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    readOnly: false,
+                    controller: _passwordPotvrdaController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Potvrda Lozinke",
+                      labelStyle: TextStyle(color: Colors.blue),
+                      hintText: 'Unesite lozinku',
+                      counterText: "", //sakriven counter od maxLength
+                      suffixIcon: Icon(Icons.password),
+                      suffixIconColor: Color.fromRGBO(239, 247, 5, 0.98),
+                    ),
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                    maxLength: 20,
+                    // validator: (value) {
+                    //   if (value!.compareTo(_passwordController.text) == 0) {
+                    //     return 'Potvrda mora biti ista kao i lozinka.';
+                    //   } else {
+                    //     return null;
+                    //   }
+                    //}
+                    // validator: (value) {
+                    //   if (value == null || value.isEmpty) {
+                    //     return 'Lozinka je obavezno polje.';
+                    //   } else if (value.characters.length < 3) {
+                    //     return 'Minimalno 3(tri) karaktera.';
+                    //   } else {
+                    //     return null;
+                    //   }
+                    // },
+                    // autovalidateMode: AutovalidateMode.onUserInteraction,
+                  ),
+                ),
+              ),
+
+              SizedBox(
+                height: 2,
+              ),
 
               Card(
                 elevation: 10,
@@ -366,6 +487,46 @@ class _KupacMojProfilScreenState extends State<KupacMojProfilScreen> {
                       } else {
                         return null;
                       }
+                    },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                  ),
+                ),
+              ),
+              Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                color: Color.fromARGB(255, 246, 249, 252),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DropdownButtonFormField<String>(
+                    style: TextStyle(color: Colors.blue),
+                    decoration: InputDecoration(
+                      hintText: '$_selectedSpol',
+                      hintStyle: TextStyle(color: Colors.blue),
+                      border: OutlineInputBorder(),
+                    ),
+                    value: _selectedValue,
+                    //value: _selectedValue,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedValue = newValue;
+                      });
+                    },
+                    items: listaSpol.map((String spolobj) {
+                      //bilo je Drzave drzava
+                      return DropdownMenuItem<String>(
+                        value: spolobj,
+                        //value: drzava,
+                        child: Text(spolobj),
+                      );
+                    }).toList(),
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Odaberite spol';
+                      }
+                      return null;
                     },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
@@ -572,6 +733,9 @@ class _KupacMojProfilScreenState extends State<KupacMojProfilScreen> {
     for (int i = 3; i >= 0; i--) {
       broj = broj - 1;
     }
+    if (_passwordController.text != null) {
+      Authorization.password = _passwordController.text;
+    }
     await _kupciProfilProvider?.update(
         widget.argumentsKor.korisnikId!, kuposProfil!);
 
@@ -612,17 +776,19 @@ class _KupacMojProfilScreenState extends State<KupacMojProfilScreen> {
         widget.argumentsKor.passwordPotvrda = _passwordPotvrdaController.text;
       }
       if (password != passwordPotvrda) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content:
-                  Text('Lozinke moraju biti iste!!! Unesite ponovo lozinku...'),
-              backgroundColor: Color.fromARGB(255, 177, 43, 77)),
-        );
+        throw Exception("Lozinke moraju biti iste!!!");
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(
+        //       content:
+        //           Text('Lozinke moraju biti iste!!! Unesite ponovo lozinku...'),
+        //       backgroundColor: Color.fromARGB(255, 177, 43, 77)),
+        // );
       }
 
       kuposProfil!.adresa = _adresaController.text;
       kuposProfil!.brojLKPasosa = _brojLKPasosaController.text;
       kuposProfil!.grad = _gradController.text;
+      kuposProfil!.spol = _selectedValue;
     });
   }
 
@@ -631,6 +797,11 @@ class _KupacMojProfilScreenState extends State<KupacMojProfilScreen> {
       //   _nazivController.text = "";
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('E-mail već postoji'),
+        backgroundColor: Colors.red,
+      ));
+    } else if (_passwordController.text != _passwordPotvrdaController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Potvrda i lozinka moraju biti iste!'),
         backgroundColor: Colors.red,
       ));
     } else {

@@ -17,6 +17,7 @@ import 'package:rentabikewtr_desktop/providers/turistickiVodici_provider.dart';
 import 'package:rentabikewtr_desktop/screens/adminPortal_screen.dart';
 import 'package:rentabikewtr_desktop/screens/bicikli_detalji_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_korisnika_screen.dart';
+import 'package:rentabikewtr_desktop/screens/dodaj_modelBicikla_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_vodica_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_korisnici_screen.dart';
 import 'package:rentabikewtr_desktop/screens/modeliBicikla_detalji_screen.dart';
@@ -106,6 +107,25 @@ class _ListaModeliBiciklaScreenState extends State<ListaModeliBiciklaScreen> {
                         SizedBox(
                           height: 30,
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            ElevatedButton(
+                                onPressed: () async {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          DodajModelBiciklaScreen(
+                                              //ovo su bili detalji u originalu
+
+                                              ),
+                                    ),
+                                  );
+                                  print("data: ${data[0].nazivModela}");
+                                },
+                                child: Text("Dodaj"))
+                          ],
+                        ),
                         //_buildSearch(),
                         _buildDataListView()
                       ]),
@@ -154,14 +174,6 @@ class _ListaModeliBiciklaScreenState extends State<ListaModeliBiciklaScreen> {
             const DataColumn(
               label: Expanded(
                 child: Text(
-                  'ModelBiciklaID',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-            ),
-            const DataColumn(
-              label: Expanded(
-                child: Text(
                   'Naziv modela bicikla',
                   style: TextStyle(fontStyle: FontStyle.italic),
                 ),
@@ -184,7 +196,6 @@ class _ListaModeliBiciklaScreenState extends State<ListaModeliBiciklaScreen> {
                                   }
                               },
                           cells: [
-                            DataCell(Text(e.modelBiciklaId?.toString() ?? "")),
                             DataCell(Text(e.nazivModela ?? "")),
                           ]))
                   .toList() ??

@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:rentabikewtr_desktop/model/turistRuteDetalji.dart';
 import 'package:rentabikewtr_desktop/model/turistRutePregled.dart';
 import 'package:rentabikewtr_desktop/providers/turistRute_detalji_provider.dart';
+import 'package:rentabikewtr_desktop/screens/lista_turistRute_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_vodici_screen.dart';
 import 'package:rentabikewtr_desktop/screens/radnikPortal_screen.dart';
 import 'package:rentabikewtr_desktop/utils/util.dart';
@@ -161,6 +162,9 @@ class _TuristRuteDetaljiScreenState extends State<TuristRuteDetaljiScreen> {
                                           TextFormField(
                                             controller: _nazivController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Naziv",
                                                 hintText: 'Unesite naziv'),
@@ -172,13 +176,16 @@ class _TuristRuteDetaljiScreenState extends State<TuristRuteDetaljiScreen> {
                                               } else if (value
                                                       .characters.length <
                                                   3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                                                return 'Minimalno 3(tri) karaktera.';
                                               } else {
                                                 return null;
                                               }
                                             },
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
                                           ),
                                           TextFormField(
                                             controller: _opisRuteController,
@@ -206,9 +213,15 @@ class _TuristRuteDetaljiScreenState extends State<TuristRuteDetaljiScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _cijenaRuteController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Cijena",
                                                 hintText: '10.0'),
@@ -225,6 +238,9 @@ class _TuristRuteDetaljiScreenState extends State<TuristRuteDetaljiScreen> {
                                             },
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
+                                          ),
+                                          SizedBox(
+                                            height: 5,
                                           ),
                                           Row(
                                             mainAxisAlignment:
@@ -258,7 +274,7 @@ class _TuristRuteDetaljiScreenState extends State<TuristRuteDetaljiScreen> {
                                                     Navigator.of(context).push(
                                                       MaterialPageRoute(
                                                         builder: (context) =>
-                                                            ListaVodiciScreen(),
+                                                            ListaTuristRuteScreen(),
                                                       ),
                                                     );
                                                   },
@@ -291,7 +307,7 @@ class _TuristRuteDetaljiScreenState extends State<TuristRuteDetaljiScreen> {
                                                             .push(MaterialPageRoute(
                                                                 builder:
                                                                     (context) =>
-                                                                        RadnikPortalScreen()));
+                                                                        ListaTuristRuteScreen()));
                                                       } catch (e) {
                                                         await _handleSubmissionError(
                                                             e);

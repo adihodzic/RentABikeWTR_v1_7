@@ -268,6 +268,9 @@ class _DodajPozivDezurnomVoziluScreenState
                                           DropdownButtonFormField<
                                               DezurnaVozilaPregled>(
                                             decoration: InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.fromLTRB(
+                                                      16, 0, 16, 0),
                                               hintText:
                                                   'Odaberite dežurno vozilo',
                                               border: OutlineInputBorder(),
@@ -302,6 +305,9 @@ class _DodajPozivDezurnomVoziluScreenState
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
                                           Container(
                                             alignment: Alignment.bottomLeft,
                                             child: Text(
@@ -316,6 +322,9 @@ class _DodajPozivDezurnomVoziluScreenState
                                           DropdownButtonFormField<
                                               TuristickiVodici>(
                                             decoration: InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.fromLTRB(
+                                                      16, 0, 16, 0),
                                               hintText:
                                                   'Odaberite turističkog vodiča',
                                               border: OutlineInputBorder(),
@@ -343,12 +352,15 @@ class _DodajPozivDezurnomVoziluScreenState
                                             }).toList(),
                                             validator: (value) {
                                               if (value == null) {
-                                                return 'Odaberite Poslovnicu';
+                                                return 'Odaberite Vodiča';
                                               }
                                               return null;
                                             },
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
+                                          ),
+                                          SizedBox(
+                                            height: 20,
                                           ),
                                           Container(
                                             alignment: Alignment.bottomLeft,
@@ -364,6 +376,9 @@ class _DodajPozivDezurnomVoziluScreenState
                                           DropdownButtonFormField<
                                               PoslovnicePregled>(
                                             decoration: InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.fromLTRB(
+                                                      16, 0, 16, 0),
                                               hintText: 'Odaberite poslovnicu',
                                               border: OutlineInputBorder(),
                                             ),
@@ -439,7 +454,7 @@ class _DodajPozivDezurnomVoziluScreenState
                                               } else if (value
                                                       .characters.length <
                                                   3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                                                return 'Minimalno 3(tri) karaktera.';
                                               } else {
                                                 return null;
                                               }
@@ -447,20 +462,32 @@ class _DodajPozivDezurnomVoziluScreenState
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             readOnly: true,
                                             controller: _datumPozivaController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Datum poziva",
                                                 hintText: ''),
                                             maxLength: 20,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
                                           ),
                                           TextFormField(
                                             readOnly: true,
                                             controller:
                                                 _vrijemePozivaController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Vrijeme poziva",
                                                 hintText: ''),
@@ -546,7 +573,7 @@ class _DodajPozivDezurnomVoziluScreenState
                                                     Navigator.of(context).push(
                                                       MaterialPageRoute(
                                                         builder: (context) =>
-                                                            RadnikPortalScreen(),
+                                                            ListaPoziviDezurnomVoziluScreen(),
                                                       ),
                                                     );
                                                   },
@@ -683,7 +710,7 @@ class _DodajPozivDezurnomVoziluScreenState
       // value is false.. textFields are rebuilt in order to show errorLabels
       return;
     } else {
-      _showDialog(context, 'Success', 'Uspješno ste unijeli novo biciklo');
+      _showDialog(context, 'Success', 'Uspješno ste unijeli poziv');
     }
     // action WHEN values are valid
   }

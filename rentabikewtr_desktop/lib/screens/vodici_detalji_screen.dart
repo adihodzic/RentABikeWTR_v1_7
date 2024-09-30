@@ -40,11 +40,11 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _telefonController = TextEditingController();
 
-  //TextEditingController _passwordController = TextEditingController();
   TextEditingController _datePickerController = TextEditingController();
   DateTime? pickedDate = DateTime.now();
   TextEditingController _date2Controller = TextEditingController();
-  //TextEditingController _passwordPotvrdaController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _passwordPotvrdaController = TextEditingController();
 
   KorisniciDetalji? argumentsKor; //-- ako koristimo prosljeđivanje objekta
 
@@ -238,6 +238,9 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
                                           TextFormField(
                                             controller: _imeController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Ime",
                                                 hintText: 'Unesite ime'),
@@ -257,9 +260,15 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _prezimeController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Prezime",
                                                 hintText: 'Unesite prezime'),
@@ -279,15 +288,21 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             readOnly: true,
                                             controller:
                                                 _korisnickoImeController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Korisničko ime",
                                                 hintText: 'npr. vodicengleski'),
-                                            maxLength: 20,
+                                            //maxLength: 20,
                                             // validator: (value) {
                                             //   if (value == null || value.isEmpty) {
                                             //     return 'Korisničko ime je obavezno polje.';
@@ -300,6 +315,56 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
                                             // autovalidateMode:
                                             //     AutovalidateMode.onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          TextFormField(
+                                            controller: _passwordController,
+                                            obscureText: true,
+                                            decoration: const InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                labelText: "Lozinka",
+                                                hintText: 'Unesite lozinku'),
+                                            maxLength: 20,
+                                            validator: (value) {
+                                              if (value!.isNotEmpty &&
+                                                  value!.characters.length <
+                                                      3) {
+                                                return 'Minimalno 3(tri) karaktera.';
+                                              } else {
+                                                return null;
+                                              }
+                                            },
+                                            autovalidateMode: AutovalidateMode
+                                                .onUserInteraction,
+                                          ),
+                                          TextFormField(
+                                            controller:
+                                                _passwordPotvrdaController,
+                                            obscureText: true,
+                                            decoration: const InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                labelText: "Potvrda lozinke",
+                                                hintText: 'Potvrdite lozinku'),
+                                            maxLength: 20,
+                                            // validator: (value) {
+                                            //   if (value == null ||
+                                            //       value.isEmpty ||
+                                            //       value !=
+                                            //           _passwordController
+                                            //               .text) {
+                                            //     return 'Potvrda lozinke mora da bude jednaka kao i lozinka.';
+                                            //   } else if (value
+                                            //           .characters.length <
+                                            //       3) {
+                                            //     return 'Password should be at least 3 characters.';
+                                            //   } else {
+                                            //     return null;
+                                            //   }
+                                            // },
+                                            // autovalidateMode: AutovalidateMode
+                                            //     .onUserInteraction,
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -309,6 +374,7 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
                               // SizedBox(
                               //   width: 160,
                               // ),
+
                               Flexible(
                                 child: Container(
                                   constraints: BoxConstraints(
@@ -332,6 +398,9 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
                                           TextFormField(
                                             controller: _nazivController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Naziv",
                                                 hintText:
@@ -352,9 +421,15 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _jezikController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Jezik",
                                                 hintText: 'npr. Engleski'),
@@ -374,9 +449,15 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _cijenaController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Cijena",
                                                 hintText: '10.0'),
@@ -424,11 +505,14 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
                                             readOnly: true,
                                             controller: _emailController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "E-mail",
                                                 hintText:
                                                     'Unesite e-mail adresu'),
-                                            maxLength: 20,
+                                            //maxLength: 20,
                                             // validator: (value) {
                                             //   if (value == null || value.isEmpty) {
                                             //     return 'E-mail je obavezno polje';
@@ -444,9 +528,15 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
                                             // autovalidateMode:
                                             //     AutovalidateMode.onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 30,
+                                          ),
                                           TextFormField(
                                             controller: _telefonController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Telefon",
                                                 hintText:
@@ -454,13 +544,14 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
                                             maxLength: 20,
                                             validator: (value) {
                                               if (value == null ||
-                                                  value.isEmpty ||
-                                                  !isPhone(value)) {
+                                                  value.isEmpty) {
                                                 return 'Telefon je obavezan.';
                                               } else if (value
                                                       .characters.length <
                                                   10) {
                                                 return 'Telefon mora imati minimalno 10 karaktera.';
+                                              } else if (!isPhone(value)) {
+                                                return 'Nepravilan format.';
                                               } else {
                                                 return null;
                                               }
@@ -468,10 +559,16 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _datePickerController,
                                             readOnly: true,
                                             decoration: const InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.fromLTRB(
+                                                      16, 0, 16, 0),
                                               border: OutlineInputBorder(),
                                               labelText:
                                                   "Kliknite za unos datuma",
@@ -481,9 +578,12 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
                                               //     "Click here to select date"
                                             ),
                                           ),
-                                          SizedBox(height: 20),
+                                          SizedBox(height: 30),
                                           DropdownButtonFormField<Drzave>(
                                             decoration: InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.fromLTRB(
+                                                      16, 0, 16, 0),
                                               hintText: '$_nazivDrzave',
                                               border: OutlineInputBorder(),
                                             ),
@@ -549,13 +649,13 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
                                                         await _showDialog(
                                                             context,
                                                             'Success',
-                                                            'Uspješno ste editovali turističko vodiča');
+                                                            'Uspješno ste editovali turističkog vodiča');
                                                         await Navigator.of(
                                                                 context)
                                                             .push(MaterialPageRoute(
                                                                 builder:
                                                                     (context) =>
-                                                                        AdminPortalScreen()));
+                                                                        ListaVodiciScreen()));
                                                       } catch (e) {
                                                         await _handleSubmissionError(
                                                             e);
@@ -654,7 +754,15 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
       korisnikDetalji!.prezime = _prezimeController.text;
       korisnikDetalji!.telefon = _telefonController.text;
       korisnikDetalji!.ulogaID = 3;
-
+      var password = _passwordController.text;
+      var passwordPotvrda = _passwordPotvrdaController.text;
+      if (password != null) {
+        korisnikDetalji!.password = _passwordController.text;
+        korisnikDetalji!.passwordPotvrda = _passwordPotvrdaController.text;
+      }
+      if (password != passwordPotvrda) {
+        throw Exception("Lozinke moraju biti iste!!!");
+      }
       turistickiVodicDetalji!.naziv = _nazivController.text;
       turistickiVodicDetalji!.jezik = _jezikController.text;
 
@@ -682,18 +790,23 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
   }
 
   Future<void> _handleSubmissionError(e) async {
-    await _showDialog(context, 'Error', 'Došlo je do greške!');
+    if (_passwordController.text != _passwordPotvrdaController.text) {
+      await _showDialog(
+          context, 'Error', 'Lozinka i potvrda moraju biti iste!');
+    } else {
+      await _showDialog(context, 'Error', 'Došlo je do greške!');
+      print('Greška:Poruka o kontekstu greške $e');
+    }
   }
 
   void validateController() {
     if (!_formKey!.currentState!.validate()) {
       _showDialog(context, 'Error', 'Pogrešan unos pokušajte ponovo');
-      // value is false.. textFields are rebuilt in order to show errorLabels
+
       return;
     } else {
-      _showDialog(context, 'Success', 'Uspješno ste kreirali novog korisnika');
+      _showDialog(context, 'Success', 'Uspješno ste editovali vodiča.');
     }
-    // action WHEN values are valid
   }
 
 //Ovo je ako hoću DateTime.now da imam na TextEditingController-u

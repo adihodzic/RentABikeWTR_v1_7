@@ -287,14 +287,6 @@ class _ListaNajaveOdmoraScreenState extends State<ListaNajaveOdmoraScreen> {
             const DataColumn(
               label: Expanded(
                 child: Text(
-                  'ID',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-            ),
-            const DataColumn(
-              label: Expanded(
-                child: Text(
                   'Datum odmora',
                   style: TextStyle(fontStyle: FontStyle.italic),
                 ),
@@ -365,7 +357,6 @@ class _ListaNajaveOdmoraScreenState extends State<ListaNajaveOdmoraScreen> {
                           //         }
                           //     },
                           cells: [
-                            DataCell(Text(e.najavaOdmoraId?.toString() ?? "")),
                             DataCell(Text(DateFormat('dd-MM-yyyy')
                                 .format(e.datumOdmora!))),
                             DataCell(Text(

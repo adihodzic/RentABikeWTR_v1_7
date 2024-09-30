@@ -188,6 +188,9 @@ class _DodajTipBiciklaScreenState extends State<DodajTipBiciklaScreen> {
                                           TextFormField(
                                             controller: _nazivTipaController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Naziv tipa",
                                                 hintText: 'Unesite naziv tipa'),
@@ -199,13 +202,16 @@ class _DodajTipBiciklaScreenState extends State<DodajTipBiciklaScreen> {
                                               } else if (value
                                                       .characters.length <
                                                   3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                                                return 'Minimalno 3(tri) karaktera.';
                                               } else {
                                                 return null;
                                               }
                                             },
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
                                           ),
                                           Row(children: [
                                             Flexible(
@@ -223,7 +229,7 @@ class _DodajTipBiciklaScreenState extends State<DodajTipBiciklaScreen> {
                                                     Navigator.of(context).push(
                                                       MaterialPageRoute(
                                                         builder: (context) =>
-                                                            RadnikPortalScreen(),
+                                                            ListaTipoviBiciklaScreen(),
                                                       ),
                                                     );
                                                   },

@@ -27,6 +27,7 @@ import 'package:rentabikewtr_desktop/providers/tipoviBicikla_detalji_provider.da
 import 'package:rentabikewtr_desktop/providers/turistRute_detalji_provider.dart';
 
 import 'package:rentabikewtr_desktop/screens/adminPortal_screen.dart';
+import 'package:rentabikewtr_desktop/screens/lista_modeliBicikla_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_tipoviBicikla.dart';
 
 import 'package:rentabikewtr_desktop/screens/lista_vodici_screen.dart';
@@ -195,7 +196,7 @@ class _ModeliBiciklaDetaljiScreenState
                                                     Navigator.of(context).push(
                                                       MaterialPageRoute(
                                                         builder: (context) =>
-                                                            ListaTipoviBiciklaScreen(),
+                                                            ListaModeliBiciklaScreen(),
                                                       ),
                                                     );
                                                   },
@@ -228,7 +229,7 @@ class _ModeliBiciklaDetaljiScreenState
                                                             .push(MaterialPageRoute(
                                                                 builder:
                                                                     (context) =>
-                                                                        RadnikPortalScreen()));
+                                                                        ListaModeliBiciklaScreen()));
                                                       } catch (e) {
                                                         await _handleSubmissionError(
                                                             e);

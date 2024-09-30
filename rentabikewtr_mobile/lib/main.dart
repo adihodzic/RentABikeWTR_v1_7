@@ -13,6 +13,7 @@ import 'package:rentabikewtr_mobile/model/mojeRezervacijeArguments.dart';
 import 'package:rentabikewtr_mobile/model/screenArguments.dart';
 import 'package:rentabikewtr_mobile/providers/bicikliRecommend_provider.dart';
 import 'package:rentabikewtr_mobile/providers/bicikli_provider.dart';
+import 'package:rentabikewtr_mobile/providers/godineKupci_provider.dart';
 import 'package:rentabikewtr_mobile/providers/korisniciProfil_provider.dart';
 import 'package:rentabikewtr_mobile/providers/korisniciProfil_provider.dart';
 import 'package:rentabikewtr_mobile/providers/rezervacijeBiciklDostupni_provider.dart';
@@ -112,6 +113,7 @@ void main() async {
       ChangeNotifierProvider(create: (_) => KupciProfilProvider()),
       ChangeNotifierProvider(create: (_) => OcjeneProvider()),
       ChangeNotifierProvider(create: (_) => BicikliRecommendProvider()),
+      ChangeNotifierProvider(create: (_) => GodineKupciProvider()),
     ],
     child: MaterialApp(
         debugShowCheckedModeBanner: true,

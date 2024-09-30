@@ -15,6 +15,7 @@ namespace RentABikeWTR_v1_7.Model.Requests
         public string? Grad { get; set; }
 
         public string? Adresa { get; set; }
+        public string? Spol {  get; set; }
 
 
 

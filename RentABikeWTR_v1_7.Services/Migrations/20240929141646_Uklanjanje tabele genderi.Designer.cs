@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RentABikeWTR_v1_7.Services.Database;
 
@@ -11,9 +12,11 @@ using RentABikeWTR_v1_7.Services.Database;
 namespace RentABikeWTR_v1_7.Services.Migrations
 {
     [DbContext(typeof(RentABikeWTR_v1_7Context))]
-    partial class RentABikeWTR_v1_7ContextModelSnapshot : ModelSnapshot
+    [Migration("20240929141646_Uklanjanje tabele genderi")]
+    partial class Uklanjanjetabelegenderi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -625,9 +628,6 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Spol")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("KupacId");
 
                     b.HasIndex("GodineKupacID");
@@ -641,8 +641,7 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                             Adresa = "Adresa7",
                             BrojLKPasosa = "345AD987",
                             GodineKupacID = 3,
-                            Grad = "Sarajevo",
-                            Spol = "Muski"
+                            Grad = "Sarajevo"
                         },
                         new
                         {
@@ -650,8 +649,7 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                             Adresa = "Adresa8",
                             BrojLKPasosa = "345AD988",
                             GodineKupacID = 2,
-                            Grad = "Sarajevo",
-                            Spol = "Muski"
+                            Grad = "Sarajevo"
                         },
                         new
                         {
@@ -659,8 +657,7 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                             Adresa = "Adresa9",
                             BrojLKPasosa = "345AD989",
                             GodineKupacID = 3,
-                            Grad = "Mostar",
-                            Spol = "Zenski"
+                            Grad = "Mostar"
                         });
                 });
 
@@ -785,9 +782,9 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                             LaunchPaketKolicina = 5,
                             LokacijaOdmoraID = 2,
                             NapitakKolicina = 5,
-                            PocetakOdmora = new DateTime(2024, 10, 1, 13, 40, 0, 7, DateTimeKind.Unspecified),
+                            PocetakOdmora = new DateTime(2024, 9, 29, 13, 40, 0, 7, DateTimeKind.Unspecified),
                             TuristickiVodicID = 4,
-                            ZavrsetakOdmora = new DateTime(2024, 10, 1, 14, 30, 0, 3, DateTimeKind.Unspecified)
+                            ZavrsetakOdmora = new DateTime(2024, 9, 29, 14, 30, 0, 3, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -796,9 +793,9 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                             LaunchPaketKolicina = 5,
                             LokacijaOdmoraID = 2,
                             NapitakKolicina = 5,
-                            PocetakOdmora = new DateTime(2024, 10, 1, 13, 40, 0, 7, DateTimeKind.Unspecified),
+                            PocetakOdmora = new DateTime(2024, 9, 29, 13, 40, 0, 7, DateTimeKind.Unspecified),
                             TuristickiVodicID = 5,
-                            ZavrsetakOdmora = new DateTime(2024, 10, 1, 14, 30, 0, 3, DateTimeKind.Unspecified)
+                            ZavrsetakOdmora = new DateTime(2024, 9, 29, 14, 30, 0, 3, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -998,7 +995,7 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                             Nesreca = false,
                             PoslovnicaID = 1,
                             TuristickiVodicID = 4,
-                            VrijemePoziva = new DateTime(2024, 10, 1, 13, 40, 0, 7, DateTimeKind.Unspecified),
+                            VrijemePoziva = new DateTime(2024, 9, 29, 13, 40, 0, 7, DateTimeKind.Unspecified),
                             ZahtjevKlijenta = false
                         },
                         new
@@ -1011,7 +1008,7 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                             Nesreca = false,
                             PoslovnicaID = 1,
                             TuristickiVodicID = 4,
-                            VrijemePoziva = new DateTime(2024, 10, 1, 12, 40, 0, 7, DateTimeKind.Unspecified),
+                            VrijemePoziva = new DateTime(2024, 9, 29, 12, 40, 0, 7, DateTimeKind.Unspecified),
                             ZahtjevKlijenta = false
                         });
                 });
@@ -1119,8 +1116,8 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                             StatusPlacanja = false,
                             TuristRutaID = 1,
                             TuristickiVodicID = 4,
-                            VrijemePreuzimanja = new DateTime(2024, 10, 1, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            VrijemeVracanja = new DateTime(2024, 10, 1, 18, 0, 0, 0, DateTimeKind.Unspecified)
+                            VrijemePreuzimanja = new DateTime(2024, 9, 29, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            VrijemeVracanja = new DateTime(2024, 9, 29, 18, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -1132,8 +1129,8 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                             StatusPlacanja = false,
                             TuristRutaID = 1,
                             TuristickiVodicID = 4,
-                            VrijemePreuzimanja = new DateTime(2024, 10, 1, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            VrijemeVracanja = new DateTime(2024, 10, 1, 18, 0, 0, 0, DateTimeKind.Unspecified)
+                            VrijemePreuzimanja = new DateTime(2024, 9, 29, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            VrijemeVracanja = new DateTime(2024, 9, 29, 18, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -1145,8 +1142,8 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                             StatusPlacanja = false,
                             TuristRutaID = 1,
                             TuristickiVodicID = 4,
-                            VrijemePreuzimanja = new DateTime(2024, 10, 1, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            VrijemeVracanja = new DateTime(2024, 10, 1, 18, 0, 0, 0, DateTimeKind.Unspecified)
+                            VrijemePreuzimanja = new DateTime(2024, 9, 29, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            VrijemeVracanja = new DateTime(2024, 9, 29, 18, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -1158,33 +1155,8 @@ namespace RentABikeWTR_v1_7.Services.Migrations
                             StatusPlacanja = false,
                             TuristRutaID = 1,
                             TuristickiVodicID = 4,
-                            VrijemePreuzimanja = new DateTime(2024, 10, 1, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            VrijemeVracanja = new DateTime(2024, 10, 1, 18, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            RezervacijaId = 5,
-                            BiciklID = 1,
-                            CijenaUsluge = 10m,
-                            DatumIzdavanja = new DateTime(2024, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            KorisnikID = 3,
-                            KupacID = 8,
-                            StatusPlacanja = false,
-                            VrijemePreuzimanja = new DateTime(2024, 10, 1, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            VrijemeVracanja = new DateTime(2024, 10, 1, 18, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            RezervacijaId = 6,
-                            BiciklID = 1,
-                            CijenaUsluge = 30m,
-                            DatumIzdavanja = new DateTime(2024, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            KupacID = 8,
-                            StatusPlacanja = false,
-                            TuristRutaID = 1,
-                            TuristickiVodicID = 4,
-                            VrijemePreuzimanja = new DateTime(2024, 10, 1, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            VrijemeVracanja = new DateTime(2024, 10, 1, 18, 0, 0, 0, DateTimeKind.Unspecified)
+                            VrijemePreuzimanja = new DateTime(2024, 9, 29, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            VrijemeVracanja = new DateTime(2024, 9, 29, 18, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 

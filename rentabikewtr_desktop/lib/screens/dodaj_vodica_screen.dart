@@ -202,12 +202,15 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                     color: Color.fromARGB(255, 246, 249, 252),
                                     child: Padding(
                                       padding: const EdgeInsets.fromLTRB(
-                                          16, 30, 16, 10),
+                                          16, 10, 16, 10),
                                       child: Column(
                                         children: [
                                           TextFormField(
                                             controller: _imeController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Ime",
                                                 hintText: 'Unesite ime'),
@@ -219,7 +222,7 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                               } else if (value
                                                       .characters.length <
                                                   3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                                                return 'Minimalno 3(tri) karaktera.';
                                               } else {
                                                 return null;
                                               }
@@ -227,9 +230,15 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _prezimeController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Prezime",
                                                 hintText: 'Unesite prezime'),
@@ -241,7 +250,7 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                               } else if (value
                                                       .characters.length <
                                                   3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                                                return 'Minimalno 3(tri) karaktera.';
                                               } else {
                                                 return null;
                                               }
@@ -249,10 +258,16 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller:
                                                 _korisnickoImeController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Korisničko ime",
                                                 hintText: 'npr. vodicengleski'),
@@ -264,7 +279,7 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                               } else if (value
                                                       .characters.length <
                                                   3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                                                return 'Minimalno 3(tri) karaktera.';
                                               } else {
                                                 return null;
                                               }
@@ -272,13 +287,20 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _passwordController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Lozinka",
                                                 hintText: 'Unesite lozinku'),
                                             maxLength: 20,
+                                            obscureText: true,
                                             validator: (value) {
                                               if (value == null ||
                                                   value.isEmpty) {
@@ -286,13 +308,16 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                               } else if (value
                                                       .characters.length <
                                                   3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera..';
+                                                return 'Minimalno 3(tri) karaktera.';
                                               } else {
                                                 return null;
                                               }
                                             },
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
                                           ),
                                           TextFormField(
                                             controller:
@@ -302,17 +327,18 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                                 labelText: "Potrda lozinke",
                                                 hintText: 'Potvrdite lozinku'),
                                             maxLength: 20,
+                                            obscureText: true,
                                             validator: (value) {
                                               if (value == null ||
-                                                  value.isEmpty ||
-                                                  value !=
-                                                      _passwordController
-                                                          .text) {
-                                                return 'Potvrda lozinke mora da bude jednaka kao i lozinka.';
+                                                  value.isEmpty) {
+                                                return 'Ovo je obavezno polje.';
                                               } else if (value
                                                       .characters.length <
                                                   3) {
-                                                return 'Password should be at least 3 characters.';
+                                                return 'Minimalno 3(tri) karaktera.';
+                                              } else if (value !=
+                                                  _passwordController.text) {
+                                                return 'Potvrda mora biti jednaka';
                                               } else {
                                                 return null;
                                               }
@@ -346,12 +372,15 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                     color: Color.fromARGB(255, 246, 249, 252),
                                     child: Padding(
                                       padding: const EdgeInsets.fromLTRB(
-                                          16, 30, 16, 10),
+                                          16, 10, 16, 10),
                                       child: Column(
                                         children: [
                                           TextFormField(
                                             controller: _nazivController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Naziv",
                                                 hintText:
@@ -364,7 +393,7 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                               } else if (value
                                                       .characters.length <
                                                   3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                                                return 'Minimalno 3(tri) karaktera.';
                                               } else {
                                                 return null;
                                               }
@@ -372,9 +401,15 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _jezikController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Jezik",
                                                 hintText: 'npr. Engleski'),
@@ -386,7 +421,7 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                               } else if (value
                                                       .characters.length <
                                                   3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera..';
+                                                return 'Minimalno 3(tri) karaktera..';
                                               } else {
                                                 return null;
                                               }
@@ -394,9 +429,15 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _cijenaController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Cijena",
                                                 hintText: '10.0'),
@@ -407,9 +448,6 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                                 return 'Cijena je obavezno polje.';
                                               } else if (!isCijena(value)) {
                                                 return 'Cijena mora biti u formatu broja ##.#.';
-                                              } else if (isPostojeciEmail(
-                                                  value)) {
-                                                return 'Email već postoji!';
                                               } else {
                                                 return null;
                                               }
@@ -440,12 +478,15 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                     color: Color.fromARGB(255, 246, 249, 252),
                                     child: Padding(
                                       padding: const EdgeInsets.fromLTRB(
-                                          16, 30, 16, 30),
+                                          16, 10, 16, 10),
                                       child: Column(
                                         children: [
                                           TextFormField(
                                             controller: _emailController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "E-mail",
                                                 hintText:
@@ -457,9 +498,6 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                                 return 'E-mail je obavezno polje';
                                               } else if (!isEmail(value)) {
                                                 return 'Pravilno unesite e-mail.';
-                                                //   } else if (isPostojeciEmail(
-                                                //       value)) {
-                                                //     return 'Email već postoji!';
                                               } else {
                                                 return null;
                                               }
@@ -467,13 +505,18 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _telefonController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Telefon",
-                                                hintText:
-                                                    'Unesite broj telefona'),
+                                                hintText: 'npr. +38711223445'),
                                             maxLength: 20,
                                             validator: (value) {
                                               if (value == null ||
@@ -483,10 +526,9 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                               } else if (value
                                                       .characters.length <
                                                   10) {
-                                                return 'Telefon mora imati minimalno 10 karaktera.';
-                                              } else if (isPostojeciEmail(
-                                                  value)) {
-                                                return 'Email već postoji';
+                                                return 'Minimalno 10 karaktera.';
+                                              } else if (!isPhone(value)) {
+                                                return 'Nepravilan format';
                                               } else {
                                                 return null;
                                               }
@@ -494,10 +536,16 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _datePickerController,
                                             readOnly: true,
                                             decoration: const InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.fromLTRB(
+                                                      16, 0, 16, 0),
                                               border: OutlineInputBorder(),
                                               labelText:
                                                   "Kliknite za unos datuma",
@@ -507,9 +555,12 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                               //     "Click here to select date"
                                             ),
                                           ),
-                                          SizedBox(height: 20),
+                                          SizedBox(height: 30),
                                           DropdownButtonFormField<Drzave>(
                                             decoration: InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.fromLTRB(
+                                                      16, 0, 16, 0),
                                               labelText: 'Odaberite državu',
                                               border: OutlineInputBorder(),
                                             ),
@@ -552,7 +603,7 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                                     Navigator.of(context).push(
                                                       MaterialPageRoute(
                                                         builder: (context) =>
-                                                            DodajVodicaScreen(),
+                                                            ListaVodiciScreen(),
                                                       ),
                                                     );
                                                   },
@@ -585,7 +636,7 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                                             .push(MaterialPageRoute(
                                                                 builder:
                                                                     (context) =>
-                                                                        AdminPortalScreen()));
+                                                                        ListaVodiciScreen()));
                                                       } catch (e) {
                                                         await _handleSubmissionError(
                                                             e);

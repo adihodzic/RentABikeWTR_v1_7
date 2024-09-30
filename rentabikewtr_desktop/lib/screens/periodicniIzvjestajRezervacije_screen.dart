@@ -21,6 +21,7 @@ import 'package:rentabikewtr_desktop/screens/rezervacija_korak1_screen.dart';
 import 'package:rentabikewtr_desktop/screens/rezervacija_korak2_screen.dart';
 import 'package:rentabikewtr_desktop/screens/rezervacija_listaRezervacija_screen.dart';
 import 'package:rentabikewtr_desktop/utils/util.dart';
+import 'package:rentabikewtr_desktop/widgets/menuAdmin.dart';
 import 'package:rentabikewtr_desktop/widgets/menuRadnik.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:open_file/open_file.dart';
@@ -83,7 +84,7 @@ class _PeriodicniIzvjestajRezervacijeScreenState
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Expanded(
-                  child: MenuRadnik(),
+                  child: MenuAdmin(),
                 ),
               ],
             ),
@@ -100,7 +101,6 @@ class _PeriodicniIzvjestajRezervacijeScreenState
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Column(children: [
-                            // Image.network("https://www.fit.ba/content/public/images/og-image.jpg", height: 100, width: 100,),
                             Image.asset(
                               "assets/images/logo.jpg",
                               height: 50,
@@ -109,7 +109,6 @@ class _PeriodicniIzvjestajRezervacijeScreenState
                             SizedBox(
                               height: 20,
                             ),
-
                             Text(
                               "RentABikeWTR -Periodični izvještaj",
                               style: TextStyle(
@@ -208,13 +207,7 @@ class _PeriodicniIzvjestajRezervacijeScreenState
                                                   await _showDialog(
                                                       context,
                                                       'Success',
-                                                      'Pregledajte dostupne bicikle');
-                                                  //   await Navigator.of(
-                                                  //           context)
-                                                  //       .push(MaterialPageRoute(
-                                                  //           builder:
-                                                  //               (context) =>
-                                                  //                   AdminPortalScreen()));
+                                                      'Izvještaj se kreira...');
                                                 } catch (e) {
                                                   await _handleSubmissionError(
                                                       e);
@@ -262,15 +255,6 @@ class _PeriodicniIzvjestajRezervacijeScreenState
                                         border: InputBorder.none,
                                         labelText: "",
                                         hintText: ''),
-                                    // validator: (value) {
-                                    //   if (value == null || value.isEmpty) {
-                                    //     return 'Ovo je obavezno polje.';
-                                    //   } else {
-                                    //     return null;
-                                    //   }
-                                    // },
-                                    // autovalidateMode:
-                                    //     AutovalidateMode.onUserInteraction,
                                   ),
                                 ),
                                 SizedBox(
@@ -288,12 +272,6 @@ class _PeriodicniIzvjestajRezervacijeScreenState
 
                                           await _showDialog(context, 'Success',
                                               'Izvještaj je uspješno kreiran');
-                                          //   await Navigator.of(
-                                          //           context)
-                                          //       .push(MaterialPageRoute(
-                                          //           builder:
-                                          //               (context) =>
-                                          //                   AdminPortalScreen()));
                                         } catch (e) {
                                           await _handleSubmissionError(e);
                                         }
@@ -355,27 +333,11 @@ class _PeriodicniIzvjestajRezervacijeScreenState
             const DataColumn(
               label: Expanded(
                 child: Text(
-                  'RezervacijaId',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-            ),
-            const DataColumn(
-              label: Expanded(
-                child: Text(
                   'Datum',
                   style: TextStyle(fontStyle: FontStyle.italic),
                 ),
               ),
             ),
-            // const DataColumn(
-            //   label: Expanded(
-            //     child: Text(
-            //       'Datum izdavanja',
-            //       style: TextStyle(fontStyle: FontStyle.italic),
-            //     ),
-            //   ),
-            // ),
             const DataColumn(
               label: Expanded(
                 child: Text(
@@ -387,54 +349,39 @@ class _PeriodicniIzvjestajRezervacijeScreenState
             const DataColumn(
               label: Expanded(
                 child: Text(
-                  'KorisnickoIme',
+                  'Korisnicko ime',
                   style: TextStyle(fontStyle: FontStyle.italic),
                 ),
               ),
             ),
-            //   const DataColumn(
-            //     label: Expanded(
-            //       child: Text(
-            //         'Naziv proizvođača',
-            //         style: TextStyle(fontStyle: FontStyle.italic),
-            //       ),
-            //     ),
-            //   ),
+            const DataColumn(
+              label: Expanded(
+                child: Text(
+                  'Naziv bicikla',
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
+              ),
+            ),
+            const DataColumn(
+              label: Expanded(
+                child: Text(
+                  'Naziv rute',
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
+              ),
+            ),
           ],
           rows: _dataList
-                  .map((XRezervacije e) => DataRow(
-                          // onSelectChanged: (selected) => {
-                          //       if (selected == true)
-                          //         {
-                          //           Navigator.of(context).push(
-                          //             MaterialPageRoute(
-                          //               builder: (context) =>
-                          //                   RezervacijaKorak2Screen(
-                          //                 argumentsB: e,
-                          //                 datumPretrage: dateTime!,
-                          //               ),
-                          //             ),
-                          //           )
-                          //         }
-                          //     },
-                          cells: [
-                            DataCell(Text(e.rezervacijaId?.toString() ?? "")),
-                            DataCell(Text(
-                                DateFormat('dd-MM-yyyy').format(e.datum!))),
-                            // DataCell(Text(DateFormat('dd-MM-yyyy')
-                            //     .format(e.datumIzdavanja as DateTime))),
-                            DataCell(Text(formatNumber(e.cijenaUsluge))),
-                            DataCell(Text(e.korisnickoIme?.toString() ?? "")),
-
-                            //DataCell(Text(formatNumber(e.cijena))),
-                            // DataCell(e.slika != ""
-                            //     ? Container(
-                            //         width: 100,
-                            //         height: 100,
-                            //         child: imageFromBase64String(e.slika!),
-                            //       )
-                            //     : Text(""))
-                          ]))
+                  .map((XRezervacije e) => DataRow(cells: [
+                        DataCell(
+                            Text(DateFormat('dd-MM-yyyy').format(e.datum!))),
+                        // DataCell(Text(DateFormat('dd-MM-yyyy')
+                        //     .format(e.datumIzdavanja as DateTime))),
+                        DataCell(Text(formatNumber(e.cijenaUsluge))),
+                        DataCell(Text(e.korisnickoIme?.toString() ?? "")),
+                        DataCell(Text(e.nazivBicikla?.toString() ?? "")),
+                        DataCell(Text(e.naziv?.toString() ?? "")),
+                      ]))
                   .toList() ??
               []),
     ));
@@ -444,8 +391,6 @@ class _PeriodicniIzvjestajRezervacijeScreenState
   Future<void> _handleFormSubmission() async {
     try {
       var tmpDataResult = null;
-      // var data = await _rezervacijeBiciklDostupniProvider!
-      //     .getRezervacijeDostupni(DateTime.parse(_dateController.text));
 
       DateFormat format = DateFormat("yyyy-MM-dd");
 
@@ -467,13 +412,9 @@ class _PeriodicniIzvjestajRezervacijeScreenState
         _ukupnaSumaController.text = dataResult!.ukupnaSuma!.toString();
         _buildDataListView();
       });
-
-      //_buildDataListView();
     } catch (e) {
-      // Handle the error here if needed
       print('Error fetching data: $e');
-      _showDialog(context, "Error",
-          "Došlo je do greške string is not subtype of num"); // Debugging line
+      _showDialog(context, "Error", "Došlo je do greške!"); // Debugging line
     }
   }
 
@@ -490,8 +431,7 @@ class _PeriodicniIzvjestajRezervacijeScreenState
     } catch (e) {
       // Handle the error here if needed
       print('Error fetching data2: $e');
-      _showDialog(context, "Error",
-          "Došlo je do greške string is not subtype of num"); // Debugging line
+      _showDialog(context, "Error", "Došlo je do greške"); // Debugging line
     }
   }
 
@@ -550,6 +490,7 @@ class _PeriodicniIzvjestajRezervacijeScreenState
       },
     );
   }
+/////////////////////PDF formatiranje ////////////////////
 
   void generatePdf(XRezervacijeResult result) async {
     final PdfDocument document = PdfDocument();
@@ -562,23 +503,39 @@ class _PeriodicniIzvjestajRezervacijeScreenState
     );
 
     final PdfGrid grid = PdfGrid();
-    grid.columns.add(count: 5);
+    grid.columns
+        .add(count: 5); //umjesto 5 jer smo izbrisali rezervacijaId i kupacID
     grid.headers.add(1);
 
     final PdfGridRow header = grid.headers[0];
-    header.cells[0].value = 'rezervacijaId';
-    header.cells[1].value = 'kupacID';
-    header.cells[2].value = 'korisnickoIme';
-    header.cells[3].value = 'cijenaUsluge';
-    header.cells[4].value = 'datum';
+    header.cells[0].value = 'Korisnicko ime';
+    header.cells[1].value = 'Cijena usluge';
+    header.cells[2].value = 'Datum';
+    header.cells[3].value = 'Bicikl';
+    header.cells[4].value = 'Turist ruta';
+
+    header.style.backgroundBrush =
+        PdfSolidBrush(PdfColor(173, 216, 230)); // dodatni design
+
+    grid.style = PdfGridStyle(
+      cellPadding: PdfPaddings(left: 5, right: 5, top: 3, bottom: 3),
+      backgroundBrush: PdfBrushes.azure,
+      font: PdfStandardFont(PdfFontFamily.helvetica, 10),
+    );
 
     for (var rez in result.xRezervacijeLista!) {
       final PdfGridRow row = grid.rows.add();
-      row.cells[0].value = rez.rezervacijaId.toString();
-      row.cells[1].value = rez.kupacID.toString();
-      row.cells[2].value = rez.korisnickoIme;
-      row.cells[3].value = rez.cijenaUsluge.toString();
-      row.cells[4].value = rez.datum.toString();
+
+      row.cells[0].value = rez.korisnickoIme;
+      row.cells[1].value = rez.cijenaUsluge.toString();
+      row.cells[2].value = DateFormat('dd-MM-yyyy').format(rez.datum!);
+      row.cells[3].value = rez.nazivBicikla;
+      row.cells[4].value = rez.naziv ?? "Nema podataka";
+
+      if (grid.rows.count % 2 == 0) {
+        row.style.backgroundBrush =
+            PdfSolidBrush(PdfColor(240, 255, 255)); //dodatni design
+      }
     }
 
     final PdfLayoutResult layoutResult = grid.draw(
@@ -589,7 +546,7 @@ class _PeriodicniIzvjestajRezervacijeScreenState
     page.graphics.drawString(
       'Ukupna Suma: ${result.ukupnaSuma}',
       PdfStandardFont(PdfFontFamily.helvetica, 12),
-      bounds: Rect.fromLTWH(0, layoutResult.bounds.bottom + 10, 0, 0),
+      bounds: Rect.fromLTWH(400, layoutResult.bounds.bottom + 10, 0, 0),
     );
 
     List<int> bytes = await document.save();
@@ -614,59 +571,3 @@ class SaveFile {
     OpenFile.open('$path/$fileName');
   }
 }
-
-// Future<void> savePdf(List<int> bytes) async {
-//   final blob = html.Blob([bytes], 'application/pdf');
-//   final url = html.Url.createObjectUrlFromBlob(blob);
-//   final anchor = html.AnchorElement(href: url)
-//     ..setAttribute('download', 'RezervacijeReport.pdf')
-//     ..click();
-//   html.Url.revokeObjectUrl(url);
-// }
-
-// Future<pw.Document> generatePdf(XRezervacijeResult result) async {
-//   final pdf = pw.Document();
-
-//   pdf.addPage(
-//     pw.Page(
-//       build: (context) => pw.Column(
-//         children: [
-//           pw.Text('Rezervacije Report', style: pw.TextStyle(fontSize: 24)),
-//           pw.SizedBox(height: 20),
-//           pw.Text('Ukupna Suma: ${result.ukupnaSuma}'),
-//           pw.SizedBox(height: 20),
-//           pw.Table.fromTextArray(
-//             context: context,
-//             data: <List<String>>[
-//               <String>[
-//                 'RezervacijaId',
-//                 'KupacId',
-//                 'KorisnickoIme',
-//                 'CijenaUsluge',
-//                 'Datum'
-//               ],
-//               ...result.xRezervacijeLista!.map(
-//                 (rez) => [
-//                   rez.rezervacijaId.toString(),
-//                   rez.kupacID.toString(),
-//                   rez.korisnickoIme.toString(),
-//                   rez.cijenaUsluge.toString(),
-//                   rez.datum.toString(),
-//                 ],
-//               )
-//             ],
-//           ),
-//         ],
-//       ),
-//     ),
-//   );
-
-//   return pdf;
-// }
-
-// void printPdf(pw.Document pdf) {
-//   Printing.layoutPdf(
-//     onLayout: (PdfPageFormat format) async => pdf.save(),
-//   );
-// }
-

@@ -135,6 +135,9 @@ class _DodajModelBiciklaScreenState extends State<DodajModelBiciklaScreen> {
                                           TextFormField(
                                             controller: _nazivModelaController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Naziv modela",
                                                 hintText:
@@ -155,6 +158,9 @@ class _DodajModelBiciklaScreenState extends State<DodajModelBiciklaScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           Row(children: [
                                             Flexible(
                                               child: Container(
@@ -171,7 +177,7 @@ class _DodajModelBiciklaScreenState extends State<DodajModelBiciklaScreen> {
                                                     Navigator.of(context).push(
                                                       MaterialPageRoute(
                                                         builder: (context) =>
-                                                            RadnikPortalScreen(),
+                                                            ListaModeliBiciklaScreen(),
                                                       ),
                                                     );
                                                   },

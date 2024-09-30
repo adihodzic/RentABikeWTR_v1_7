@@ -21,6 +21,7 @@ import 'package:rentabikewtr_desktop/providers/turistickiVodici_provider.dart';
 import 'package:rentabikewtr_desktop/screens/adminPortal_screen.dart';
 import 'package:rentabikewtr_desktop/screens/bicikli_detalji_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dezurnaVozila_detalji_screen.dart';
+import 'package:rentabikewtr_desktop/screens/dodaj_dezurnoVozilo_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_korisnika_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_vodica_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_korisnici_screen.dart';
@@ -111,6 +112,25 @@ class _ListaDezurnaVozilaScreenState extends State<ListaDezurnaVozilaScreen> {
                         SizedBox(
                           height: 30,
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            ElevatedButton(
+                                onPressed: () async {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          DodajDezurnoVoziloScreen(
+                                              //ovo su bili detalji u originalu
+
+                                              ),
+                                    ),
+                                  );
+                                  print("data: ${data[0].nazivDezurnogVozila}");
+                                },
+                                child: Text("Dodaj"))
+                          ],
+                        ),
                         //_buildSearch(),
                         _buildDataListView()
                       ]),
@@ -193,14 +213,6 @@ class _ListaDezurnaVozilaScreenState extends State<ListaDezurnaVozilaScreen> {
             const DataColumn(
               label: Expanded(
                 child: Text(
-                  'ID',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-            ),
-            const DataColumn(
-              label: Expanded(
-                child: Text(
                   'Naziv dežurnog vozila',
                   style: TextStyle(fontStyle: FontStyle.italic),
                 ),
@@ -231,7 +243,6 @@ class _ListaDezurnaVozilaScreenState extends State<ListaDezurnaVozilaScreen> {
                                   }
                               },
                           cells: [
-                            DataCell(Text(e.dezurnoVoziloId?.toString() ?? "")),
                             DataCell(Text(e.nazivDezurnogVozila ?? "")),
                             DataCell(Text(e.tipVozila ?? "")),
                             // DataCell(Text(e.cijenaRute.toString())),

@@ -11,9 +11,14 @@ class KupciProfil {
   String? adresa;
   String? grad;
   String? brojLKPasosa;
+  String? spol;
 
   KupciProfil(
-      {required this.kupacId, this.adresa, this.grad, this.brojLKPasosa}) {}
+      {required this.kupacId,
+      this.adresa,
+      this.grad,
+      this.brojLKPasosa,
+      this.spol}) {}
 
   factory KupciProfil.fromJson(Map<String, dynamic> json) =>
       _$KupciProfilFromJson(json);

@@ -159,14 +159,6 @@ class _RezervacijaAdminListaRezervacijaScreenState
             const DataColumn(
               label: Expanded(
                 child: Text(
-                  'RezervacijaID',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-            ),
-            const DataColumn(
-              label: Expanded(
-                child: Text(
                   'Datum izdavanja',
                   style: TextStyle(fontStyle: FontStyle.italic),
                 ),
@@ -229,7 +221,6 @@ class _RezervacijaAdminListaRezervacijaScreenState
                           //         }
                           //     },
                           cells: [
-                            DataCell(Text(e.rezervacijaId?.toString() ?? "")),
                             DataCell(Text(DateFormat('dd.MM.yyyy')
                                 .format(e.datumIzdavanja!))),
                             //DataCell(Text(e.biciklID?.toString() ?? "")),

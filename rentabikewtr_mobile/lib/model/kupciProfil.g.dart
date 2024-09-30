@@ -11,6 +11,7 @@ KupciProfil _$KupciProfilFromJson(Map<String, dynamic> json) => KupciProfil(
       adresa: json['adresa'] as String?,
       grad: json['grad'] as String?,
       brojLKPasosa: json['brojLKPasosa'] as String?,
+      spol: json['spol'] as String?,
     );
 
 Map<String, dynamic> _$KupciProfilToJson(KupciProfil instance) =>
@@ -19,4 +20,5 @@ Map<String, dynamic> _$KupciProfilToJson(KupciProfil instance) =>
       'adresa': instance.adresa,
       'grad': instance.grad,
       'brojLKPasosa': instance.brojLKPasosa,
+      'spol': instance.spol,
     };

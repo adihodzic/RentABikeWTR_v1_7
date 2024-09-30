@@ -15,6 +15,7 @@ import 'package:rentabikewtr_desktop/providers/turistickiVodici_provider.dart';
 import 'package:rentabikewtr_desktop/screens/adminPortal_screen.dart';
 import 'package:rentabikewtr_desktop/screens/bicikli_detalji_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_korisnika_screen.dart';
+import 'package:rentabikewtr_desktop/screens/dodaj_proizvodjacaBicikla_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_vodica_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_korisnici_screen.dart';
 import 'package:rentabikewtr_desktop/screens/periodicniIzvjestajRezervacije_screen.dart';
@@ -105,6 +106,25 @@ class _ListaProizvodjaciBiciklaScreenState
                         SizedBox(
                           height: 30,
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            ElevatedButton(
+                                onPressed: () async {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          DodajProizvodjacaBiciklaScreen(
+                                              //ovo su bili detalji u originalu
+
+                                              ),
+                                    ),
+                                  );
+                                  print("data: ${data[0].nazivProizvodjaca}");
+                                },
+                                child: Text("Dodaj"))
+                          ],
+                        ),
                         //_buildSearch(),
                         _buildDataListView()
                       ]),
@@ -153,51 +173,11 @@ class _ListaProizvodjaciBiciklaScreenState
             const DataColumn(
               label: Expanded(
                 child: Text(
-                  'ProizvodjacBiciklaID',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-            ),
-            const DataColumn(
-              label: Expanded(
-                child: Text(
                   'Naziv proizvođača bicikla',
                   style: TextStyle(fontStyle: FontStyle.italic),
                 ),
               ),
             ),
-            // const DataColumn(
-            //   label: Expanded(
-            //     child: Text(
-            //       'Datum izdavanja',
-            //       style: TextStyle(fontStyle: FontStyle.italic),
-            //     ),
-            //   ),
-            // ),
-            // const DataColumn(
-            //   label: Expanded(
-            //     child: Text(
-            //       'Model',
-            //       style: TextStyle(fontStyle: FontStyle.italic),
-            //     ),
-            //   ),
-            // ),
-            // const DataColumn(
-            //   label: Expanded(
-            //     child: Text(
-            //       'Tip bicikla',
-            //       style: TextStyle(fontStyle: FontStyle.italic),
-            //     ),
-            //   ),
-            // ),
-            // const DataColumn(
-            //   label: Expanded(
-            //     child: Text(
-            //       'Slika',
-            //       style: TextStyle(fontStyle: FontStyle.italic),
-            //     ),
-            //   ),
-            // ),
           ],
           rows: data
                   .map((ProizvodjaciBiciklaPregled e) => DataRow(
@@ -215,20 +195,7 @@ class _ListaProizvodjaciBiciklaScreenState
                           //         }
                           //     },
                           cells: [
-                            DataCell(
-                                Text(e.proizvodjacBiciklaId?.toString() ?? "")),
                             DataCell(Text(e.nazivProizvodjaca ?? "")),
-                            // DataCell(Text(e.nazivModela ?? "")),
-                            // DataCell(Text(e.nazivTipa ?? "")),
-                            //DataCell(Text())
-                            //DataCell(Text(formatNumber(e.cijena))),
-                            // DataCell(e.slika != ""
-                            //     ? Container(
-                            //         width: 100,
-                            //         height: 100,
-                            //         child: imageFromBase64String(e.slika ?? ""),
-                            //       )
-                            //     : Text(""))
                           ]))
                   .toList() ??
               []),

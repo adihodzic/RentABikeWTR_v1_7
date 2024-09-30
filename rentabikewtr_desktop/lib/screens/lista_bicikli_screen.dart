@@ -12,6 +12,7 @@ import 'package:rentabikewtr_desktop/providers/turistickiVodiciPregled_provider.
 import 'package:rentabikewtr_desktop/providers/turistickiVodici_provider.dart';
 import 'package:rentabikewtr_desktop/screens/adminPortal_screen.dart';
 import 'package:rentabikewtr_desktop/screens/bicikli_detalji_screen.dart';
+import 'package:rentabikewtr_desktop/screens/dodaj_biciklo_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_korisnika_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_vodica_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_korisnici_screen.dart';
@@ -163,18 +164,19 @@ class _ListaBicikliScreenState extends State<ListaBicikliScreen> {
           SizedBox(
             width: 8,
           ),
-//           ElevatedButton(
-//               onPressed: () async {
-//                 Navigator.of(context).push(
-//                   MaterialPageRoute(
-//                     builder: (context) => DodajKorisnikaScreen(//ovo su bili detalji u originalu
-//                       product: null,
-//                     ),
-//                   ),
-//                 );
-//                 print("data: ${data.result[0].naziv}");
-//               },
-//               child: Text("Dodaj"))
+          ElevatedButton(
+              onPressed: () async {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        DodajBicikloScreen(//ovo su bili detalji u originalu
+
+                            ),
+                  ),
+                );
+                print("data: ${data[0].nazivBicikla}");
+              },
+              child: Text("Dodaj"))
         ],
       ),
     );
@@ -188,14 +190,6 @@ class _ListaBicikliScreenState extends State<ListaBicikliScreen> {
         child: SingleChildScrollView(
       child: DataTable(
           columns: [
-            const DataColumn(
-              label: Expanded(
-                child: Text(
-                  'BiciklID',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-            ),
             const DataColumn(
               label: Expanded(
                 child: Text(
@@ -253,7 +247,6 @@ class _ListaBicikliScreenState extends State<ListaBicikliScreen> {
                                   }
                               },
                           cells: [
-                            DataCell(Text(e.biciklID?.toString() ?? "")),
                             DataCell(Text(e.nazivBicikla ?? "")),
                             DataCell(Text(e.nazivModela ?? "")),
                             DataCell(Text(e.nazivTipa ?? "")),

@@ -10,6 +10,8 @@ KorisniciDetalji _$KorisniciDetaljiFromJson(Map<String, dynamic> json) =>
     KorisniciDetalji(
       korisnikId: (json['korisnikId'] as num?)?.toInt(),
       korisnickoIme: json['korisnickoIme'] as String?,
+      password: json['password'] as String?,
+      passwordPotvrda: json['passwordPotvrda'] as String?,
       ime: json['ime'] as String?,
       prezime: json['prezime'] as String?,
       aktivan: json['aktivan'] as bool? ?? true,
@@ -26,6 +28,8 @@ Map<String, dynamic> _$KorisniciDetaljiToJson(KorisniciDetalji instance) =>
     <String, dynamic>{
       'korisnikId': instance.korisnikId,
       'korisnickoIme': instance.korisnickoIme,
+      'password': instance.password,
+      'passwordPotvrda': instance.passwordPotvrda,
       'ime': instance.ime,
       'prezime': instance.prezime,
       'aktivan': instance.aktivan,

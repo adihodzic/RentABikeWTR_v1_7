@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rentabikewtr_desktop/model/poslovnicePregled.dart';
 import 'package:rentabikewtr_desktop/providers/poslovnicePregled_provider.dart';
+import 'package:rentabikewtr_desktop/screens/dodaj_poslovnicu_screen.dart';
 import 'package:rentabikewtr_desktop/screens/poslovnice_detalji_screen.dart';
 import 'package:rentabikewtr_desktop/widgets/menuRadnik.dart';
 
@@ -83,6 +84,25 @@ class _ListaPoslovniceScreenState extends State<ListaPoslovniceScreen> {
                         SizedBox(
                           height: 30,
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            ElevatedButton(
+                                onPressed: () async {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          DodajPoslovnicuScreen(
+                                              //ovo su bili detalji u originalu
+
+                                              ),
+                                    ),
+                                  );
+                                  print("data: ${data[0].nazivPoslovnice}");
+                                },
+                                child: Text("Dodaj"))
+                          ],
+                        ),
                         //_buildSearch(),
                         _buildDataListView()
                       ]),
@@ -128,14 +148,6 @@ class _ListaPoslovniceScreenState extends State<ListaPoslovniceScreen> {
         child: SingleChildScrollView(
       child: DataTable(
           columns: [
-            const DataColumn(
-              label: Expanded(
-                child: Text(
-                  'ID',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-            ),
             const DataColumn(
               label: Expanded(
                 child: Text(
@@ -185,7 +197,6 @@ class _ListaPoslovniceScreenState extends State<ListaPoslovniceScreen> {
                                   }
                               },
                           cells: [
-                            DataCell(Text(e.poslovnicaId?.toString() ?? "")),
                             DataCell(Text(e.nazivPoslovnice ?? "")),
                             DataCell(Text(e.emailKontakt ?? "")),
                             DataCell(Text(e.adresa ?? "")),

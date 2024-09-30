@@ -11,6 +11,10 @@ class XRezervacije {
   num? cijenaUsluge;
   int? kupacID;
   String? korisnickoIme;
+  int? biciklID;
+  String? nazivBicikla;
+  int? turistRutaID;
+  String? naziv;
 
   // int? turistickiVodicID;
   // int? turistRutaID;

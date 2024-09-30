@@ -20,6 +20,7 @@ import 'package:rentabikewtr_desktop/screens/lista_vodici_screen.dart';
 import 'package:rentabikewtr_desktop/screens/periodicniIzvjestajRezervacije_screen.dart';
 import 'package:rentabikewtr_desktop/screens/rezervacija_korak1_screen.dart';
 import 'package:rentabikewtr_desktop/screens/rezervacija_listaRezervacija_screen.dart';
+import 'package:rentabikewtr_desktop/utils/util.dart';
 import 'package:rentabikewtr_desktop/widgets/menuAdmin.dart';
 
 class KorisniciDetaljiScreen extends StatefulWidget {
@@ -138,7 +139,7 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
       _nazivDrzave = _selectedDrzava!.nazivDrzave;
       _korisnickoImeController.text = korisnikDetalji!.korisnickoIme!;
       // _passwordController.text = "";
-      //_passwordPotvrdaController.text = "";
+      // _passwordPotvrdaController.text = "";
       korisnikid = korisnikDetalji!.korisnikId;
       _imeController.text = widget.argumentsK.ime!;
       _prezimeController.text = widget.argumentsK.prezime!;
@@ -189,7 +190,6 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Column(children: [
-                            // Image.network("https://www.fit.ba/content/public/images/og-image.jpg", height: 100, width: 100,),
                             Image.asset(
                               "assets/images/logo.jpg",
                               height: 50,
@@ -198,7 +198,6 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
                             SizedBox(
                               height: 20,
                             ),
-
                             Text(
                               "RentABikeWTR -Uredi korisnika!!!",
                               style: TextStyle(
@@ -230,6 +229,9 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
                                           TextFormField(
                                             controller: _imeController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Ime",
                                                 hintText: 'Unesite ime'),
@@ -241,7 +243,7 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
                                               } else if (value
                                                       .characters.length <
                                                   3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                                                return 'Minimalno 3(tri) karaktera.';
                                               } else {
                                                 return null;
                                               }
@@ -249,9 +251,15 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _prezimeController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Prezime",
                                                 hintText: 'Unesite prezime'),
@@ -263,13 +271,16 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
                                               } else if (value
                                                       .characters.length <
                                                   3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera.';
+                                                return 'Minimalno 3(tri) karaktera.';
                                               } else {
                                                 return null;
                                               }
                                             },
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
                                           ),
                                           TextFormField(
                                             readOnly: true,
@@ -296,54 +307,53 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
-                                          // TextFormField(
-                                          //   controller: _passwordController,
-                                          //   decoration: const InputDecoration(
-                                          //       border: OutlineInputBorder(),
-                                          //       labelText: "Lozinka",
-                                          //       hintText: 'Unesite lozinku'),
-                                          //   maxLength: 20,
-                                          //   validator: (value) {
-                                          //     if (value == null ||
-                                          //         value.isEmpty) {
-                                          //       return 'Lozinka je obavezno polje.';
-                                          //     } else if (value
-                                          //             .characters.length <
-                                          //         3) {
-                                          //       return 'Mora da sadrži minimalno 3(tri) karaktera..';
-                                          //     } else {
-                                          //       return null;
-                                          //     }
-                                          //   },
-                                          //   autovalidateMode: AutovalidateMode
-                                          //       .onUserInteraction,
-                                          // ),
-                                          // TextFormField(
-                                          //   controller:
-                                          //       _passwordPotvrdaController,
-                                          //   decoration: const InputDecoration(
-                                          //       border: OutlineInputBorder(),
-                                          //       labelText: "Potvrda lozinke",
-                                          //       hintText: 'Potvrdite lozinku'),
-                                          //   maxLength: 20,
-                                          //   validator: (value) {
-                                          //     if (value == null ||
-                                          //         value.isEmpty ||
-                                          //         value !=
-                                          //             _passwordController
-                                          //                 .text) {
-                                          //       return 'Potvrda lozinke mora da bude jednaka kao i lozinka.';
-                                          //     } else if (value
-                                          //             .characters.length <
-                                          //         3) {
-                                          //       return 'Password should be at least 3 characters.';
-                                          //     } else {
-                                          //       return null;
-                                          //     }
-                                          //   },
-                                          //   autovalidateMode: AutovalidateMode
-                                          //       .onUserInteraction,
-                                          // ),
+                                          TextFormField(
+                                            controller: _passwordController,
+                                            obscureText: true,
+                                            decoration: const InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                labelText: "Lozinka",
+                                                hintText: 'Unesite lozinku'),
+                                            maxLength: 20,
+                                            validator: (value) {
+                                              if (value!.isNotEmpty &&
+                                                  value!.characters.length <
+                                                      3) {
+                                                return 'Minimalno 3(tri) karaktera.';
+                                              } else {
+                                                return null;
+                                              }
+                                            },
+                                            autovalidateMode: AutovalidateMode
+                                                .onUserInteraction,
+                                          ),
+                                          TextFormField(
+                                            controller:
+                                                _passwordPotvrdaController,
+                                            obscureText: true,
+                                            decoration: const InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                labelText: "Potvrda lozinke",
+                                                hintText: 'Potvrdite lozinku'),
+                                            maxLength: 20,
+                                            // validator: (value) {
+                                            //   if (value == null ||
+                                            //       value.isEmpty ||
+                                            //       value !=
+                                            //           _passwordController
+                                            //               .text) {
+                                            //     return 'Potvrda lozinke mora da bude jednaka kao i lozinka.';
+                                            //   } else if (value
+                                            //           .characters.length <
+                                            //       3) {
+                                            //     return 'Password should be at least 3 characters.';
+                                            //   } else {
+                                            //     return null;
+                                            //   }
+                                            // },
+                                            // autovalidateMode: AutovalidateMode
+                                            //     .onUserInteraction,
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -370,47 +380,54 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
                                             readOnly: true,
                                             controller: _emailController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "E-mail",
                                                 hintText:
                                                     'Unesite e-mail adresu'),
-                                            maxLength: 20,
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'E-mail je obavezno polje';
-                                              } else if (!isEmail(value)) {
-                                                return 'Pravilno unesite e-mail.';
-                                                //   } else if (isPostojeciEmail(
-                                                //       value)) {
-                                                //     return 'Email već postoji!';
-                                              } else {
-                                                return null;
-                                              }
-                                            },
-                                            autovalidateMode: AutovalidateMode
-                                                .onUserInteraction,
+                                            //maxLength: 20,
+                                            // validator: (value) {
+                                            //   if (value == null ||
+                                            //       value.isEmpty) {
+                                            //     return 'E-mail je obavezno polje';
+                                            //   } else if (!isEmail(value)) {
+                                            //     return 'Pravilno unesite e-mail.';
+                                            //     //   } else if (isPostojeciEmail(
+                                            //     //       value)) {
+                                            //     //     return 'Email već postoji!';
+                                            //   } else {
+                                            //     return null;
+                                            //   }
+                                            // },
+                                            // autovalidateMode: AutovalidateMode
+                                            //     .onUserInteraction,
+                                          ),
+                                          SizedBox(
+                                            height: 20,
                                           ),
                                           TextFormField(
                                             controller: _telefonController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Telefon",
-                                                hintText:
-                                                    'Unesite broj telefona'),
+                                                hintText: 'npr. +38711223344'),
                                             maxLength: 20,
                                             validator: (value) {
                                               if (value == null ||
                                                   value.isEmpty ||
                                                   !isPhone(value)) {
-                                                return 'Telefon je obavezan.';
+                                                return 'Telefon je obavezno polje';
                                               } else if (value
                                                       .characters.length <
                                                   10) {
                                                 return 'Telefon mora imati minimalno 10 karaktera.';
-                                              } else if (isPostojeciEmail(
-                                                  value)) {
-                                                return 'Email već postoji';
+                                              } else if (!isPhone(value)) {
+                                                return 'Nepravilan format';
                                               } else {
                                                 return null;
                                               }
@@ -418,10 +435,16 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _datePickerController,
                                             readOnly: true,
                                             decoration: const InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.fromLTRB(
+                                                      16, 0, 16, 0),
                                               border: OutlineInputBorder(),
                                               labelText:
                                                   "Kliknite za unos datuma",
@@ -431,7 +454,7 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
                                               //     "Click here to select date"
                                             ),
                                           ),
-                                          SizedBox(height: 20),
+                                          SizedBox(height: 30),
                                           DropdownButtonFormField<Drzave>(
                                             decoration: InputDecoration(
                                               hintText: '$_nazivDrzave',
@@ -488,130 +511,22 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
                                                     if (_formKey!.currentState!
                                                         .validate()) {
                                                       try {
-                                                        // _formKey!.currentState!
-                                                        //     .validate();
-
-                                                        setState(() {
-                                                          // korisnikDetalji!
-                                                          //     .datumRegistracije;
-                                                          korisnikDetalji!
-                                                                  .korisnikId =
-                                                              korisnikid!;
-
-                                                          korisnikDetalji!
-                                                              .aktivan = true;
-
-                                                          if (_selectedValue !=
-                                                              null) {
-                                                            korisnikDetalji!
-                                                                    .drzavaID =
-                                                                _selectedValue!
-                                                                    .drzavaID;
-                                                          } else {
-                                                            korisnikDetalji!
-                                                                    .drzavaID =
-                                                                _selectedDrzava!
-                                                                    .drzavaID;
-                                                          }
-
-                                                          //koros.nazivDrzave = dod!.nazivDrzave;  -- samo treba ID drzave
-                                                          //Authorization.username = _usernameController.text;
-                                                          // dupliEmail =
-                                                          //     isPostojeciEmail(
-                                                          //         _emailController
-                                                          //             .text);
-                                                          // if (!dupliEmail) {
-                                                          //   korisnikDetalji!
-                                                          //           .email =
-                                                          //       _emailController
-                                                          //           .text;
-                                                          // }
-                                                          // duploKorIme =
-                                                          //     isPostojeceKorIme(
-                                                          //         _korisnickoImeController
-                                                          //             .text);
-                                                          // if (!duploKorIme) {
-                                                          //   korisnikDetalji!
-                                                          //           .korisnickoIme =
-                                                          //       _korisnickoImeController
-                                                          //           .text;
-                                                          // }
-                                                          korisnikDetalji!.ime =
-                                                              _imeController
-                                                                  .text;
-                                                          korisnikDetalji!
-                                                                  .prezime =
-                                                              _prezimeController
-                                                                  .text;
-                                                          korisnikDetalji!
-                                                                  .telefon =
-                                                              _telefonController
-                                                                  .text;
-                                                          korisnikDetalji!
-                                                              .ulogaID = 2;
-
-                                                          // korisnikDetalji!
-                                                          //         .password =
-                                                          //     _passwordController
-                                                          //         .text;
-                                                          // korisnikDetalji!
-                                                          //         .passwordPotvrda =
-                                                          //     _passwordPotvrdaController
-                                                          //         .text;
-                                                        });
-
-                                                        await _korisniciDetaljiProvider
-                                                            ?.patch(korisnikid!,
-                                                                korisnikDetalji);
-                                                        // final isValid = _formKey!
-                                                        //     .currentState!
-                                                        //     .validate();
-                                                        // if (isValid == true) {
-                                                        await _showDialog(
-                                                            context,
-                                                            'Success',
-                                                            'Uspješno ste editovali korisnika');
-
-                                                        int broj = 4;
-                                                        for (int i = 3;
-                                                            i >= 0;
-                                                            i--) {
-                                                          broj = broj - 1;
-                                                        }
-
-                                                        // await Navigator
-                                                        //     .pushReplacementNamed(
-                                                        //   context,
-                                                        //   "${AdminPortalScreen.routeName}",
+                                                        await _handleFormSubmission();
                                                         await Navigator.of(
                                                                 context)
-                                                            .push(
-                                                          MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                AdminPortalScreen(),
-                                                          ),
-                                                        );
+                                                            .push(MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        ListaKorisniciScreen()));
                                                       } catch (e) {
-                                                        // if (dupliEmail) {
-                                                        //   _emailController
-                                                        //       .text = "";
-                                                        //   _showDialog(
-                                                        //       context,
-                                                        //       'Error',
-                                                        //       'Email već postoji!');
-                                                        // }
-                                                        // if (duploKorIme) {
-                                                        //   _korisnickoImeController
-                                                        //       .text = "";
-                                                        //   _showDialog(
-                                                        //       context,
-                                                        //       'Error',
-                                                        //       'Korisničko ime već postoji!');
-                                                        // }
-                                                        _showDialog(
-                                                            context,
-                                                            'Erorr',
-                                                            'Došlo je do greške');
+                                                        await _handleSubmissionError(
+                                                            e);
+                                                        await Navigator.of(
+                                                                context)
+                                                            .push(MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        ListaKorisniciScreen()));
                                                       }
                                                     }
                                                   }),
@@ -624,34 +539,6 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
                                 ),
                               ],
                             ),
-                            // Text(
-                            //   "Korisničko ime",
-                            //   style: TextStyle(
-                            //       fontSize: 30,
-                            //       fontWeight: FontWeight.bold,
-                            //       fontStyle: FontStyle.italic,
-                            //       color: Color.fromARGB(255, 11, 7, 255)),
-                            // ),
-                            // TextField(
-                            //   decoration: InputDecoration(
-                            //     border: OutlineInputBorder(),
-                            //     hintText: 'Korisničko ime',
-                            //   ),
-                            // ),
-                            // TextField(
-                            //     //style: TextStyle(
-                            //     //color: Color.fromARGB(255, 255, 255, 255)),
-                            //     decoration: InputDecoration(
-                            //         border: OutlineInputBorder(),
-                            //         labelStyle: TextStyle(
-                            //             color: Color.fromARGB(120, 251, 251, 251)),
-                            //         floatingLabelStyle: TextStyle(
-                            //             color: Color.fromARGB(255, 249, 147, 104)),
-                            //         labelText: "Password",
-                            //         prefixIconColor:
-                            //             Color.fromARGB(250, 254, 254, 255),
-                            //         prefixIcon: Icon(Icons.password)),
-                            //     controller: _passwordController),
                           ]),
                         ),
                       ),
@@ -688,6 +575,79 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _handleFormSubmission() async {
+    // try{
+    await _updateKorisnikData();
+    await _korisniciDetaljiProvider?.patch(korisnikid!, korisnikDetalji);
+
+    if (Authorization.username == _korisnickoImeController.text) {
+      if (_passwordController.text != null) {
+        Authorization.password = _passwordController.text;
+      }
+    }
+    _showDialog(context, 'Success', 'Uspješnp ste editovali korisnika!');
+    int broj = 4;
+    for (int i = 3; i >= 0; i--) {
+      broj = broj - 1;
+    }
+
+    // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+    //   content: Text(
+    //       'Uspješno ste izmijenili svoj profil!!! Učitavanje aplikacije...'),
+    //   backgroundColor: Colors.blue,
+    // ));
+    // }catch(e){
+    //_showDialog(context, "Greška", e.toString());
+    // }
+  }
+
+  Future<void> _updateKorisnikData() async {
+    setState(() {
+      //turistRuta!.statusID = 1;
+      korisnikDetalji!.korisnikId = korisnikid;
+
+      korisnikDetalji!.aktivan = true;
+      //widget.argumentsKor.email = _emailController.text;
+      if (_emailController.text != korisnikDetalji!.email &&
+          isPostojeciEmail(_emailController.text)) {
+        dupliEmail = true;
+        //_emailController.text = "";
+        throw Exception(); // ovo mi je bitno da odmah baci exception, da ne prođe na API
+        //nije ubace tekst zbog naredne poruke
+      } else {
+        korisnikDetalji!.email = _emailController.text;
+      }
+      korisnikDetalji!.ime = _imeController.text;
+      korisnikDetalji!.prezime = _prezimeController.text;
+      korisnikDetalji!.telefon = _telefonController.text;
+      if (_selectedValue != null) {
+        korisnikDetalji!.drzavaID = _selectedValue!.drzavaID;
+      }
+
+      var password = _passwordController.text;
+      var passwordPotvrda = _passwordPotvrdaController.text;
+      if (password != null) {
+        korisnikDetalji!.password = _passwordController.text;
+        korisnikDetalji!.passwordPotvrda = _passwordPotvrdaController.text;
+      }
+      if (password != passwordPotvrda) {
+        throw Exception("Lozinke moraju biti iste!!!");
+      }
+    });
+  }
+
+  Future<void> _handleSubmissionError(e) async {
+    if (dupliEmail) {
+      //   _nazivController.text = "";
+      _showDialog(context, 'Greška', 'Email već postoji!');
+    } else if (_passwordController.text != _passwordPotvrdaController.text) {
+      _showDialog(context, 'Greška', 'Potvrda i lozinka moraju biti iste!');
+    } else {
+      _showDialog(context, 'Greška', 'Došlo je do greške!');
+      print('Greška:Poruka o kontekstu greške $e');
+    }
   }
 
   bool isPostojeciEmail(String input) {

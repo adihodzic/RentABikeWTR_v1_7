@@ -193,11 +193,17 @@ class _DodajPorukuScreenState extends State<DodajPorukuScreen> {
                                             readOnly: true,
                                             controller: _datumPorukeController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText:
                                                     "Datum slanja notifikacije",
                                                 hintText: ''),
                                             maxLength: 20,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
                                           ),
                                           TextFormField(
                                             controller: _textController,

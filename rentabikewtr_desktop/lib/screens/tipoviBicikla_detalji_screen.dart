@@ -197,7 +197,7 @@ class _TipoviBiciklaDetaljiScreenState
                                                             .push(MaterialPageRoute(
                                                                 builder:
                                                                     (context) =>
-                                                                        RadnikPortalScreen()));
+                                                                        ListaTipoviBiciklaScreen()));
                                                       } catch (e) {
                                                         await _handleSubmissionError(
                                                             e);

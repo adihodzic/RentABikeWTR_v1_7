@@ -21,10 +21,11 @@ namespace RentABikeWTR_v1_7.Services.Database
         public string BrojLKPasosa { get; set; }
         public string Adresa { get; set; }
         public string Grad { get; set; }
+        public string? Spol { get; set; }
 
         public virtual Korisnici Korisnik { get; set; }
-        public int? GenderID { get; set; }
-        public virtual Genderi Gender { get; set; }
+        //public int? GenderID { get; set; }
+        //public virtual Genderi Gender { get; set; }
         public int? GodineKupacID { get; set; }
         public virtual GodineKupci GodineKupac { get; set; }
         public virtual ICollection<Ocjene> Ocjene { get; set; }

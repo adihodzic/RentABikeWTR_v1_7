@@ -211,11 +211,6 @@ class _RezervacijaFinalKorak5ScreenState
 
   Future<void> loadRezervacijeBiciklDostupniDetalji() async {
     setState(() async {
-      // _cijenaVodicaController.text =
-      //     _selectedTuristickiVodic!.cijenaVodica.toString();
-      //_cijenaRuteController.text = _selectedTuristRuta!.cijenaRute.toString();
-
-      // stringVrijeme2 = vrijeme2!.format(context).toString();
       currentUser = await _korisniciDetaljiProvider
           ?.getProfilKorisnika(widget.argumentsK.korisnickoIme!);
       currentOperater = await _korisniciDetaljiProvider
@@ -249,33 +244,22 @@ class _RezervacijaFinalKorak5ScreenState
             widget.argumentsV!.cijenaVodica!;
       }
       _cijenaUslugeController.text = cijena.toString();
-      //_velicinaBiciklaController=widget.argumentsB!.nazv
+
       _nazivTipaBiciklaController.text = widget.argumentsB!.nazivTipa!;
       _nazivProizvodjacaController.text = widget.argumentsB!.nazivProizvodjaca!;
       _nazivModelaController.text = widget.argumentsB!.nazivModela!;
       _bojaController.text = widget.argumentsB!.boja!;
-      //_cijenaVodicaController.text = null;
+
       datumPre = widget.datumPretrage!;
       _datumPretrageController.text =
           DateFormat('dd-MM-yyyy').format(datumPre!);
     });
   }
 
-  // Future loadData() async {
-  //   var tmpData = await _drzaveProvider?.get();
-  //   var tmpkorisniciPregled = await _korisniciPregledProvider?.get();
-  //   setState(() {
-  //     drzave = tmpData!;
-  //     korisniciPregled = tmpkorisniciPregled!;
-  //   });
-  // }
-  //var datumRegistracije= _DatePickerContreo
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Form(
-        //autovalidateMode: AutovalidateMode.onUserInteraction,
         key: _formKey,
         child: Column(children: <Widget>[
           Row(
@@ -341,47 +325,25 @@ class _RezervacijaFinalKorak5ScreenState
                                         children: [
                                           TextFormField(
                                             controller: _imeController,
+                                            readOnly: true,
                                             decoration: const InputDecoration(
                                                 border: OutlineInputBorder(),
                                                 labelText: "Ime",
-                                                hintText: 'Unesite ime'),
-                                            maxLength: 20,
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Ime je obavezno polje.';
-                                              } else if (value
-                                                      .characters.length <
-                                                  3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera.';
-                                              } else {
-                                                return null;
-                                              }
-                                            },
-                                            autovalidateMode: AutovalidateMode
-                                                .onUserInteraction,
+                                                hintText: ''),
+                                          ),
+                                          SizedBox(
+                                            height: 30,
                                           ),
                                           TextFormField(
                                             controller: _prezimeController,
+                                            readOnly: true,
                                             decoration: const InputDecoration(
                                                 border: OutlineInputBorder(),
                                                 labelText: "Prezime",
-                                                hintText: 'Unesite prezime'),
-                                            maxLength: 20,
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Prezime je obavezno polje.';
-                                              } else if (value
-                                                      .characters.length <
-                                                  3) {
-                                                return 'Mora da sadrži minimalno 3(tri) karaktera.';
-                                              } else {
-                                                return null;
-                                              }
-                                            },
-                                            autovalidateMode: AutovalidateMode
-                                                .onUserInteraction,
+                                                hintText: ''),
+                                          ),
+                                          SizedBox(
+                                            height: 30,
                                           ),
                                           TextFormField(
                                             readOnly: true,
@@ -390,39 +352,18 @@ class _RezervacijaFinalKorak5ScreenState
                                             decoration: const InputDecoration(
                                                 border: OutlineInputBorder(),
                                                 labelText: "Korisničko ime",
-                                                hintText: 'npr. vodicengleski'),
-                                            maxLength: 20,
-                                            // validator: (value) {
-                                            //   if (value == null || value.isEmpty) {
-                                            //     return 'Korisničko ime je obavezno polje.';
-                                            //   } else if (value.characters.length < 3) {
-                                            //     return 'Mora da sadrži minimalno 3(tri) karaktera.';
-                                            //   } else {
-                                            //     return null;
-                                            //   }
-                                            // },
-                                            // autovalidateMode:
-                                            //     AutovalidateMode.onUserInteraction,
+                                                hintText: ''),
+                                          ),
+                                          SizedBox(
+                                            height: 30,
                                           ),
                                           TextFormField(
                                             controller: _cijenaUslugeController,
+                                            readOnly: true,
                                             decoration: const InputDecoration(
                                                 border: OutlineInputBorder(),
                                                 labelText: "Cijena",
-                                                hintText: '10.0'),
-                                            maxLength: 20,
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Cijena je obavezno polje.';
-                                              } else if (!isCijena(value)) {
-                                                return 'Cijena mora biti u formatu broja ##.#.';
-                                              } else {
-                                                return null;
-                                              }
-                                            },
-                                            autovalidateMode: AutovalidateMode
-                                                .onUserInteraction,
+                                                hintText: ''),
                                           ),
                                         ],
                                       ),
@@ -518,23 +459,10 @@ class _RezervacijaFinalKorak5ScreenState
                                             decoration: const InputDecoration(
                                                 border: OutlineInputBorder(),
                                                 labelText: "Naziv bicikla",
-                                                hintText:
-                                                    'Nije odabrano biciklo'),
-                                            maxLength: 20,
-                                            // validator: (value) {
-                                            //   if (value == null || value.isEmpty) {
-                                            //     return 'E-mail je obavezno polje';
-                                            //   } else if (!isEmail(value)) {
-                                            //     return 'Pravilno unesite e-mail.';
-                                            //     //   } else if (isPostojeciEmail(
-                                            //     //       value)) {
-                                            //     //     return 'Email već postoji!';
-                                            //   } else {
-                                            //     return null;
-                                            //   }
-                                            // },
-                                            // autovalidateMode:
-                                            //     AutovalidateMode.onUserInteraction,
+                                                hintText: ''),
+                                          ),
+                                          SizedBox(
+                                            height: 30,
                                           ),
                                           TextFormField(
                                             readOnly: true,
@@ -543,22 +471,9 @@ class _RezervacijaFinalKorak5ScreenState
                                               border: OutlineInputBorder(),
                                               labelText: "Naziv vodiča",
                                             ),
-                                            maxLength: 25,
-                                            // validator: (value) {
-                                            //   if (value == null ||
-                                            //       value.isEmpty ||
-                                            //       !isPhone(value)) {
-                                            //     return 'Telefon je obavezan.';
-                                            //   } else if (value
-                                            //           .characters.length <
-                                            //       10) {
-                                            //     return 'Telefon mora imati minimalno 10 karaktera.';
-                                            //   } else {
-                                            //     return null;
-                                            //   }
-                                            // },
-                                            // autovalidateMode: AutovalidateMode
-                                            //     .onUserInteraction,
+                                          ),
+                                          SizedBox(
+                                            height: 30,
                                           ),
                                           TextFormField(
                                             readOnly: true,
@@ -568,7 +483,6 @@ class _RezervacijaFinalKorak5ScreenState
                                               border: OutlineInputBorder(),
                                               labelText: "Naziv turist rute",
                                             ),
-                                            maxLength: 30,
                                           ),
                                           SizedBox(height: 20),
                                           SizedBox(height: 30),
@@ -610,13 +524,13 @@ class _RezervacijaFinalKorak5ScreenState
                                                         await _showDialog(
                                                             context,
                                                             'Success',
-                                                            'Uspješno ste editovali turističko vodiča');
+                                                            'Uspješno ste izvršili rezervaciju');
                                                         await Navigator.of(
                                                                 context)
                                                             .push(MaterialPageRoute(
                                                                 builder:
                                                                     (context) =>
-                                                                        AdminPortalScreen()));
+                                                                        RezervacijaListaRezervacijaScreen()));
                                                       } catch (e) {
                                                         await _handleSubmissionError(
                                                             e);
@@ -671,21 +585,12 @@ class _RezervacijaFinalKorak5ScreenState
     );
   }
 
-  // MenuBar MenuAdmin(BuildContext context) => MenuAdmin(context);
-
-  // dynamic MenuMenu(BuildContext context) => MenuBar(context);
-
 /////////////////////////////////////////////////////////////////////////
   Future<void> _handleFormSubmission() async {
-    // await _korisniciDetaljiProvider?.patch(korisnikid, korisnikDetalji);
-
     _updateRezervacijaData();
     await _rezervacijeProvider?.insert(rezervacija);
     await _showDialog(
         context, 'Success', 'Učitavaju se podaci za novu rezervaciju...');
-    // _updateTuristickiVodicData();
-    // await _turistickiVodiciDetaljiProvider?.patch(
-    //     turistickiVodicid!, turistickiVodicDetalji);
   }
 
   void _updateRezervacijaData() {
@@ -694,22 +599,16 @@ class _RezervacijaFinalKorak5ScreenState
         rezervacija!.kupacID = currentUser?.korisnikId;
       }
 
-      // String vrijemeP = '09:00';
-      // String vrijemeV = '18:00';
       rezervacija!.statusPlacanja = statusPlacanja;
-      //_rezervacija!.kupacID = kupacid;
+
       print('Cijena text: ${_cijenaUslugeController.text}');
 
-      // Ensure proper parsing and handle errors
       double? parsedCijena = double.tryParse(_cijenaUslugeController.text);
       if (parsedCijena != null) {
-        // Print the parsed value for debugging
         print('Parsed Cijena: $parsedCijena');
 
-        // Assign the parsed double to cijena
         rezervacija!.cijenaUsluge = parsedCijena;
       } else {
-        // Handle invalid input if needed
         rezervacija!.cijenaUsluge = 0.0;
       }
 
@@ -743,54 +642,6 @@ class _RezervacijaFinalKorak5ScreenState
       if (currentOperater != null) {
         rezervacija!.korisnikID = currentOperater!.korisnikId;
       }
-
-      //   korisnikDetalji!.aktivan = true;
-      //   if (_selectedValue != null) {
-      //     korisnikDetalji!.drzavaID = _selectedValue!.drzavaID;
-      //   } else {
-      //     korisnikDetalji!.drzavaID = _selectedDrzava!.drzavaID;
-      //   }
-
-      //   korisnikDetalji!.ime = _imeController.text;
-      //   korisnikDetalji!.prezime = _prezimeController.text;
-      //   korisnikDetalji!.telefon = _telefonController.text;
-      //   korisnikDetalji!.ulogaID = 3;
-      //   korisnikDetalji!.aktivan = true;
-      //   // dupliEmail = isPostojeciEmail(_emailController.text);
-      //   // if (!dupliEmail) {
-      //   korisnikDetalji!.email = _emailController.text;
-      //   // }
-
-      //   korisnikDetalji!.korisnickoIme = _korisnickoImeController.text;
-
-      //   korisnikDetalji!.ime = _imeController.text;
-      //   korisnikDetalji!.prezime = _prezimeController.text;
-      //   korisnikDetalji!.telefon = _telefonController.text;
-      //   korisnikDetalji!.ulogaID = 3;
-
-      //   turistickiVodicDetalji!.naziv = _nazivController.text;
-      //   turistickiVodicDetalji!.jezik = _jezikController.text;
-
-      //   // Print the value of _cijenaController.text for debugging
-      //   print('Cijena text: ${_cijenaController.text}');
-
-      //   // Ensure proper parsing and handle errors
-      //   double? parsedCijena = double.tryParse(_cijenaController.text);
-      //   if (parsedCijena != null) {
-      //     // Print the parsed value for debugging
-      //     print('Parsed Cijena: $parsedCijena');
-
-      //     // Assign the parsed double to cijena
-      //     turistickiVodicDetalji!.cijenaVodica = parsedCijena;
-      //   } else {
-      //     // Handle invalid input if needed
-      //     turistickiVodicDetalji!.cijenaVodica = 0.0;
-      //   }
-
-      //   // Print the final value of cijena for debugging
-      //   print('Final Cijena: ${turistickiVodicDetalji!.cijenaVodica}');
-      //   print('Final naziv:${turistickiVodicDetalji!.naziv} ');
-      //   print('Final jezik:${turistickiVodicDetalji!.jezik} ');
     });
   }
 
@@ -799,34 +650,15 @@ class _RezervacijaFinalKorak5ScreenState
     print('Greška koja se desi: $e');
   }
 
-  void validateController() {
-    if (!_formKey!.currentState!.validate()) {
-      _showDialog(context, 'Error', 'Pogrešan unos pokušajte ponovo');
-      // value is false.. textFields are rebuilt in order to show errorLabels
-      return;
-    } else {
-      _showDialog(context, 'Success', 'Uspješno ste kreirali novog korisnika');
-    }
-    // action WHEN values are valid
-  }
-
-//Ovo je ako hoću DateTime.now da imam na TextEditingController-u
-  onTapFunctionNow({required BuildContext context}) async {
-    // DateTime? pickedDate = DateTime.now();
-    // _date2Controller.text = DateFormat('dd-MM-yyyy').format(pickedDate);
-  }
-
-//Ovdje omogućavamo da se klikom na textformField unese datum
-  onTapFunction({required BuildContext context}) async {
-    // DateTime? pickedDate = await showDatePicker(
-    //   context: context,
-    //   lastDate: DateTime.now(),
-    //   firstDate: DateTime(2015),
-    //   initialDate: DateTime.now(),
-    // );
-    // if (pickedDate == null) return;
-    // _date2Controller.text = DateFormat('dd-MM-yyyy').format(pickedDate);
-  }
+  // void validateController() {
+  //   if (!_formKey!.currentState!.validate()) {
+  //     _showDialog(context, 'Error', 'Pogrešan unos pokušajte ponovo');
+  //     // value is false.. textFields are rebuilt in order to show errorLabels
+  //     return;
+  //   } else {
+  //     _showDialog(context, 'Success', 'Uspješno ste kreirali rezervaciju');
+  //   }
+  // }
 
   Future<void> _showDialog(
       BuildContext context, String title, String message) async {
@@ -856,169 +688,3 @@ class _RezervacijaFinalKorak5ScreenState
     );
   }
 }
-
-// // ignore: non_constant_identifier_names
-// MenuBar Menu(BuildContext context) {
-//   return MenuBar(
-//     children: <Widget>[
-//       SubmenuButton(
-//         menuChildren: <Widget>[
-//           MenuItemButton(
-//             onPressed: () async {
-//               showAboutDialog(
-//                 context: context,
-//                 applicationName: 'Potrebno napraviti profil korisnika',
-//                 applicationVersion: '1.7.',
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Profil korisnika'),
-//           ),
-//           MenuItemButton(
-//             onPressed: () {
-//               showAboutDialog(
-//                 context: context,
-//                 applicationName: 'RentABikeWTR',
-//                 applicationVersion: '1.7.',
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('&O aplikaciji'),
-//           ),
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => MyMaterialApp(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('&Odjava'),
-//           ),
-//         ],
-//         child: const MenuAcceleratorLabel('&Glavni meni'),
-//       ),
-//       SubmenuButton(
-//         menuChildren: <Widget>[],
-//         child: const MenuAcceleratorLabel('&Admin portal'),
-//       ),
-//       SubmenuButton(
-//         menuChildren: <Widget>[
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => ListaKorisniciScreen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Lista korisnika'),
-//           ),
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => DodajKorisnikaScreen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Dodaj korisnika'),
-//           ),
-//         ],
-//         child: const MenuAcceleratorLabel('&Korisnici'),
-//       ),
-//       SubmenuButton(
-//         menuChildren: <Widget>[
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => ListaVodiciScreen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Lista vodica'),
-//           ),
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => DodajVodicaScreen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Dodaj vodica'),
-//           ),
-//         ],
-//         child: const MenuAcceleratorLabel('&Vodici'),
-//       ),
-//       SubmenuButton(
-//         menuChildren: <Widget>[
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => RezervacijaListaRezervacijaScreen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Lista rezervacija'),
-//           ),
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => RezervacijaKorak1Screen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Dodaj rezervaciju'),
-//           ),
-//         ],
-//         child: const MenuAcceleratorLabel('&Rezervacije'),
-//       ),
-//       SubmenuButton(
-//         menuChildren: <Widget>[
-//           MenuItemButton(
-//             onPressed: () async {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => PeriodicniIzvjestajRezervacijeScreen(),
-//                 ),
-//               );
-//             },
-//             child: const MenuAcceleratorLabel('Periodicni izvjestaj'),
-//           ),
-//         ],
-//         child: const MenuAcceleratorLabel('&Izvjestaji'),
-//       ),
-//     ],
-//   );
-// }
-
-// class MenuAcceleratorApp extends StatelessWidget {
-//   const MenuAcceleratorApp({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       theme: ThemeData(useMaterial3: true),
-//       home: Shortcuts(
-//         shortcuts: <ShortcutActivator, Intent>{
-//           const SingleActivator(LogicalKeyboardKey.keyT, control: true):
-//               VoidCallbackIntent(() {
-//             debugDumpApp();
-//           }),
-//         },
-//         child: Scaffold(
-//           body: SafeArea(
-//             child: RezervacijaFinalKorak5Screen(
-//                 argumentsB: RezervacijeBiciklDostupni(),
-//                 argumentsT: TuristRutePregled(),
-//                 argumentsV: TuristickiVodici(),
-//                 argumentsK: KorisniciPregled(),
-//                 datumPretrage: DateTime.now()),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

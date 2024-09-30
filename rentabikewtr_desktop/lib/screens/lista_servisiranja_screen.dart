@@ -28,6 +28,7 @@ import 'package:rentabikewtr_desktop/screens/adminPortal_screen.dart';
 import 'package:rentabikewtr_desktop/screens/bicikli_detalji_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dezurnaVozila_detalji_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_korisnika_screen.dart';
+import 'package:rentabikewtr_desktop/screens/dodaj_servisiranje_screen.dart';
 import 'package:rentabikewtr_desktop/screens/dodaj_vodica_screen.dart';
 import 'package:rentabikewtr_desktop/screens/lista_korisnici_screen.dart';
 import 'package:rentabikewtr_desktop/screens/periodicniIzvjestajRezervacije_screen.dart';
@@ -220,6 +221,28 @@ class _ListaServisiranjaScreenState extends State<ListaServisiranjaScreen> {
                                           },
                                         ),
                                       ),
+                                      SizedBox(
+                                        width: 20, //pregledati kako izgleda
+                                      ),
+                                      Container(
+                                        width: 200,
+                                        height: 50,
+                                        child: ElevatedButton(
+                                            onPressed: () async {
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DodajServisiranjeScreen(
+                                                          //ovo su bili detalji u originalu
+
+                                                          ),
+                                                ),
+                                              );
+                                              print(
+                                                  "data: ${data[0].opisKvara}");
+                                            },
+                                            child: Text("Dodaj")),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -319,14 +342,6 @@ class _ListaServisiranjaScreenState extends State<ListaServisiranjaScreen> {
             const DataColumn(
               label: Expanded(
                 child: Text(
-                  'ID',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-            ),
-            const DataColumn(
-              label: Expanded(
-                child: Text(
                   'Opis kvara',
                   style: TextStyle(fontStyle: FontStyle.italic),
                 ),
@@ -373,7 +388,6 @@ class _ListaServisiranjaScreenState extends State<ListaServisiranjaScreen> {
                                   }
                               },
                           cells: [
-                            DataCell(Text(e.servisiranjeId?.toString() ?? "")),
                             DataCell(Text(e.opisKvara ?? "")),
                             DataCell(Text(DateFormat('dd-MM-yyyy')
                                 .format(e.datumServisiranja!))),
