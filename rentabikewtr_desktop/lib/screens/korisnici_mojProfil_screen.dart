@@ -192,12 +192,15 @@ class _KorisniciMojProfilScreenState extends State<KorisniciMojProfilScreen> {
                                     color: Color.fromARGB(255, 246, 249, 252),
                                     child: Padding(
                                       padding: const EdgeInsets.fromLTRB(
-                                          16, 30, 16, 10),
+                                          16, 10, 16, 10),
                                       child: Column(
                                         children: [
                                           TextFormField(
                                             controller: _imeController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Ime",
                                                 hintText: 'Unesite ime'),
@@ -217,9 +220,15 @@ class _KorisniciMojProfilScreenState extends State<KorisniciMojProfilScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _prezimeController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Prezime",
                                                 hintText: 'Unesite prezime'),
@@ -239,11 +248,17 @@ class _KorisniciMojProfilScreenState extends State<KorisniciMojProfilScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             readOnly: true,
                                             controller:
                                                 _korisnickoImeController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Korisničko ime",
                                                 hintText:
@@ -271,6 +286,9 @@ class _KorisniciMojProfilScreenState extends State<KorisniciMojProfilScreen> {
                                             controller: _passwordController,
                                             obscureText: true,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Lozinka",
                                                 hintText: 'Unesite lozinku'),
@@ -295,6 +313,9 @@ class _KorisniciMojProfilScreenState extends State<KorisniciMojProfilScreen> {
                                                 _passwordPotvrdaController,
                                             obscureText: true,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Potvrda lozinke",
                                                 hintText: 'Potvrdite lozinku'),
@@ -319,13 +340,16 @@ class _KorisniciMojProfilScreenState extends State<KorisniciMojProfilScreen> {
                                     color: Color.fromARGB(255, 246, 249, 252),
                                     child: Padding(
                                       padding: const EdgeInsets.fromLTRB(
-                                          16, 30, 16, 30),
+                                          16, 10, 16, 10),
                                       child: Column(
                                         children: [
                                           TextFormField(
                                             readOnly: true,
                                             controller: _emailController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "E-mail",
                                                 hintText:
@@ -344,9 +368,15 @@ class _KorisniciMojProfilScreenState extends State<KorisniciMojProfilScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _telefonController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Telefon",
                                                 hintText:
@@ -370,10 +400,16 @@ class _KorisniciMojProfilScreenState extends State<KorisniciMojProfilScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _datePickerController,
                                             readOnly: true,
                                             decoration: const InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.fromLTRB(
+                                                      16, 0, 16, 0),
                                               border: OutlineInputBorder(),
                                               labelText:
                                                   "Kliknite za unos datuma",
@@ -383,9 +419,12 @@ class _KorisniciMojProfilScreenState extends State<KorisniciMojProfilScreen> {
                                               //     "Click here to select date"
                                             ),
                                           ),
-                                          SizedBox(height: 20),
+                                          SizedBox(height: 30),
                                           DropdownButtonFormField<Drzave>(
                                             decoration: InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.fromLTRB(
+                                                      16, 0, 16, 0),
                                               hintText: '$_nazivDrzave',
                                               border: OutlineInputBorder(),
                                             ),
@@ -407,7 +446,7 @@ class _KorisniciMojProfilScreenState extends State<KorisniciMojProfilScreen> {
                                               );
                                             }).toList(),
                                           ),
-                                          SizedBox(height: 30),
+                                          SizedBox(height: 40),
                                           Row(children: [
                                             Container(
                                               width: 120,

@@ -304,7 +304,7 @@ class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
                                                         // await _showDialog(
                                                         //     context,
                                                         //     'Success',
-                                                        //     'Uspješno ste editovali turističko vodiča');
+                                                        //     'Uspješno ste dodali novu poslovnicu');
                                                         await Navigator.of(
                                                                 context)
                                                             .push(MaterialPageRoute(
@@ -385,7 +385,7 @@ class _DodajPoslovnicuScreenState extends State<DodajPoslovnicuScreen> {
       // value is false.. textFields are rebuilt in order to show errorLabels
       return;
     } else {
-      _showDialog(context, 'Success', 'Uspješno ste editovali poslovnicu');
+      _showDialog(context, 'Success', 'Uspješno ste kreirali poslovnicu');
     }
     // action WHEN values are valid
   }

@@ -223,7 +223,7 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
                                     color: Color.fromARGB(255, 246, 249, 252),
                                     child: Padding(
                                       padding: const EdgeInsets.fromLTRB(
-                                          16, 30, 16, 10),
+                                          16, 10, 16, 10),
                                       child: Column(
                                         children: [
                                           TextFormField(
@@ -287,6 +287,9 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
                                             controller:
                                                 _korisnickoImeController,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Korisničko ime",
                                                 hintText:
@@ -307,10 +310,16 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller: _passwordController,
                                             obscureText: true,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Lozinka",
                                                 hintText: 'Unesite lozinku'),
@@ -327,32 +336,21 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           TextFormField(
                                             controller:
                                                 _passwordPotvrdaController,
                                             obscureText: true,
                                             decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        16, 0, 16, 0),
                                                 border: OutlineInputBorder(),
                                                 labelText: "Potvrda lozinke",
                                                 hintText: 'Potvrdite lozinku'),
                                             maxLength: 20,
-                                            // validator: (value) {
-                                            //   if (value == null ||
-                                            //       value.isEmpty ||
-                                            //       value !=
-                                            //           _passwordController
-                                            //               .text) {
-                                            //     return 'Potvrda lozinke mora da bude jednaka kao i lozinka.';
-                                            //   } else if (value
-                                            //           .characters.length <
-                                            //       3) {
-                                            //     return 'Password should be at least 3 characters.';
-                                            //   } else {
-                                            //     return null;
-                                            //   }
-                                            // },
-                                            // autovalidateMode: AutovalidateMode
-                                            //     .onUserInteraction,
                                           ),
                                         ],
                                       ),
@@ -373,7 +371,7 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
                                     color: Color.fromARGB(255, 246, 249, 252),
                                     child: Padding(
                                       padding: const EdgeInsets.fromLTRB(
-                                          16, 30, 16, 30),
+                                          16, 10, 16, 10),
                                       child: Column(
                                         children: [
                                           TextFormField(
@@ -405,7 +403,7 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
                                             //     .onUserInteraction,
                                           ),
                                           SizedBox(
-                                            height: 20,
+                                            height: 30,
                                           ),
                                           TextFormField(
                                             controller: _telefonController,
@@ -684,7 +682,7 @@ class _KorisniciDetaljiScreenState extends State<KorisniciDetaljiScreen> {
       // value is false.. textFields are rebuilt in order to show errorLabels
       return;
     } else {
-      _showDialog(context, 'Success', 'Uspješno ste kreirali novog korisnika');
+      _showDialog(context, 'Success', 'Uspješno ste izmijenili podatke');
     }
     // action WHEN values are valid
   }

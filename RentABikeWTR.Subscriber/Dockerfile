@@ -5,6 +5,8 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
+EXPOSE 48080
+ENV ASPNETCORE_URLS=http://+:48080
 
 
 # Use the official .NET SDK (for building the app)

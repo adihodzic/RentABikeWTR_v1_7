@@ -37,7 +37,6 @@ class AdminPortalScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(children: [
-                        // Image.network("https://www.fit.ba/content/public/images/og-image.jpg", height: 100, width: 100,),
                         Image.asset(
                           "assets/images/logo.jpg",
                           height: 200,
@@ -46,7 +45,6 @@ class AdminPortalScreen extends StatelessWidget {
                         SizedBox(
                           height: 50,
                         ),
-
                         Text(
                           "RentABikeWTR -Admin portal!!!",
                           style: TextStyle(

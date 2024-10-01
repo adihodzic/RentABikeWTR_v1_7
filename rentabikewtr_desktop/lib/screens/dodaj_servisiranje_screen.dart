@@ -563,8 +563,8 @@ class _DodajServisiranjeScreenState extends State<DodajServisiranjeScreen> {
   Future<void> _handleFormSubmission() async {
     _updateServisiranjeData();
 
-    await _showDialog(context, 'Success',
-        'Učitavaju se promijenjeni podaci za servisiranje...');
+    await _showDialog(
+        context, 'Success', 'Učitavaju se podaci za servisiranje...');
 
     await _servisiranjaProvider?.insert(servisiranje);
   }

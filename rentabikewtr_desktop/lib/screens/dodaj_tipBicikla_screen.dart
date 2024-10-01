@@ -256,7 +256,7 @@ class _DodajTipBiciklaScreenState extends State<DodajTipBiciklaScreen> {
                                                         // await _showDialog(
                                                         //     context,
                                                         //     'Success',
-                                                        //     'Uspješno ste editovali detalje bicikla');
+                                                        //     'Uspješno ste unijeli novi tip bicikla');
                                                         await Navigator.of(
                                                                 context)
                                                             .push(MaterialPageRoute(
@@ -326,7 +326,7 @@ class _DodajTipBiciklaScreenState extends State<DodajTipBiciklaScreen> {
     await _tipoviBiciklaProvider?.insert(tipBicikla);
 
     await _showDialog(
-        context, 'Success', 'Učitavaju se podaci za novo biciklo...');
+        context, 'Success', 'Učitavaju se podaci za novi tip bicikla...');
     // }catch(e){
     //_showDialog(context, "Greška", e.toString());
     // }

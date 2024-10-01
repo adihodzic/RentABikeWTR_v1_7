@@ -292,12 +292,7 @@ class _DodajModelBiciklaScreenState extends State<DodajModelBiciklaScreen> {
   }
 
   Future<void> _handleSubmissionError(e) async {
-    // if (dupliEmail) {
-    //   _emailController.text = "";
-    //   await _showDialog(context, 'Error', 'Email već postoji!');
-    // }
     if (dupliNaziv) {
-      //   _nazivController.text = "";
       await _showDialog(context, 'Error', 'Naziv već postoji!');
     } else {
       await _showDialog(context, 'Error', 'Došlo je do greške!');
@@ -325,7 +320,8 @@ class _DodajModelBiciklaScreenState extends State<DodajModelBiciklaScreen> {
       // value is false.. textFields are rebuilt in order to show errorLabels
       return;
     } else {
-      _showDialog(context, 'Success', 'Uspješno ste unijeli novi tip bicikla');
+      _showDialog(
+          context, 'Success', 'Uspješno ste unijeli novi model bicikla');
     }
     // action WHEN values are valid
   }

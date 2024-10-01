@@ -911,7 +911,7 @@ class _DodajBicikloScreenState extends State<DodajBicikloScreen> {
                                                         await _showDialog(
                                                             context,
                                                             'Success',
-                                                            'Uspješno ste editovali detalje bicikla');
+                                                            'Uspješno ste dodali novo biciklo');
                                                         await Navigator.of(
                                                                 context)
                                                             .push(MaterialPageRoute(

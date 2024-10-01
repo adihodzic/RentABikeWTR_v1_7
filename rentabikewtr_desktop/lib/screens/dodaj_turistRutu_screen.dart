@@ -349,7 +349,7 @@ class _DodajTuristRutuScreenState extends State<DodajTuristRutuScreen> {
                                                         await _showDialog(
                                                             context,
                                                             'Success',
-                                                            'Uspješno ste editovali detalje bicikla');
+                                                            'Uspješno ste dodali novu turist rutu');
                                                         await Navigator.of(
                                                                 context)
                                                             .push(MaterialPageRoute(
@@ -419,7 +419,7 @@ class _DodajTuristRutuScreenState extends State<DodajTuristRutuScreen> {
     await _turistRuteProvider?.insert(turistRuta);
 
     await _showDialog(
-        context, 'Success', 'Učitavaju se podaci za novo biciklo...');
+        context, 'Success', 'Učitavaju se podaci za novu turist rutu...');
     // }catch(e){
     //_showDialog(context, "Greška", e.toString());
     // }
@@ -478,7 +478,7 @@ class _DodajTuristRutuScreenState extends State<DodajTuristRutuScreen> {
       // value is false.. textFields are rebuilt in order to show errorLabels
       return;
     } else {
-      _showDialog(context, 'Success', 'Uspješno ste unijeli novo biciklo');
+      _showDialog(context, 'Success', 'Uspješno ste kreirali rutu.');
     }
     // action WHEN values are valid
   }

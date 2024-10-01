@@ -47,8 +47,11 @@ services:
     depends_on:
       - rentabikewtr-sql
       - rentabikewtr-rabbitmq
+      - rentabikewtr-api
     networks:
       - rentabikewtrnet
+    ports:
+      - 48080:80
     
   rentabikewtr-api:
     restart: unless-stopped

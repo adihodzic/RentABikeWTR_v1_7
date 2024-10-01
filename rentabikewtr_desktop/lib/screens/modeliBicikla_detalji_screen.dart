@@ -317,7 +317,8 @@ class _ModeliBiciklaDetaljiScreenState
       // value is false.. textFields are rebuilt in order to show errorLabels
       return;
     } else {
-      _showDialog(context, 'Success', 'Uspješno ste kreirali novi tip bicikla');
+      _showDialog(
+          context, 'Success', 'Uspješno ste Uspješno ste izmijenili podatke');
     }
     // action WHEN values are valid
   }

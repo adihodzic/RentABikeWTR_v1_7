@@ -232,7 +232,7 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
                                     color: Color.fromARGB(255, 246, 249, 252),
                                     child: Padding(
                                       padding: const EdgeInsets.fromLTRB(
-                                          16, 30, 16, 10),
+                                          16, 10, 16, 10),
                                       child: Column(
                                         children: [
                                           TextFormField(
@@ -316,7 +316,7 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
                                             //     AutovalidateMode.onUserInteraction,
                                           ),
                                           SizedBox(
-                                            height: 10,
+                                            height: 30,
                                           ),
                                           TextFormField(
                                             controller: _passwordController,
@@ -337,6 +337,9 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
                                             },
                                             autovalidateMode: AutovalidateMode
                                                 .onUserInteraction,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
                                           ),
                                           TextFormField(
                                             controller:
@@ -392,7 +395,7 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
                                     color: Color.fromARGB(255, 246, 249, 252),
                                     child: Padding(
                                       padding: const EdgeInsets.fromLTRB(
-                                          16, 30, 16, 10),
+                                          16, 10, 16, 10),
                                       child: Column(
                                         children: [
                                           TextFormField(
@@ -498,7 +501,7 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
                                     color: Color.fromARGB(255, 246, 249, 252),
                                     child: Padding(
                                       padding: const EdgeInsets.fromLTRB(
-                                          16, 30, 16, 30),
+                                          16, 10, 16, 10),
                                       child: Column(
                                         children: [
                                           TextFormField(
@@ -605,7 +608,7 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
                                               );
                                             }).toList(),
                                           ),
-                                          SizedBox(height: 30),
+                                          SizedBox(height: 40),
                                           Row(children: [
                                             Flexible(
                                               child: Container(
@@ -805,7 +808,7 @@ class _VodiciDetaljiScreenState extends State<VodiciDetaljiScreen> {
 
       return;
     } else {
-      _showDialog(context, 'Success', 'Uspješno ste editovali vodiča.');
+      _showDialog(context, 'Success', 'Uspješno ste izmijenili podatke.');
     }
   }
 

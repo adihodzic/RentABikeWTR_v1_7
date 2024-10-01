@@ -411,7 +411,7 @@ class _TuristRuteDetaljiScreenState extends State<TuristRuteDetaljiScreen> {
       // value is false.. textFields are rebuilt in order to show errorLabels
       return;
     } else {
-      _showDialog(context, 'Success', 'Uspješno ste kreirali novu turist rutu');
+      _showDialog(context, 'Success', 'Uspješno ste izmijenili podatke');
     }
     // action WHEN values are valid
   }

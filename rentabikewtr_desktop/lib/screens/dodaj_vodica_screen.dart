@@ -630,7 +630,7 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                                         await _showDialog(
                                                             context,
                                                             'Success',
-                                                            'Uspješno ste kreirali novog korisnika');
+                                                            'Uspješno ste kreirali novog vodiča');
                                                         await Navigator.of(
                                                                 context)
                                                             .push(MaterialPageRoute(
@@ -644,164 +644,6 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                                                     }
                                                   },
                                                 ),
-                                                // child: ElevatedButton(
-                                                //     child: Text("Snimi"),
-                                                //     onPressed: () async {
-                                                //       if (_formKey!
-                                                //           .currentState!
-                                                //           .validate()) {
-                                                //         // potrebno za validaciju
-                                                //         try {
-                                                //           // _formKey!.currentState!
-                                                //           //     .validate();
-
-                                                //           setState(() {
-                                                //             korisnik!
-                                                //                     .datumRegistracije =
-                                                //                 DateTime.now();
-                                                //             korisnik!.aktivan =
-                                                //                 true;
-                                                //             korisnik!.drzavaID =
-                                                //                 _selectedDrzava!
-                                                //                     .drzavaID;
-                                                //             //koros.nazivDrzave = dod!.nazivDrzave;  -- samo treba ID drzave
-                                                //             //Authorization.username = _usernameController.text;
-                                                //             dupliEmail =
-                                                //                 isPostojeciEmail(
-                                                //                     _emailController
-                                                //                         .text);
-                                                //             if (!dupliEmail) {
-                                                //               korisnik!.email =
-                                                //                   _emailController
-                                                //                       .text;
-                                                //             }
-                                                //             duploKorIme =
-                                                //                 isPostojeceKorIme(
-                                                //                     _korisnickoImeController
-                                                //                         .text);
-                                                //             if (!duploKorIme) {
-                                                //               korisnik!
-                                                //                       .korisnickoIme =
-                                                //                   _korisnickoImeController
-                                                //                       .text;
-                                                //             }
-                                                //             korisnik!.ime =
-                                                //                 _imeController
-                                                //                     .text;
-                                                //             korisnik!.prezime =
-                                                //                 _prezimeController
-                                                //                     .text;
-                                                //             korisnik!.telefon =
-                                                //                 _telefonController
-                                                //                     .text;
-                                                //             korisnik!.ulogaID =
-                                                //                 3;
-
-                                                //             korisnik!.password =
-                                                //                 _passwordController
-                                                //                     .text;
-                                                //             korisnik!
-                                                //                     .passwordPotvrda =
-                                                //                 _passwordPotvrdaController
-                                                //                     .text;
-                                                //           });
-
-                                                //           await _korisniciProvider
-                                                //               ?.insert(
-                                                //                   korisnik);
-
-                                                //           // final isValid = _formKey!
-                                                //           //     .currentState!
-                                                //           //     .validate();
-                                                //           // if (isValid == true) {
-                                                //           int broj = 4;
-                                                //           for (int i = 3;
-                                                //               i >= 0;
-                                                //               i--) {
-                                                //             broj = broj - 1;
-                                                //           }
-                                                //           currentUser =
-                                                //               await _korisniciDetaljiProvider
-                                                //                   ?.getProfilKorisnika(
-                                                //                       korisnik!
-                                                //                           .korisnickoIme!);
-                                                //           int b = 4;
-                                                //           for (int i = 3;
-                                                //               i >= 0;
-                                                //               i--) {
-                                                //             b = b - 1;
-                                                //           }
-                                                //           await _showDialog(
-                                                //               context,
-                                                //               'Success',
-                                                //               'Učitavaju se podaci za novog korisnika...');
-                                                //           setState(() {
-                                                //             if (currentUser !=
-                                                //                 null) {
-                                                //               turistickiVodic!
-                                                //                       .turistickiVodicId =
-                                                //                   currentUser!
-                                                //                       .korisnikId;
-                                                //             }
-                                                //             turistickiVodic!
-                                                //                     .naziv =
-                                                //                 _nazivController
-                                                //                     .text;
-                                                //             turistickiVodic!
-                                                //                     .jezik =
-                                                //                 _jezikController
-                                                //                     .text;
-                                                //             turistickiVodic!
-                                                //                     .cijena =
-                                                //                 double.parse(
-                                                //                     _cijenaController
-                                                //                         .text);
-                                                //           });
-                                                //           await _turistickiVodiciProvider
-                                                //               ?.insert(
-                                                //                   turistickiVodic);
-                                                //           // int br = 4;
-                                                //           // for (int i = 3;
-                                                //           //     i >= 0;
-                                                //           //     i--) {
-                                                //           //   br = br - 1;
-                                                //           // }
-                                                //           await _showDialog(
-                                                //               context,
-                                                //               'Success',
-                                                //               'Uspješno ste kreirali novog korisnika');
-                                                //           // await Navigator
-                                                //           //     .pushReplacementNamed(
-                                                //           //   context,
-                                                //           //   "${AdminPortalScreen.routeName}",
-                                                //           await Navigator.of(
-                                                //                   context)
-                                                //               .push(
-                                                //             MaterialPageRoute(
-                                                //               builder: (context) =>
-                                                //                   AdminPortalScreen(),
-                                                //             ),
-                                                //           );
-                                                //         } catch (e) {
-                                                //           if (dupliEmail) {
-                                                //             _emailController
-                                                //                 .text = "";
-                                                //             _showDialog(
-                                                //                 context,
-                                                //                 'Error',
-                                                //                 'Email već postoji!');
-                                                //           }
-                                                //           if (duploKorIme) {
-                                                //             _korisnickoImeController
-                                                //                 .text = "";
-                                                //             _showDialog(
-                                                //                 context,
-                                                //                 'Error',
-                                                //                 'Korisničko ime već postoji!');
-                                                //           }
-                                                //         }
-                                                //       }
-                                                //     }),
                                               ),
                                             ),
                                           ]),
@@ -813,35 +655,6 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
                               ),
                             ],
                           ),
-
-                          // Text(
-                          //   "Korisničko ime",
-                          //   style: TextStyle(
-                          //       fontSize: 30,
-                          //       fontWeight: FontWeight.bold,
-                          //       fontStyle: FontStyle.italic,
-                          //       color: Color.fromARGB(255, 11, 7, 255)),
-                          // ),
-                          // TextField(
-                          //   decoration: InputDecoration(
-                          //     border: OutlineInputBorder(),
-                          //     hintText: 'Korisničko ime',
-                          //   ),
-                          // ),
-                          // TextField(
-                          //     //style: TextStyle(
-                          //     //color: Color.fromARGB(255, 255, 255, 255)),
-                          //     decoration: InputDecoration(
-                          //         border: OutlineInputBorder(),
-                          //         labelStyle: TextStyle(
-                          //             color: Color.fromARGB(120, 251, 251, 251)),
-                          //         floatingLabelStyle: TextStyle(
-                          //             color: Color.fromARGB(255, 249, 147, 104)),
-                          //         labelText: "Password",
-                          //         prefixIconColor:
-                          //             Color.fromARGB(250, 254, 254, 255),
-                          //         prefixIcon: Icon(Icons.password)),
-                          //     controller: _passwordController),
                         ]),
                       ),
                     ),
@@ -986,7 +799,7 @@ class _DodajVodicaScreenState extends State<DodajVodicaScreen> {
       // value is false.. textFields are rebuilt in order to show errorLabels
       return;
     } else {
-      _showDialog(context, 'Success', 'Uspješno ste kreirali novog korisnika');
+      _showDialog(context, 'Success', 'Uspješno ste kreirali novog vodiča');
     }
     // action WHEN values are valid
   }

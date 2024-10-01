@@ -594,8 +594,7 @@ class _ServisiranjaDetaljiScreenState extends State<ServisiranjaDetaljiScreen> {
       // value is false.. textFields are rebuilt in order to show errorLabels
       return;
     } else {
-      _showDialog(context, 'Success',
-          'Uspješno ste editovali podatke o servisiranju!!!');
+      _showDialog(context, 'Success', 'Uspješno ste izmijenili podatke!!!');
     }
   }
 

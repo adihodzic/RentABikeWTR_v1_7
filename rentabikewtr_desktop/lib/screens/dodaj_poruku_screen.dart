@@ -371,7 +371,7 @@ class _DodajPorukuScreenState extends State<DodajPorukuScreen> {
       // value is false.. textFields are rebuilt in order to show errorLabels
       return;
     } else {
-      _showDialog(context, 'Success', 'Uspješno ste unijeli novo biciklo');
+      _showDialog(context, 'Success', 'Uspješno ste kreirali notifikaciju.');
     }
   }
 

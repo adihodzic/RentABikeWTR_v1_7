@@ -890,7 +890,7 @@ class _BicikliDetaljiScreenState extends State<BicikliDetaljiScreen> {
       // value is false.. textFields are rebuilt in order to show errorLabels
       return;
     } else {
-      _showDialog(context, 'Success', 'Uspješno ste kreirali novog korisnika');
+      _showDialog(context, 'Success', 'Uspješno ste editovali biciklo');
     }
     // action WHEN values are valid
   }

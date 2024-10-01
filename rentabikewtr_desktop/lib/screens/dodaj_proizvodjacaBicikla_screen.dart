@@ -269,7 +269,7 @@ class _DodajProizvodjacaBiciklaScreenState
                                                         // await _showDialog(
                                                         //     context,
                                                         //     'Success',
-                                                        //     'Uspješno ste editovali detalje bicikla');
+                                                        //     'Uspješno ste unijeli novog proizvođača');
                                                         await Navigator.of(
                                                                 context)
                                                             .push(MaterialPageRoute(
@@ -339,7 +339,7 @@ class _DodajProizvodjacaBiciklaScreenState
     await _proizvodjaciBiciklaProvider?.insert(proizvodjacBicikla);
 
     await _showDialog(
-        context, 'Success', 'Učitavaju se podaci za novo biciklo...');
+        context, 'Success', 'Učitavaju se podaci za novog proizvođača...');
     // }catch(e){
     //_showDialog(context, "Greška", e.toString());
     // }
@@ -394,7 +394,8 @@ class _DodajProizvodjacaBiciklaScreenState
       // value is false.. textFields are rebuilt in order to show errorLabels
       return;
     } else {
-      _showDialog(context, 'Success', 'Uspješno ste unijeli novi tip bicikla');
+      _showDialog(
+          context, 'Success', 'Uspješno ste unijeli novog proizvođača.');
     }
     // action WHEN values are valid
   }

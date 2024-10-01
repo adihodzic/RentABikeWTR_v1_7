@@ -268,7 +268,7 @@ class _TuristRuteDetaljiScreenState extends State<DezurnaVozilaDetaljiScreen> {
                                                             .push(MaterialPageRoute(
                                                                 builder:
                                                                     (context) =>
-                                                                        RadnikPortalScreen()));
+                                                                        ListaDezurnaVozilaScreen()));
                                                       } catch (e) {
                                                         await _handleSubmissionError(
                                                             e);
@@ -376,7 +376,7 @@ class _TuristRuteDetaljiScreenState extends State<DezurnaVozilaDetaljiScreen> {
       // value is false.. textFields are rebuilt in order to show errorLabels
       return;
     } else {
-      _showDialog(context, 'Success', 'Uspješno ste kreirali novu turist rutu');
+      _showDialog(context, 'Success', 'Uspješno ste editovali vozilo');
     }
     // action WHEN values are valid
   }
